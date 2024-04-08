@@ -1,8 +1,9 @@
+import { SignIn } from "../Sign in-out/Signin";
 import MenuBox from "./MenuBox";
 import "./dropdown.css";
 import { useEffect, useState } from "react";
 
-function Dropdown() {
+function Dropdown({toggleLogin, toggleRegister}) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClick = () => {
@@ -11,6 +12,7 @@ function Dropdown() {
 
   return (
     <>
+    
       <div className="menu">
         <div className="menuIcon profile" onClick={handleClick}>
           <svg
@@ -42,11 +44,9 @@ function Dropdown() {
             />
           </svg>
         </div>
-        <MenuBox isOpen={isOpen} />
+        <MenuBox isOpen={isOpen} handleClick={handleClick} toggleRegister={toggleRegister} toggleLogin={toggleLogin}/>
       </div>
     </>
   );
 }
 export default Dropdown;
-
-

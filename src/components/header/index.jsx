@@ -2,14 +2,14 @@ import React from "react";
 import "./styles.css";
 import Dropdown from "../dropDownMenu/dropdown.jsx";
 
-function Header() {
+function Header({toggleLogin, toggleRegister}) {
   return (
     <div className="nav">
       <div className="nav-bar">
         <div className="nav-logo">
           <img src="/Images/myhome logo new.png" alt="logo" />
         </div>
-        <div className="nav-links">
+        <div className=" hidden md:flex gap-[10%]">
           <div className="link2">
             <a href="#">Rent</a>
           </div>
@@ -40,19 +40,19 @@ function Header() {
               />
             </svg>
           </div>
-          <Dropdown />
+          <Dropdown toggleLogin={toggleLogin} toggleRegister={toggleRegister} />
         </div>
       </div>
-      <div className="nav-links2">
+      <div className="nav-links2 sm:hidden md:flex overflow-hidden">
         <div className="link4">
           <a href="#"> Anywhere</a>
         </div>
         <div className="link3">
           <a href="#"> Everywhere</a>
         </div>
-        <div className="join">
+        <div className="join items-center rounded-[30px]">
           <div className="link4i">
-            <a className="link4i" href="#">
+            <a className="link4i flex items-center justify-center" href="#">
               {" "}
               Location
             </a>
@@ -76,6 +76,7 @@ function Header() {
         </div>
       </div>
     </div>
+    
   );
 }
 

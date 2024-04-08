@@ -3,20 +3,15 @@ import "./style.css";
 import React from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import LikeButton from "../LikeButton";
 
 export default function Card() {
   return (
     <>
       {HOMES.map((home, index) => (
-        <div  className="singleCard">
-          <div>
-                  <LikeButton/>
-                </div>
+        <div className="singleCard">
           <Carousel className="carouselImg">
             {home.value.images.map((img) => (
               <div key={index}>
-                
                 <img src={img} alt="" />
               </div>
             ))}

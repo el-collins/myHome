@@ -37,6 +37,10 @@
     width: 303px;
     height: 287px;
   }
+
+  .carousel-status{
+    display: none;
+  }
   
   .carousel .thumb{
     display: none !important;

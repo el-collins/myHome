@@ -1,5 +1,6 @@
-import { Register } from "../Sign in-out/Register";
-import { SignIn } from "../Sign in-out/Signin";
+import { Register } from "../Auth/Register";
+import { SignIn } from "../Auth/Signin";
+import { UnderConstruction } from "../wishlist";
 import "./dropdown.css";
 const MenuBox = ({ isOpen, toggleLogin, handleClick, toggleRegister }) => {
   return (
@@ -12,6 +13,11 @@ const MenuBox = ({ isOpen, toggleLogin, handleClick, toggleRegister }) => {
       <dialog id="register_modal" className="modal">
 
           <Register />
+  
+      </dialog>
+      <dialog id="my_modal_5" className="modal">
+
+          <UnderConstruction />
   
       </dialog>
 
@@ -36,20 +42,29 @@ const MenuBox = ({ isOpen, toggleLogin, handleClick, toggleRegister }) => {
                 handleClick();
               }}
             >
-              log in
+              Log in
             </button>
           </li>
-          <div className="hr"></div>
+          <div className=" border-[1px] w-[100%] "></div>
           <li>
-            <button className="postHouse" onClick={handleClick}>
-              post your house
+            <button className="postHouse" onClick={() => {
+                document.getElementById("my_modal_5").showModal();
+                handleClick();
+              }}>
+              Post your house
             </button>
           </li>
           <li>
-            <button onClick={handleClick}>wishlists</button>
+            <button onClick={() => {
+                document.getElementById("my_modal_5").showModal();
+                handleClick();
+              }}>Wishlists</button>
           </li>
           <li>
-            <button onClick={handleClick}>help</button>
+            <button onClick={() => {
+                document.getElementById("my_modal_5").showModal();
+                handleClick();
+              }}>Help</button>
           </li>
         </ul>
       </div>

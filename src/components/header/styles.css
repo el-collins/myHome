@@ -16,13 +16,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  position: sticky;
-  /* top: 0; */
   padding: 0.5rem 3rem;
   border-bottom: 5px solid #f8f7f7;
   width: 100%;
   background-color: white;
-  z-index: 30;
   
 
 }
@@ -87,7 +84,6 @@
   text-decoration: none;
   background: transparent;
   color: var(--black);
-  font-family: SF Pro;
   font-weight: 590px;
   font-size: 14px;
 }
@@ -120,7 +116,6 @@
 }
 .profile:hover{
   cursor: pointer;
-  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.4);
 }
 .dropDown {
   background: transparent;
@@ -136,13 +131,12 @@
   justify-content: space-between;
   align-items: center;
   width: 60%;
-  height: 80px;
+  height: 60px;
   max-width: 70vw;
   margin-bottom: 20px;
   margin-top: 5px;
   border: 1px solid var(--headerBlue);
   border-radius: 38px;
-  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.4);
   padding: 1rem;
   padding-left: 0rem;
   padding-right: 0rem;
@@ -162,7 +156,7 @@
   border-left: 1px solid var(--headerBlue);
   border-right: 1px solid var(--headerBlue);
   padding: 0 35px;
-  height: 100%;
+  height: 120%;
   width: 35%;
   display: flex;
   flex-direction: column;
@@ -175,13 +169,14 @@
 }
 
 .link3:hover{
-  height: 170%;
+  height: 230%;
+
   border-radius: 38px;
   background-color: var(--headerBlue);
 }
 
 .link4{
-  height: 170%;
+  height: 230%;
   width: 25%;
   display: flex;
   flex-direction: column;
@@ -227,7 +222,7 @@
 
 .join{
   display: flex;
-  height: 170%;
+  height: 230%;
   width: 30%;
   justify-content: space-between;
   align-items: center;
@@ -235,7 +230,7 @@
   cursor: pointer;
   padding: 0.01rem;
   padding-left: 1rem;
-  padding-right: 1rem;
+  padding-right: 5px;
   
 }
 .link4i{

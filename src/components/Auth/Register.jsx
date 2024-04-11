@@ -1,7 +1,26 @@
-export const Register = ({ Register, toggleRegister }) => {
+import {useRef, useState } from "react";
+
+const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
+const PWD_REGEX = /^(?=.*[a-z])(?=.[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+export const Register = () => {
+  const userRef = useRef();
+
+  const [user, setUser] = useState("");
+  const [validName, setValidName] = useState(false);
+  const [userFocus, setUserFocus] = useState(false);
+
+  const [pwd, setPwd] = useState("");
+  const [validPwd, setValidPwd] = useState(false);
+  const [pwdFocus, setPwdFocus] = useState(false);
+
+  const [phone, setPhone] = useState("");
+  const [validPhone, setValidPhone] = useState(false);
+  const [phoneFocus, setPhoneFocus] = useState(false);
   return (
-    <form method="dialog"
-    className="flex flex-col p-4 pb-[150px] rounded-[30px]">
+    <form
+      method="dialog"
+      className="flex flex-col p-4 pb-[150px] rounded-[30px]"
+    >
       <div className=" flex flex-col justify-center items-center relative">
         <div className="absolute top-1 w-full bg-transparent">
           <button>
@@ -22,16 +41,16 @@ export const Register = ({ Register, toggleRegister }) => {
           </button>
         </div>
         <div className="flex justify-center items-center  w-[100%] border-b-[1px] p-6">
-          <p>Register</p>
+          <p className="text-[32px] text-[#575DFB]">Register</p>
         </div>
-        <p className="w-[488px] p-4 flex text-center justify-center">
+        <p className="w-[488px] leading-snug p-4 text-[24px] flex text-center justify-center">
           Create an account to access all the features of myHome!
         </p>
         <div className="flex items-center justify-center">
           <div className="mt-4">
             <p>Phone Number</p>
             <input
-              type="password"
+              type="number"
               className="w-[450px] h-[50px] mt-2 rounded-[10px]"
             />
           </div>
@@ -39,7 +58,7 @@ export const Register = ({ Register, toggleRegister }) => {
         <div className="mt-4">
           <p>email</p>
           <input
-            type="number"
+            type="email"
             className="w-[450px] h-[50px] mt-2 rounded-[10px]"
           />
         </div>
@@ -56,7 +75,12 @@ export const Register = ({ Register, toggleRegister }) => {
         />
       </div>
       <div className=" flex flex-col justify-center items-center mt-9">
-        <button onClick={(e)=>{e.preventDefault()}} className="w-[450px] h-[50px] mt-2 rounded-[10px] bg-[#575DFB] text-white">
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+          }}
+          className="w-[450px] h-[50px] mt-2 rounded-[10px] bg-[#575DFB] text-white"
+        >
           Register
         </button>
       </div>

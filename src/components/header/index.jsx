@@ -1,15 +1,16 @@
 import React from "react";
 import "./styles.css";
 import Dropdown from "../dropDownMenu/dropdown.jsx";
+import { LgaSearch } from "../Search/LgaSearch.jsx";
 
-function Header({toggleLogin, toggleRegister}) {
+function Header({ searchLocation, location, cheapest, searchCheapest, uniqueLocations, filterSearch, setNewHome, setLocation}) {
   return (
-    <div className="nav">
+    <div className="nav sticky z-30 top-0">
       <div className="nav-bar">
         <div className="nav-logo">
           <img src="/Images/myhome logo new.png" alt="logo" />
         </div>
-        <div className=" hidden md:flex gap-[10%]">
+        <div className=" hidden md:flex gap-[10%] ml-[150px]">
           <div className="link2">
             <a href="#">Rent</a>
           </div>
@@ -40,19 +41,20 @@ function Header({toggleLogin, toggleRegister}) {
               />
             </svg>
           </div>
-          <Dropdown toggleLogin={toggleLogin} toggleRegister={toggleRegister} />
+          <Dropdown  />
         </div>
       </div>
-      <div className="nav-links2 sm:hidden md:flex overflow-hidden">
-        <div className="link4">
+      <div className="nav-links2  shadow-[0_3px_10px_rgb(0,0,0,0.2)] sm:hidden md:flex overflow-hidden">
+        <div onClick={searchLocation} className={`${location? "bg-[var(--headerBlue)]":"bg-transparent"} link4 `}>
           <a href="#"> Anywhere</a>
+          
         </div>
-        <div className="link3">
-          <a href="#"> Everywhere</a>
+        <div onClick={searchCheapest} className={` link3 ${cheapest? "bg-[var(--headerBlue)] h-[230%] rounded-[38px]" : "bg-transparent"}`}>
+          <a href="#"> Cheapest</a>
         </div>
-        <div className="join items-center rounded-[30px]">
-          <div className="link4i">
-            <a className="link4i flex items-center justify-center" href="#">
+        <div className="join items-center rounded-[40px]">
+          <div  className="link4i" >
+            <a className="link4i  flex items-center justify-center" href="#">
               {" "}
               Location
             </a>
@@ -75,6 +77,9 @@ function Header({toggleLogin, toggleRegister}) {
           </div>
         </div>
       </div>
+      <div className="absolute bg-transparent   ">
+            <LgaSearch  location={location} uniqueLocations={uniqueLocations} filterSearch={filterSearch} setNewHome={setNewHome} setLocation={setLocation} />
+          </div>
     </div>
     
   );

@@ -21,7 +21,7 @@ const MenuBox = ({ isOpen, toggleLogin, handleClick, toggleRegister }) => {
   
       </dialog>
 
-      <div className="pages" style={{ display: isOpen ? "flex" : "none" }}>
+      <div className="pages mr-[135px] sm:mr-32  md:mr-6 md:mt-5" style={{ display: isOpen ? "flex" : "none" }}>
         <ul>
           <li>
             <button

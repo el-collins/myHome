@@ -101,8 +101,15 @@ export const SignIn = () => {
           <p>or</p>
           <div className="w-[180px] border-[#000000D990] border-[1px] h-0"></div>
         </div>
-        <div className="w-[450px] h-[50px] mt-6 border-black rounded-[10px] flex justify-center items-center border-[1px]">
+        <div className="w-[450px] overflow-hidden h-[50px] mt-6 border-black rounded-[10px] flex justify-center items-center border-[1px]">
+          <div className="h-6 w-6 mb-11 mr-2">
+            <img src="/Images/Logo.svg"   />
+          </div>
           <a href="">Continue with Google</a>
+        </div>
+        <div className="text-[12px] flex gap-1 mt-4 mr-[270px]">
+          <p className="bold">Don't have an account?</p>
+          <a href="" className="text-[#575DFB]">Register</a>
         </div>
       </div>
     </form>

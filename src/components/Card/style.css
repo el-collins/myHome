@@ -45,14 +45,6 @@
   .carousel .thumb{
     display: none !important;
   }
-  
-  .cards-flex{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 2rem;
-  }
 
   .singleCard{
     width: 303px;
@@ -61,6 +53,9 @@
 
   .p2{
     color: #B2BEB5;
+  }
+  .carousel{
+    background-color: transparent;
   }
 
   .pmain{

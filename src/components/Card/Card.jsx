@@ -50,10 +50,10 @@ export default function Card({newHome, setNewHome}) {
             <div className="location">
               <p className="pmain">{home.value.location}</p>
               <p className="p2">{home.value.address}</p>
-              <p>&#8358; {home.value.amount}</p>
+              <p>&#8358; {home.value.amount}.00</p>
             </div>
             <div className="rating">
-              <div className="star">
+              <div className="star mt-1">
                 <img src="./Images/Star 1.svg" alt="" />
               </div>
 

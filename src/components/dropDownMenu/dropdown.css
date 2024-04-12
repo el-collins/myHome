@@ -17,7 +17,6 @@ button {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  border-radius: 30px;
   overflow: hidden;
 }
 .menuIcon {
@@ -70,6 +69,7 @@ button {
 }
 
 .profileimg{
+  display: none;
   height: 35px;
   width: 35px;
   border-radius: 30px;

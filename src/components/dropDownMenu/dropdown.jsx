@@ -13,14 +13,14 @@ function Dropdown({toggleLogin, toggleRegister}) {
     <>
     
       <div className="menu">
-        <div className="menuIcon profile" onClick={handleClick}>
+        <div className=" flex p-2 border-[1px] rounded-full" onClick={handleClick}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="hamburger"
+            className="w-6 h-6 md:h-8 md:w-8"
           >
             <path
               strokeLinecap="round"
@@ -34,7 +34,7 @@ function Dropdown({toggleLogin, toggleRegister}) {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="profileimg"
+            className="hidden md:block w-6 h-6 md:h-8 md:w-8"
           >
             <path
               strokeLinecap="round"

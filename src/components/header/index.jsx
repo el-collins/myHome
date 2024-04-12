@@ -2,13 +2,30 @@ import React from "react";
 import "./styles.css";
 import Dropdown from "../dropDownMenu/dropdown.jsx";
 import { LgaSearch } from "../Search/LgaSearch.jsx";
+import { MobileFilterBox } from "../Search/MobileFilterBox.jsx";
 
-function Header({ searchLocation, location, cheapest, searchCheapest, uniqueLocations, filterSearch, setNewHome, setLocation}) {
+function Header({
+  searchLocation,
+  location,
+  cheapest,
+  searchCheapest,
+  uniqueLocations,
+  filterSearch,
+  setNewHome,
+  setLocation,
+  mobileFilter,
+  toggleMobileFilter,
+  filterSearchMobile,
+}) {
   return (
-    <div className="nav sticky z-30 top-0">
-      <div className="nav-bar">
-        <div className="nav-logo">
-          <img src="/Images/myhome logo new.png" alt="logo" />
+    <div className="nav pl-4 md:pl-11 md:pr-11 sticky z-30 top-0">
+      <div className="nav-bar relative">
+        <div className=" ">
+          <img
+            src="/Images/myhome logo new.png"
+            alt="logo"
+            className="h-auto w-16 md:w-24 "
+          />
         </div>
         <div className=" hidden md:flex gap-[10%] ml-[150px]">
           <div className="link2">
@@ -21,18 +38,49 @@ function Header({ searchLocation, location, cheapest, searchCheapest, uniqueLoca
             <a href="#">Sell</a>
           </div>
         </div>
+        <div
+          onClick={() => toggleMobileFilter()}
+          className="sm:hidden w-[65%] rounded-full h-11 ml- border-[1px] ml-4 gap-4 flex  items-center pl-3"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-6 h-6 "
+            onClick={() => toggleMobileFilter()}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75"
+            />
+          </svg>
+          <p className="text-11 text-[#00000080]"> Filter search</p>
+        </div>
+        <MobileFilterBox
+          mobileFilter={mobileFilter}
+          toggleMobileFilter={toggleMobileFilter}
+          uniqueLocations={uniqueLocations}
+          cheapest={cheapest}
+          searchCheapest={searchCheapest}
+          setNewHome={setNewHome}
+          setLocation={setLocation}
+          filterSearchMobile={filterSearchMobile}
+        />
         <div className="profileDiv">
-          <div className="post">
+          <div className="post md:block">
             <a href="#">Post Your House </a>
           </div>
-          <div className="language">
+          <div className="language hidden sm:block">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="languge1"
+              className="languge1 "
             >
               <path
                 strokeLinecap="round"
@@ -41,19 +89,30 @@ function Header({ searchLocation, location, cheapest, searchCheapest, uniqueLoca
               />
             </svg>
           </div>
-          <Dropdown  />
+          <Dropdown />
         </div>
       </div>
       <div className="nav-links2  shadow-[0_3px_10px_rgb(0,0,0,0.2)] sm:hidden md:flex overflow-hidden">
-        <div onClick={searchLocation} className={`${location? "bg-[var(--headerBlue)]":"bg-transparent"} link4 `}>
+        <div
+          onClick={searchLocation}
+          className={`${
+            location ? "bg-[var(--headerBlue)]" : "bg-transparent"
+          } link4 `}
+        >
           <a href="#"> Anywhere</a>
-          
         </div>
-        <div onClick={searchCheapest} className={` link3 ${cheapest? "bg-[var(--headerBlue)] h-[230%] rounded-[38px]" : "bg-transparent"}`}>
+        <div
+          onClick={searchCheapest}
+          className={` link3 ${
+            cheapest
+              ? "bg-[var(--headerBlue)] h-[230%] rounded-[38px]"
+              : "bg-transparent"
+          }`}
+        >
           <a href="#"> Cheapest</a>
         </div>
         <div className="join items-center rounded-[40px]">
-          <div  className="link4i" >
+          <div className="link4i">
             <a className="link4i  flex items-center justify-center" href="#">
               {" "}
               Location
@@ -78,10 +137,15 @@ function Header({ searchLocation, location, cheapest, searchCheapest, uniqueLoca
         </div>
       </div>
       <div className="absolute bg-transparent   ">
-            <LgaSearch  location={location} uniqueLocations={uniqueLocations} filterSearch={filterSearch} setNewHome={setNewHome} setLocation={setLocation} />
-          </div>
+        <LgaSearch
+          location={location}
+          uniqueLocations={uniqueLocations}
+          filterSearch={filterSearch}
+          setNewHome={setNewHome}
+          setLocation={setLocation}
+        />
+      </div>
     </div>
-    
   );
 }
 

@@ -13,12 +13,12 @@ export const LgaSearch = ({
       onClick={() => setLocation(!location)}
       className={`${
         location ? "block" : "hidden"
-      } h-screen w-screen bg-[#00000070] mt-[600px]`}
+      } fixed inset-0 bg-[#00000070]  -ml-[316px]`}
     >
       <div
         className={` ${
           location ? "block" : "hidden"
-        } w-[450px] border-[1px] rounded-[20px] absolute overflow-hidden p-2 shadow-sm mt-[180px] ml-[320px]`}
+        } w-[450px] border-[1px] rounded-[20px] overflow-hidden p-2 shadow-sm ml-[35%] mt-[165px]`}
       >
         <p className="text-[#000000] bold mt-2 pl-4">Search by Location</p>
         <div className="flex flex-wrap items-center justify-center mt-4 gap-2">
@@ -48,7 +48,7 @@ export const LgaSearch = ({
               <div className="w-[120px] h-[120px] overflow-hidden border-[1px]  rounded-[10px]">
                 <img src="/public/Images/map.png" className=" h-[180px]" />
               </div>
-              <p className="text-[#00000090] bg-transparent">All</p>
+              <p className="text-[#00000090] bg-transparent ">All</p>
             </button>
           </div>
         </div>

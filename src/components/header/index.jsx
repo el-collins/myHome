@@ -135,7 +135,6 @@ function Header({
             </svg>
           </div>
         </div>
-      </div>
       <div className="absolute bg-transparent   ">
         <LgaSearch
           location={location}
@@ -144,6 +143,7 @@ function Header({
           setNewHome={setNewHome}
           setLocation={setLocation}
         />
+      </div>
       </div>
     </div>
   );

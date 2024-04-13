@@ -7,7 +7,6 @@ export const MobileFilterBox = ({
   searchCheapest,
   filterSearchMobile = { filterSearchMobile },
   setNewHome,
-  setLocation,
 }) => {
   return (
     <div
@@ -20,7 +19,7 @@ export const MobileFilterBox = ({
         onClick={(e) => {
           e.stopPropagation();
         }}
-        className=" h-[30%]  mt-[80px] shadow-sm flex flex-col items-center pt-4 "
+        className="   mt-[80px] shadow-sm flex flex-col items-center p-4 "
       >
         <div className="flex items-center  border-[1px] border-black w-[80%] pl-2 rounded-[10px] overflow-hidden">
           <svg
@@ -53,7 +52,7 @@ export const MobileFilterBox = ({
                   toggleMobileFilter();
                   filterSearchMobile(item);
                 }}
-                className="carousel-item flex h-[90%] w-[32%] border-[1px] overflow-hidden flex-col "
+                className="carousel-item flex h-[90%] w-[32%] border-[1px] rounded-[10px] overflow-hidden flex-col "
               >
                 <div className="h-[70%] overflow-hidden bg-transparent">
                   <img src="/public/Images/map.png" alt="Drink" />
@@ -73,6 +72,37 @@ export const MobileFilterBox = ({
               </div>
               <p className="text-[#00000080] bg-transparent">All</p>
             </div>
+          </div>
+          <div className="fixed bg-transparent w-[94%] justify-between ml-[0px] -mt-[100px] flex items-center gap-4">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-6 h-6 bg-transparent"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="m11.25 9-3 3m0 0 3 3m-3-3h7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+              />
+            </svg>
+
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-6 h-6 bg-transparent"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="m12.75 15 3-3m0 0-3-3m3 3h-7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+              />
+            </svg>
           </div>
         </div>
         <div className="w-full pl-4 flex items-center pt-4 gap-3">
@@ -97,7 +127,7 @@ export const MobileFilterBox = ({
                 cheapest ? "bg-[#575DFB]" : "bg-transparent"
               } bg-[#575DFB] flex items-center`}
             >
-              <p className="text-[#575DFB] text-[14px]">
+              <p className="text-[#575DFB] bg-transparent fixed text-[14px] ">
                 {cheapest ? "" : "ON"}
               </p>
             </div>

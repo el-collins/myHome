@@ -68,7 +68,7 @@ export const MobileFilterBox = ({
               className="carousel-item flex h-[90%] w-[32%] border-[1px] overflow-hidden flex-col "
             >
               <div className="h-[70%] overflow-hidden bg-transparent">
-                <img src="/public/Images/map.png" alt="Drink" />
+                <img src="Images/map.png" alt="Drink" />
               </div>
               <p className="text-[#00000080] bg-transparent">All</p>
             </div>

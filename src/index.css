@@ -1,3 +1,31 @@
+/* Import Tailwind base styles */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Style the scrollbar with Tailwind CSS */
+/* Total scrollbar width */
+::-webkit-scrollbar {
+    @apply w-2;
+}
+
+/* Background of the scrollbar except the handle */
+::-webkit-scrollbar-track {
+    @apply bg-gray-200;
+}
+
+/* Scrollbar handle */
+::-webkit-scrollbar-thumb {
+    @apply bg-[#1f2147] rounded-full transition duration-300 ease-in-out;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-700;
+}
+
+/* For Firefox */
+/* html {
+    scrollbar-width: thin;
+    scrollbar-color: #888 #f1f1f1;
+} */

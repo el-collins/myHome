@@ -3,8 +3,10 @@ import "./style.css";
 import React, { useState } from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { useNavigate  } from "react-router-dom";
 
 export default function Card({newHome, setNewHome}) {
+  const navigate = useNavigate();
   
   const liked = (id) => {
     const newFavourite = newHome.map((item) => {
@@ -18,9 +20,13 @@ export default function Card({newHome, setNewHome}) {
     setNewHome(newFavourite)
   };
   
+  const redirectToDetails = (id) => {
+    // Redirect to the details page for the selected property
+    navigate(`/property/${id}`);
+  };
   
   return (
-    <div className=" min-h-screen flex flex-wrap gap-6  justify-center">
+    <div className="min-h-screen flex flex-wrap gap-6 justify-center mt-5">
       {newHome.map((home,id) => (
         <div key={id} className="singleCard pb-6">
           <svg
@@ -39,9 +45,9 @@ export default function Card({newHome, setNewHome}) {
             />
           </svg>
 
-          <Carousel className="carouselImg">
+          <Carousel className="carouselImg" >
             {home.value.images.map((img) => (
-              <div key={id}>
+              <div key={id} onClick={() => redirectToDetails(home.id)}>
                 <img src={img} alt="" />
               </div>
             ))}

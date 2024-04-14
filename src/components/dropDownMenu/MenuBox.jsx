@@ -5,9 +5,9 @@ import "./dropdown.css";
 const MenuBox = ({ isOpen, toggleLogin, handleClick, toggleRegister }) => {
   return (
     <>
-      <dialog id="my_modal_4" className="modal">
+      <dialog id="my_modal_4" className="modal ">
 
-          <SignIn />
+          <SignIn  />
   
       </dialog>
       <dialog id="register_modal" className="modal">

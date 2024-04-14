@@ -19,7 +19,7 @@ export const Register = () => {
   return (
     <form
       method="dialog"
-      className="flex flex-col p-4 pb-[150px] rounded-[30px]"
+      className="flex flex-col sm:p-4 p-2 overflow-hidden sm:pb-[100px] max-w-[400px] sm:max-w-[600px] pb-[50px] rounded-[30px]"
     >
       <div className=" flex flex-col justify-center items-center relative">
         <div className="absolute top-1 w-full bg-transparent">
@@ -30,7 +30,7 @@ export const Register = () => {
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="w-[30px] h-[30px]  "
+              className="w-[30px] h-[30px] ml-1 "
             >
               <path
                 strokeLinecap="round"
@@ -41,9 +41,9 @@ export const Register = () => {
           </button>
         </div>
         <div className="flex justify-center items-center  w-[100%] border-b-[1px] p-6">
-          <p className="text-[32px] text-[#575DFB]">Register</p>
+          <p className="text-[28px] sm:text-[36px] text-[#575DFB]">Register</p>
         </div>
-        <p className="w-[488px] leading-snug p-4 text-[24px] flex text-center justify-center">
+        <p className=" leading-snug p-4 text-[18px] sm:w-[488px] w-[80%] sm:text-[24px] flex text-center justify-center">
           Create an account to access all the features of myHome!
         </p>
         <div className="flex items-center justify-center">
@@ -51,7 +51,7 @@ export const Register = () => {
             <p>Phone Number</p>
             <input
               type="number"
-              className="w-[450px] h-[50px] mt-2 rounded-[10px]"
+              className="sm:w-[420px] sm:h-[50px] w-[350px] mt-2 border-[#575DFB] rounded-[10px]"
             />
           </div>
         </div>
@@ -59,30 +59,41 @@ export const Register = () => {
           <p>email</p>
           <input
             type="email"
-            className="w-[450px] h-[50px] mt-2 rounded-[10px]"
+            className="sm:w-[420px] sm:h-[50px] w-[350px]  border-[#575DFB] mt-2 rounded-[10px]"
           />
         </div>
-      </div>
       <div className="mt-4 ml-4">
         <p>Your Name</p>
-        <input type="Text" className="w-[450px] h-[50px] mt-2 rounded-[10px]" />
+        <input type="Text" className="sm:w-[420px] sm:h-[50px] w-[350px]  border-[#575DFB] mt-2 rounded-[10px]" />
       </div>
       <div className="mt-4 ml-4">
         <p>Your password</p>
         <input
           type="password"
-          className="w-[450px] h-[50px] mt-2 rounded-[10px]"
+          className="sm:w-[420px] sm:h-[50px] w-[350px] border-[#575DFB]  mt-2 rounded-[10px]"
         />
+      </div>
       </div>
       <div className=" flex flex-col justify-center items-center mt-9">
         <button
           onClick={(e) => {
             e.preventDefault();
           }}
-          className="w-[450px] h-[50px] mt-2 rounded-[10px] bg-[#575DFB] text-white"
+          className="sm:w-[420px] h-[50px] w-[350px]  mt-2 rounded-[10px] bg-[#575DFB] text-white"
         >
           Register
         </button>
+        <div className="text-[12px] flex gap-1 mt-4 ">
+            <p className="bold">Have an account?</p>
+            <button
+              onClick={() => {
+                document.getElementById("my_modal_4").showModal();
+              }}
+              className="text-[#575DFB]"
+            >
+              Login
+            </button>
+          </div>
       </div>
     </form>
   );

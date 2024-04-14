@@ -73,7 +73,7 @@ export const MobileFilterBox = ({
               <p className="text-[#00000080] bg-transparent">All</p>
             </div>
           </div>
-          <div className="fixed bg-transparent w-[94%] justify-between ml-[0px] -mt-[100px] flex items-center gap-4">
+          <div className="fixed bg-transparent w-[97%] text-[#00000090] justify-between -ml-[20px] -mt-[100px] flex items-center gap-4">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"

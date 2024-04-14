@@ -111,7 +111,7 @@ function Header({
         </div>
       </div>
       {!isPropertyPage && (
-      <div className="nav-links2 shadow-[0_3px_10px_rgb(0,0,0,0.2)] sm:hidden md:flex overflow-hidden">
+      <div className="nav-links2 shadow-[0_3px_10px_rgb(0,0,0,0.2)] sm:hidden md:flex overflow-hidden border-0">
         <div
           onClick={searchLocation}
           className={`${

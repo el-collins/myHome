@@ -15,8 +15,7 @@ export default function Card({newHome, setNewHome}) {
       }
       return item;
     });
-    console.log(id);
-    console.log(newFavourite);
+
     setNewHome(newFavourite)
   };
   

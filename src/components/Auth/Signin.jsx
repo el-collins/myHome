@@ -1,30 +1,93 @@
+import React, { useState, useEffect } from "react";
+import { jwtDecode } from "jwt-decode";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
+import { useUser } from "../Provider/UserContext";
 
-export const SignIn = ({name}) => {
+export const SignIn = () => {
+  const navigate = useNavigate();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const {setCurrentUser } = useUser(); // Get the setCurrentUser function from context
+
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      // Send login request to backend
+      const response = await axios.post(
+        "http://127.0.0.1:8000/api/login",
+        { username, password },
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      console.log(response);
+      if (response.status === 200) {
+
+        const token = response.data.access_token;
+        // Store token in local storage
+        localStorage.setItem("token", token);
+
+        // Decode token to get user information
+        const decodedToken = jwtDecode(token);
+        // // Set current user state
+        setCurrentUser(decodedToken);
+        // Redirect or update UI as needed upon successful login
+        handleClose()
+
+        navigate("/");
+        toast("Logged successfully");
+      } else {
+        // Handle other response statuses
+        toast("Incorrect email or password");
+      }
+    } catch (error) {
+      console.log(error);
+      handleClose()
+      toast("Incorrect email or password");
+    }
+  };
+
+  const handleClose = () => {
+    document.getElementById("my_modal_4").close();
+  };
   return (
-    <>
+    <div className="px-5 rounded-xl">
       <form
-        method="dialog"
-        className="flex flex-col sm:p-4 p-4  sm:pb-[150px] pb-11 rounded-[30px]"
+        // method="dialog"
+        onSubmit={handleSubmit}
+        className="flex flex-col sm:p-4 p-7 sm:pb-[150px] pb-11 rounded-[30px]"
       >
         <div className=" flex flex-col justify-center items-center relative">
-          <div className="absolute top-1 w-full bg-transparent">
-            <button>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-[30px] h-[30px] ml-1  "
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                />
-              </svg>
-            </button>
-          </div>
+          <button
+            type="button"
+            onClick={handleClose}
+            className="absolute top-1 right-1 bg-transparent"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-[30px] h-[30px] ml-1"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="m6 18 12-12M6 6l12 12"
+              />
+            </svg>
+          </button>
+
+          <div className="absolute top-1 w-full bg-transparent"></div>
 
           <div className="flex justify-center items-center  w-[100%] border-b-[1px] p-6">
             <p className="text-[28px] sm:text-[36px] text-[#575DFB]">Login</p>
@@ -53,8 +116,11 @@ export const SignIn = ({name}) => {
               </svg>
             </div>
             <input
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               placeholder="abc@example.com"
               type="email"
+              required
               className="sm:w-[420px] sm:h-[50px] w-[350px] border-[#575DFB] mt-2 rounded-[10px] pl-11 "
             />
           </div>
@@ -77,8 +143,11 @@ export const SignIn = ({name}) => {
               </svg>
             </div>
             <input
-              placeholder="......"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="password"
               type="password"
+              required
               className="sm:w-[420px] sm:h-[50px] w-[350px] border-[#575DFB] mt-2 rounded-[10px] pl-11"
             />
           </div>
@@ -91,9 +160,7 @@ export const SignIn = ({name}) => {
         </a>
         <div className=" flex flex-col justify-center items-center mt-9">
           <button
-            onClick={(e) => {
-              e.preventDefault();
-            }}
+            type="submit"
             className="sm:w-[420px] h-[50px] w-[350px] mt-2 rounded-[10px] bg-[#575DFB] text-white"
           >
             Login
@@ -122,6 +189,7 @@ export const SignIn = ({name}) => {
           </div>
         </div>
       </form>
-    </>
+      <ToastContainer />
+    </div>
   );
 };

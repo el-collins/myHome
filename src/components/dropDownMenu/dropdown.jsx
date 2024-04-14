@@ -1,19 +1,50 @@
 import MenuBox from "./MenuBox";
 import "./dropdown.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
-function Dropdown({toggleLogin, toggleRegister}) {
+// Component: Dropdown
+// Description: A dropdown menu that toggles between login and register options
+function Dropdown({ toggleLogin, toggleRegister }) {
+
+  // State: isOpen
+  // Type: Boolean
+  // Description: A state variable to keep track of whether the dropdown menu is open or not
   const [isOpen, setIsOpen] = useState(false);
 
+  // Ref: dropdownRef
+  // Type: React.RefObject
+  // Description: A reference to the dropdown menu DOM element
+  const dropdownRef = useRef(null);
+
+  // Function: handleClick
+  // Description: A function to toggle the isOpen state when the dropdown menu is clicked
   const handleClick = () => {
-    setIsOpen((prev) => !prev);
+    setIsOpen((prev) =>!prev);
   };
+
+  // Effect: handleClickOutside
+  // Description: An effect that listens for clicks outside the dropdown menu and closes it if a click is detected
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current &&!dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <>
-    
-      <div className="menu">
-        <div className=" flex p-2 border-[1px] rounded-full" onClick={handleClick}>
+      {/* Dropdown Menu */}
+      <div ref={dropdownRef} className="menu cursor-pointer">
+        {/* Dropdown Toggle Button */}
+        <div className="flex p-2 border-[2px] rounded-full hover:shadow-md transition" onClick={handleClick}>
+          {/* Dropdown Toggle Icon */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -22,30 +53,18 @@ function Dropdown({toggleLogin, toggleRegister}) {
             stroke="currentColor"
             className="w-6 h-6 md:h-8 md:w-8"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-            />
+            <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
           </svg>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="hidden md:block w-6 h-6 md:h-8 md:w-8"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
-            />
-          </svg>
+          {/* Dropdown Toggle Avatar */}
+          <div>
+            <img src="/Images/placeholder.jpg" alt="" className="w-6 h-6 md:h-8 md:w-8 rounded-full" />
+          </div>
         </div>
-        <MenuBox isOpen={isOpen} handleClick={handleClick} toggleRegister={toggleRegister} toggleLogin={toggleLogin}/>
+        {/* Dropdown Menu Box */}
+        <MenuBox isOpen={isOpen} handleClick={handleClick} toggleRegister={toggleRegister} toggleLogin={toggleLogin} />
       </div>
     </>
   );
 }
+
 export default Dropdown;

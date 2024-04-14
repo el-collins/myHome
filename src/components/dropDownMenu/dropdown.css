@@ -30,7 +30,7 @@ button {
   flex-direction: column;
   justify-content: flex-start;
   width: 200px;
-  height: 280px;
+  height: auto;
   border-radius: 16px;
   text-align: left;
   padding: 1rem 1.5rem;

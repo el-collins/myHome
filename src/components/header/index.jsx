@@ -1,8 +1,13 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
+import { Link } from "react-router-dom"; 
 import "./styles.css";
 import Dropdown from "../dropDownMenu/dropdown.jsx";
 import { LgaSearch } from "../Search/LgaSearch.jsx";
 import { MobileFilterBox } from "../Search/MobileFilterBox.jsx";
+// import { useContext } from "react";
+// import UserContext from "../Provider/UserContext.jsx";
+
 
 function Header({
   searchLocation,
@@ -17,15 +22,28 @@ function Header({
   toggleMobileFilter,
   filterSearchMobile,
 }) {
+  const urlLocation = useLocation(); // Get the current location
+  // Check if the current path is not the home page
+  const isPropertyPage = urlLocation.pathname.includes('/property/');
+  // const { currentUser } = useContext(UserContext);
+
+    // Check if currentUser is defined before destructuring
+    // const { username } = currentUser || {};
+
+    // console.log(username);
+
+
   return (
-    <div className="nav pl-4 md:pl-11 md:pr-11 sticky z-30 top-0">
+    <div className="nav pl-4 md:pl-11 md:pr-11 sticky z-30 top-0 border-[1px] border-b-gray-200">
       <div className="nav-bar relative">
         <div className=" ">
+        <Link to="/">
           <img
-            src="/Images/myhome logo new.png"
+            src="/Images/myhomeblue.png"
             alt="logo"
-            className="h-auto w-16 md:w-24 "
+            className="h-auto w-16 md:w-16 "
           />
+          </Link>
         </div>
         <div className=" hidden md:flex gap-[10%] ml-[150px]">
           <div className="link2">
@@ -89,10 +107,11 @@ function Header({
               />
             </svg>
           </div>
-          <Dropdown />
+          <Dropdown/>
         </div>
       </div>
-      <div className="nav-links2  shadow-[0_3px_10px_rgb(0,0,0,0.2)] sm:hidden md:flex overflow-hidden">
+      {!isPropertyPage && (
+      <div className="nav-links2 shadow-[0_3px_10px_rgb(0,0,0,0.2)] sm:hidden md:flex overflow-hidden">
         <div
           onClick={searchLocation}
           className={`${
@@ -145,6 +164,8 @@ function Header({
         />
       </div>
       </div>
+        )}
+
     </div>
   );
 }

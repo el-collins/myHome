@@ -1,7 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
 /* Import Tailwind base styles */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+
+html,
+body,
+:root {
+  font-family: "Nunito", sans-serif;
+  font-weight: 500;
+  font-size: medium;
+}
 
 /* Style the scrollbar with Tailwind CSS */
 /* Total scrollbar width */

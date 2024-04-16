@@ -1,12 +1,10 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
-import { Link } from "react-router-dom"; 
+import { Link } from "react-router-dom";
 import "./styles.css";
 import Dropdown from "../dropDownMenu/dropdown.jsx";
 import { LgaSearch } from "../Search/LgaSearch.jsx";
 import { MobileFilterBox } from "../Search/MobileFilterBox.jsx";
-
-
 
 function Header({
   searchLocation,
@@ -23,25 +21,19 @@ function Header({
 }) {
   const urlLocation = useLocation(); // Get the current location
   // Check if the current path is not the home page
-  const isPropertyPage = urlLocation.pathname.includes('/property/');
-  // const { currentUser } = useContext(UserContext);
-
-    // Check if currentUser is defined before destructuring
-    // const { username } = currentUser || {};
-
-    // console.log(username);
-
+  const isPropertyPage = urlLocation.pathname.includes("/property/");
+  const Usertoken = localStorage.getItem("token");
 
   return (
     <div className="nav pl-4 md:pl-11 md:pr-11 sticky z-30 top-0 border-[1px] border-b-gray-200">
       <div className="nav-bar relative">
         <div className=" ">
-        <Link to="/">
-          <img
-            src="/Images/myhomeblue.png"
-            alt="logo"
-            className="h-auto w-16 md:w-16 "
-          />
+          <Link to="/">
+            <img
+              src="/Images/myhomeblue.png"
+              alt="logo"
+              className="h-auto w-16 md:w-16 "
+            />
           </Link>
         </div>
         <div className=" hidden md:flex gap-[10%] ml-[150px]">
@@ -87,9 +79,16 @@ function Header({
           filterSearchMobile={filterSearchMobile}
         />
         <div className="profileDiv">
-          <div className="post md:block">
-            <a href="#">Post Your House </a>
-          </div>
+          {Usertoken ? (
+            <div className="post md:block">
+              <a href="#">Post Your House </a>
+            </div>
+          ) : (
+            <div className="post md:block">
+              <a href="#">Post Your House</a>
+            </div>
+          )}
+
           <div className="language hidden sm:block">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -106,65 +105,64 @@ function Header({
               />
             </svg>
           </div>
-          <Dropdown/>
+          <Dropdown />
         </div>
       </div>
       {!isPropertyPage && (
-      <div className="nav-links2 shadow-[0_3px_10px_rgb(0,0,0,0.2)] sm:hidden md:flex overflow-hidden border-0">
-        <div
-          onClick={searchLocation}
-          className={`${
-            location ? "bg-[var(--headerBlue)]" : "bg-transparent"
-          } link4 `}
-        >
-          <a href="#"> Anywhere</a>
-        </div>
-        <div
-          onClick={searchCheapest}
-          className={` link3 ${
-            cheapest
-              ? "bg-[var(--headerBlue)] h-[230%] rounded-[38px]"
-              : "bg-transparent"
-          }`}
-        >
-          <a href="#"> Cheapest</a>
-        </div>
-        <div className="join items-center rounded-[40px]">
-          <div className="link4i">
-            <a className="link4i  flex items-center justify-center" href="#">
-              {" "}
-              Location
-            </a>
+        <div className="nav-links2 shadow-[0_3px_10px_rgb(0,0,0,0.2)] sm:hidden md:flex overflow-hidden border-0">
+          <div
+            onClick={searchLocation}
+            className={`${
+              location ? "bg-[var(--headerBlue)]" : "bg-transparent"
+            } link4 `}
+          >
+            <a href="#"> Anywhere</a>
           </div>
-          <div className="searchDiv">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="searchbtn"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
-              />
-            </svg>
+          <div
+            onClick={searchCheapest}
+            className={` link3 ${
+              cheapest
+                ? "bg-[var(--headerBlue)] h-[230%] rounded-[38px]"
+                : "bg-transparent"
+            }`}
+          >
+            <a href="#"> Cheapest</a>
+          </div>
+          <div className="join items-center rounded-[40px]">
+            <div className="link4i">
+              <a className="link4i  flex items-center justify-center" href="#">
+                {" "}
+                Location
+              </a>
+            </div>
+            <div className="searchDiv">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="searchbtn"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+                />
+              </svg>
+            </div>
+          </div>
+          <div className="absolute bg-transparent   ">
+            <LgaSearch
+              location={location}
+              uniqueLocations={uniqueLocations}
+              filterSearch={filterSearch}
+              setNewHome={setNewHome}
+              setLocation={setLocation}
+            />
           </div>
         </div>
-      <div className="absolute bg-transparent   ">
-        <LgaSearch
-          location={location}
-          uniqueLocations={uniqueLocations}
-          filterSearch={filterSearch}
-          setNewHome={setNewHome}
-          setLocation={setLocation}
-        />
-      </div>
-      </div>
-        )}
-
+      )}
     </div>
   );
 }

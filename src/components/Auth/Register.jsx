@@ -12,7 +12,7 @@ export const Register = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
 
-  const ENDPOINT = "https://79b1-102-90-64-25.ngrok-free.app"
+  const ENDPOINT = "https://79b1-102-90-64-25.ngrok-free.app/api/register";
   // http://127.0.0.1:8000
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,7 +20,7 @@ export const Register = () => {
     try {
       // Send registration request to backend
       const response = await axios.post(
-        `${ENDPOINT}/api/register`,
+        ENDPOINT,
         { phone, email, name, password },
         {
           headers: {
@@ -44,7 +44,10 @@ export const Register = () => {
 
   return (
     <div className="px-5 rounded-xl">
-      <form onSubmit={handleSubmit} className="flex flex-col p-4 pb-[150px] rounded-[30px]">
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col p-4 pb-[150px] rounded-[30px]"
+      >
         {/* Form Inputs */}
         <div className="mt-4">
           <p>Phone Number</p>

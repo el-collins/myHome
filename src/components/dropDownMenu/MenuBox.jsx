@@ -28,7 +28,7 @@ const MenuBox = ({ isOpen, toggleLogin, handleClick, toggleRegister }) => {
 
       {Usertoken ? (
        <div
-       className="pages mr-[135px] sm:mr-32  md:mr-6 md:mt-5"
+       className="pages mr-[135px] sm:mr-32  md:mr-6 md:mt-5 font-semibold"
        style={{ display: isOpen ? "flex" : "none" }}
      >
        <ul>
@@ -50,6 +50,7 @@ const MenuBox = ({ isOpen, toggleLogin, handleClick, toggleRegister }) => {
                document.getElementById("my_modal_4").showModal();
                localStorage.removeItem('token');
               navigate("/");
+
               toast("Logged Out!!");
              }}
            >

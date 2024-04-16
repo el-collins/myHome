@@ -20,8 +20,7 @@ export const SignIn = () => {
     try {
       // Send login request to backend
       const response = await axios.post(
-        `${ENDPOINT}/api/login`,
-        { username, password },
+        "http://127.0.0.1:8000/api/login", { username, password },
         {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -58,7 +57,7 @@ export const SignIn = () => {
     document.getElementById("my_modal_4").close();
   };
   return (
-    <div className="px-5 rounded-xl">
+    <div className="px-5 rounded-xl cursor-default">
       <form
         // method="dialog"
         onSubmit={handleSubmit}
@@ -180,6 +179,7 @@ export const SignIn = () => {
             <button
               onClick={() => {
                 document.getElementById("register_modal").showModal();
+                handleClose()
               }}
               className="text-[#575DFB]"
             >

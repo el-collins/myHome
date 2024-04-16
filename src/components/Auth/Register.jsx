@@ -41,7 +41,6 @@ export const Register = () => {
       toast("Registration failed");
     }
   };
-
   return (
     <div className="px-5 rounded-xl">
       <form onSubmit={handleSubmit} className="flex flex-col p-4 pb-[150px] rounded-[30px]">

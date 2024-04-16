@@ -7,12 +7,17 @@ import { BottomNav } from "./components/Auth/BottomNav";
 import PropertyDetails from "./components/propetrydetails/PropertyDetails";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Wishlist from './components/wishlist'; // Correct import with uppercase
+import PostYourHouse from './components/PostYourHouse';
+
+
 
 function App() {
   const [newHome, setNewHome] = useState(HOMES);
   const [location, setLocation] = useState(false);
   const [cheapest, setCheapest] = useState(false);
   const [mobileFilter, setMobileFilter] = useState(false);
+  const [showWishlist, setShowWishlist] =useState(false);
 
   const searchLocation = () => {
     setLocation(!location);
@@ -71,6 +76,10 @@ function App() {
       </div>
       <BottomNav />
       <ToastContainer />
+      {/* <Wishlist/> */}
+      {/* <PostYourHouse /> */}
+      
+       
     </div>
   );
 }

@@ -14,8 +14,8 @@ export const Register = () => {
 
   const PASSWORD_REGEX = /^(?=.*\d)(?=.*[A-Z]).{8,}$/;
   const PHONE_REGEX = /^\+\d{1,3}\d{6,14}$/;
-  const ENDPOINT = "https://b820-197-210-226-113.ngrok-free.app"
-  // http://127.0.0.1:8000
+  const ENDPOINT = "https://b820-197-210-226-113.ngrok-free.app";
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -44,12 +44,14 @@ export const Register = () => {
       toast("Registration failed");
     }
   };
+
   const handleClose = () => {
-        document.getElementById("register_modal").close();
-      };
+    document.getElementById("register_modal").close();
+  };
+
   return (
     <div className="px-5 rounded-xl">
-      <form onSubmit={handleSubmit} className="flex flex-col p-4 pb-[150px] rounded-[30px]">
+      <form onSubmit={handleSubmit} className="flex flex-col p-4 pb-[80px] rounded-[30px]">
         {/* Form Inputs */}
         <div className=" flex flex-col justify-center items-center relative">
           <button
@@ -84,52 +86,57 @@ export const Register = () => {
               Create an account to access all the features of myHome!
             </p>
           </div>
-        <div className="mt-4">
-          <p>Phone Number</p>
-          <input
-            type="tel"
-            value={phone_number}
-            onChange={(e) => setPhone(e.target.value)}
-            className="w-[450px] h-[50px] mt-2 rounded-[10px]"
-          />
-        </div>
-        <div className="mt-4">
-          <p>Email</p>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-[450px] h-[50px] mt-2 rounded-[10px]"
-          />
-        </div>
-        <div className="mt-4">
-          <p>Your Name</p>
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="w-[450px] h-[50px] mt-2 rounded-[10px]"
-          />
-        </div>
-        <div className="mt-4">
-          <p>Your Password</p>
-          <input
-            type="text"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-[450px] h-[50px] mt-2 rounded-[10px]"
-          />
-        </div>
-        <div className=" flex flex-col justify-center items-center mt-9">
-          <button
-            type="submit"
-            className="w-[450px] h-[50px] mt-2 rounded-[10px] bg-[#575DFB] text-white"
-          >
-            Register
-          </button>
-          
-        </div>
-        <div className="text-[12px] flex gap-1 mt-4  w-[220px] ">
+          <div className="mt-4">
+            <p>Phone Number</p>
+            <input
+              type="tel"
+              value={phone_number}
+              onChange={(e) => setPhone(e.target.value)}
+              className="w-[450px] h-[50px] mt-2 rounded-[10px]"
+              pattern={PHONE_REGEX.source}
+              title="Please enter a valid phone number starting with a country code"
+              required
+            />
+          </div>
+          <div className="mt-4">
+            <p>Email</p>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-[450px] h-[50px] mt-2 rounded-[10px]"
+            />
+          </div>
+          <div className="mt-4">
+            <p>Your Name</p>
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="w-[450px] h-[50px] mt-2 rounded-[10px]"
+            />
+          </div>
+          <div className="mt-4">
+            <p>Your Password</p>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-[450px] h-[50px] mt-2 rounded-[10px]"
+              pattern={PASSWORD_REGEX.source}
+              title="Password must contain at least one digit, one uppercase letter, and be at least 8 characters long"
+              required
+            />
+          </div>
+          <div className=" flex flex-col justify-center items-center mt-9">
+            <button
+              type="submit"
+              className="w-[450px] h-[50px] mt-2 rounded-[10px] bg-[#575DFB] text-white"
+            >
+              Register
+            </button>
+          </div>
+          <div className="text-[12px] flex gap-1 mt-4  w-[220px] ">
             <p className="bold">Have an account?</p>
             <button
               onClick={(e) => {
@@ -143,7 +150,6 @@ export const Register = () => {
             </button>
           </div>
         </div>
-        
       </form>
       <ToastContainer />
     </div>

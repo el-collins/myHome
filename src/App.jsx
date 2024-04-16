@@ -14,7 +14,6 @@ function App() {
   const [cheapest, setCheapest] = useState(false);
   const [mobileFilter, setMobileFilter] = useState(false);
 
-
   const searchLocation = () => {
     setLocation(!location);
     setCheapest(false);
@@ -61,16 +60,14 @@ function App() {
         filterSearchMobile={filterSearchMobile}
       />
       <div className="">
-      
-          <Routes>
-            <Route
-              exact
-              path="/"
-              element={<Card newHome={newHome} setNewHome={setNewHome} />}
-            />
-            <Route path="/property/:id" element={<PropertyDetails />} />
-          </Routes>
-
+        <Routes>
+          <Route
+            exact
+            path="/"
+            element={<Card newHome={newHome} setNewHome={setNewHome} />}
+          />
+          <Route path="/property/:id" element={<PropertyDetails />} />
+        </Routes>
       </div>
       <BottomNav />
       <ToastContainer />

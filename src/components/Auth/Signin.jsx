@@ -12,8 +12,8 @@ export const SignIn = () => {
   const [password, setPassword] = useState("");
   const {setCurrentUser } = useUser(); // Get the setCurrentUser function from context
 
-
-
+  const ENDPOINT = "https://79b1-102-90-64-25.ngrok-free.app"
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -27,7 +27,6 @@ export const SignIn = () => {
           },
         }
       );
-      console.log(response);
       if (response.status === 200) {
 
         const token = response.data.access_token;
@@ -36,7 +35,7 @@ export const SignIn = () => {
 
         // Decode token to get user information
         const decodedToken = jwtDecode(token);
-        // // Set current user state
+         // Set current user state
         setCurrentUser(decodedToken);
         // Redirect or update UI as needed upon successful login
         handleClose()

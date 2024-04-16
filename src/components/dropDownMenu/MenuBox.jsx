@@ -1,52 +1,118 @@
+import { Navigate } from "react-router-dom";
 import { Register } from "../Auth/Register";
 import { SignIn } from "../Auth/Signin";
 import { UnderConstruction } from "../wishlist";
 import "./dropdown.css";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+
+
 const MenuBox = ({ isOpen, toggleLogin, handleClick, toggleRegister }) => {
+  const Usertoken = localStorage.getItem("token");
+  const navigate = useNavigate();
+
+  
   return (
     <>
       <dialog id="my_modal_4" className="modal ">
-
-          <SignIn  />
-  
+        <SignIn />
       </dialog>
       <dialog id="register_modal" className="modal">
-
-          <Register />
-  
+        <Register />
       </dialog>
       <dialog id="my_modal_5" className="modal">
-
-          <UnderConstruction />
-  
+        <UnderConstruction />
       </dialog>
 
-      <div className="pages mr-[135px] sm:mr-32  md:mr-6 md:mt-5" style={{ display: isOpen ? "flex" : "none" }}>
-        <ul>
-          <li>
-            <button
-              onClick={() => {
-                document.getElementById("register_modal").showModal();
+      {Usertoken ? (
+       <div
+       className="pages mr-[135px] sm:mr-32  md:mr-6 md:mt-5"
+       style={{ display: isOpen ? "flex" : "none" }}
+     >
+       <ul>
+         {/* <li>
+           <button
+             onClick={() => {
+               document.getElementById("register_modal").showModal();
 
-                handleClick();
-              }}
-            >
-              Sign up
-            </button>
-          </li>
-          <li>
-            <button
-              className="login"
-              onClick={() => {
-                document.getElementById("my_modal_4").showModal();
-                handleClick();
-              }}
-            >
-              Log in
-            </button>
-          </li>
-          <div className=" border-[1px] w-[100%] "></div>
-          {/* <li>
+               handleClick();
+             }}
+           >
+             Sign up
+           </button>
+         </li> */}
+         <li>
+           <button
+             className="login"
+             onClick={() => {
+               document.getElementById("my_modal_4").showModal();
+               localStorage.removeItem('token');
+              navigate("/");
+              toast("Logged Out!!");
+             }}
+           >
+             Log Out
+           </button>
+         </li>
+         <div className=" border-[1px] w-[100%] "></div>
+         <li>
+         <button className="postHouse" onClick={() => {
+             document.getElementById("my_modal_5").showModal();
+             handleClick();
+           }}>
+           Post your house
+         </button>
+       </li>
+         <li>
+         <button onClick={() => {
+             document.getElementById("my_modal_5").showModal();
+             handleClick();
+           }}>Wishlists</button>
+       </li>
+         <li>
+           <button
+             onClick={() => {
+               document.getElementById("my_modal_5").showModal();
+               handleClick();
+             }}
+           >
+             Help
+           </button>
+         </li>
+       </ul>
+     </div>
+      ) : (
+        <div
+          className="pages mr-[135px] sm:mr-32  md:mr-6 md:mt-5"
+          style={{ display: isOpen ? "flex" : "none" }}
+        >
+          <ul>
+            <li>
+              <button
+                onClick={() => {
+                  document.getElementById("register_modal").showModal();
+
+                  handleClick();
+                }}
+              >
+                Sign up
+              </button>
+            </li>
+            <li>
+              <button
+                className="login"
+                onClick={() => {
+                  document.getElementById("my_modal_4").showModal();
+                  handleClick();
+                }}
+              >
+                Log in
+              </button>
+            </li>
+            <div className=" border-[1px] w-[100%] "></div>
+            {/* <li>
             <button className="postHouse" onClick={() => {
                 document.getElementById("my_modal_5").showModal();
                 handleClick();
@@ -54,20 +120,25 @@ const MenuBox = ({ isOpen, toggleLogin, handleClick, toggleRegister }) => {
               Post your house
             </button>
           </li> */}
-          {/* <li>
+            {/* <li>
             <button onClick={() => {
                 document.getElementById("my_modal_5").showModal();
                 handleClick();
               }}>Wishlists</button>
           </li> */}
-          <li>
-            <button onClick={() => {
-                document.getElementById("my_modal_5").showModal();
-                handleClick();
-              }}>Help</button>
-          </li>
-        </ul>
-      </div>
+            <li>
+              <button
+                onClick={() => {
+                  document.getElementById("my_modal_5").showModal();
+                  handleClick();
+                }}
+              >
+                Help
+              </button>
+            </li>
+          </ul>
+        </div>
+      )}
     </>
   );
 };

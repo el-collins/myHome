@@ -5,8 +5,7 @@ import "./styles.css";
 import Dropdown from "../dropDownMenu/dropdown.jsx";
 import { LgaSearch } from "../Search/LgaSearch.jsx";
 import { MobileFilterBox } from "../Search/MobileFilterBox.jsx";
-// import { useContext } from "react";
-// import UserContext from "../Provider/UserContext.jsx";
+
 
 
 function Header({
@@ -111,7 +110,7 @@ function Header({
         </div>
       </div>
       {!isPropertyPage && (
-      <div className="nav-links2 shadow-[0_3px_10px_rgb(0,0,0,0.2)] sm:hidden md:flex overflow-hidden">
+      <div className="nav-links2 shadow-[0_3px_10px_rgb(0,0,0,0.2)] sm:hidden md:flex overflow-hidden border-0">
         <div
           onClick={searchLocation}
           className={`${

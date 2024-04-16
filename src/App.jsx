@@ -2,11 +2,16 @@ import { useState } from 'react'
 import { HOMES } from "../src/assets/data/homes";
 import Card from './components/Card/Card'
 import Header from '../src/components/header/index'
+import Wishlist from './components/wishlist'; // Correct import with uppercase
+import PostYourHouse from './components/PostYourHouse';
+
+
 
 function App() {
   const [newHome, setNewHome] = useState(HOMES)
   const [location, setLocation] = useState(false)
   const [cheapest, setCheapest] = useState(false)
+  const [showWishlist, setShowWishlist] =useState(false);
 
   const searchLocation = () =>{
     setLocation(!location)
@@ -38,6 +43,10 @@ function App() {
     <div className='cards-flex'>
       <Header searchLocation={searchLocation} location={location} uniqueLocations={uniqueLocations} cheapest={cheapest} searchCheapest={searchCheapest} filterSearch={filterSearch} setNewHome={setNewHome} setLocation={setLocation}/>
       <Card setNewHome={setNewHome} newHome={newHome} cheapest={cheapest} searchCheapest={searchCheapest}/>
+      {/* <Wishlist/> */}
+      {/* <PostYourHouse /> */}
+      
+       
     </div>
   )
 }

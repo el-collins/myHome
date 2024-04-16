@@ -1,24 +1,23 @@
-import { Register } from "../Auth/Register";
 import { SignIn } from "../Auth/Signin";
-import { UnderConstruction } from "../wishlist";
+import { Register } from "../Auth/Register";
+import PostYourHouse from "../PostYourHouse";
+import Wishlist from "../wishlist";
 import "./dropdown.css";
-const MenuBox = ({ isOpen, toggleLogin, handleClick, toggleRegister }) => {
+
+const MenuBox = ({ isOpen, handleClick }) => {
   return (
     <>
       <dialog id="my_modal_4" className="modal">
-
-          <SignIn />
-  
+        <SignIn />
       </dialog>
       <dialog id="register_modal" className="modal">
-
-          <Register />
-  
+        <Register />
       </dialog>
-      <dialog id="my_modal_5" className="modal">
-
-          <UnderConstruction />
-  
+      <dialog id="post_your_house_modal" className="modal">
+        <PostYourHouse />
+      </dialog>
+      <dialog id="wishlist_modal" className="modal">
+        <Wishlist />
       </dialog>
 
       <div className="pages" style={{ display: isOpen ? "flex" : "none" }}>
@@ -27,7 +26,6 @@ const MenuBox = ({ isOpen, toggleLogin, handleClick, toggleRegister }) => {
             <button
               onClick={() => {
                 document.getElementById("register_modal").showModal();
-
                 handleClick();
               }}
             >
@@ -45,26 +43,29 @@ const MenuBox = ({ isOpen, toggleLogin, handleClick, toggleRegister }) => {
               Log in
             </button>
           </li>
-          <div className=" border-[1px] w-[100%] "></div>
           <li>
-            <button className="postHouse" onClick={() => {
-                document.getElementById("my_modal_5").showModal();
+            <button
+              className="postHouse"
+              onClick={() => {
+                document.getElementById("post_your_house_modal").showModal();
                 handleClick();
-              }}>
+              }}
+            >
               Post your house
             </button>
           </li>
           <li>
-            <button onClick={() => {
-                document.getElementById("my_modal_5").showModal();
+            <button
+              onClick={() => {
+                document.getElementById("wishlist_modal").showModal();
                 handleClick();
-              }}>Wishlists</button>
+              }}
+            >
+              Wishlists
+            </button>
           </li>
           <li>
-            <button onClick={() => {
-                document.getElementById("my_modal_5").showModal();
-                handleClick();
-              }}>Help</button>
+            <button onClick={handleClick}>Help</button>
           </li>
         </ul>
       </div>

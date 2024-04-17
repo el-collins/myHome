@@ -12,7 +12,8 @@ export const SignIn = () => {
   const [password, setPassword] = useState("");
   const {setCurrentUser } = useUser(); // Get the setCurrentUser function from context
 
-  const ENDPOINT = "https://79b1-102-90-64-25.ngrok-free.app"
+
+  const ENDPOINT = "http://127.0.0.1:8000"
   
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,7 +21,7 @@ export const SignIn = () => {
     try {
       // Send login request to backend
       const response = await axios.post(
-        "http://127.0.0.1:8000/api/login", { username, password },
+        `${ENDPOINT}/api/login`, { username, password },
         {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -48,7 +49,7 @@ export const SignIn = () => {
       }
     } catch (error) {
       console.log(error);
-      handleClose()
+      // handleClose()
       toast("Incorrect email or password");
     }
   };

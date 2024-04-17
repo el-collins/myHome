@@ -1,4 +1,4 @@
-import { Navigate } from "react-router-dom";
+import { Navigate} from "react-router-dom";
 import { Register } from "../Auth/Register";
 import { SignIn } from "../Auth/Signin";
 import { UnderConstruction } from "../wishlist";
@@ -6,11 +6,13 @@ import "./dropdown.css";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useUser } from "../Provider/UserContext";
 
 
 
 const MenuBox = ({ isOpen, toggleLogin, handleClick, toggleRegister }) => {
-  const Usertoken = localStorage.getItem("token");
+  // const Usertoken = localStorage.getItem("token");
+const { currentUser, logout } = useUser();
   const navigate = useNavigate();
 
   
@@ -26,43 +28,26 @@ const MenuBox = ({ isOpen, toggleLogin, handleClick, toggleRegister }) => {
         <UnderConstruction />
       </dialog>
 
-      {Usertoken ? (
+      {currentUser ? (
        <div
-       className="pages mr-[135px] sm:mr-32  md:mr-6 md:mt-5"
+       className="pages mr-[135px] sm:mr-32  md:mr-6 md:mt-5 font-semibold"
        style={{ display: isOpen ? "flex" : "none" }}
      >
        <ul>
-         {/* <li>
-           <button
-             onClick={() => {
-               document.getElementById("register_modal").showModal();
-
-               handleClick();
-             }}
-           >
-             Sign up
-           </button>
-         </li> */}
-         <li>
-           <button
-             className="login"
-             onClick={() => {
-               document.getElementById("my_modal_4").showModal();
-               localStorage.removeItem('token');
-              navigate("/");
-              toast("Logged Out!!");
-             }}
-           >
-             Log Out
-           </button>
-         </li>
-         <div className=" border-[1px] w-[100%] "></div>
-         <li>
+       <li>
          <button className="postHouse" onClick={() => {
              document.getElementById("my_modal_5").showModal();
              handleClick();
            }}>
            Post your house
+         </button>
+       </li>
+         <li>
+         <button className="postHouse" onClick={() => {
+            navigate("/user/profile")
+             handleClick();
+           }}>
+           Account Profile
          </button>
        </li>
          <li>
@@ -79,6 +64,21 @@ const MenuBox = ({ isOpen, toggleLogin, handleClick, toggleRegister }) => {
              }}
            >
              Help
+           </button>
+         </li>
+  
+         <div className=" border-[1px] w-[100%] "></div>
+         <li>
+           <button
+             className="login"
+             onClick={() => {
+              //  document.getElementById("my_modal_4").showModal();
+              logout();
+              handleClick();
+              toast("Logged Out!!");
+             }}
+           >
+             Log Out
            </button>
          </li>
        </ul>

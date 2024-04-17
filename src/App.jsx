@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { HOMES } from "../src/assets/data/homes";
 import Card from "./components/Card/Card";
@@ -7,13 +7,26 @@ import { BottomNav } from "./components/Auth/BottomNav";
 import PropertyDetails from "./components/propetrydetails/PropertyDetails";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
+import UserProfile from "./components/userprofile/UserProfile";
+import { UserProvider } from "./components/Provider/UserContext";
 
 function App() {
   const [newHome, setNewHome] = useState(HOMES);
   const [location, setLocation] = useState(false);
   const [cheapest, setCheapest] = useState(false);
   const [mobileFilter, setMobileFilter] = useState(false);
+  const [propertyList, setPropertyList] = useState([{}]);
 
+  const ENDPOINT = "https://3f77-105-120-130-202.ngrok-free.app/";
+
+  useEffect(() => {
+    const response = axios.get(`${ENDPOINT}/api/v1/properties`).then((res) => {
+      setPropertyList(res.data);
+    });
+  });
+
+  // Function to fetch wishlist items from the API
 
   const searchLocation = () => {
     setLocation(!location);
@@ -61,7 +74,7 @@ function App() {
         filterSearchMobile={filterSearchMobile}
       />
       <div className="">
-      
+
           <Routes>
             <Route
               exact
@@ -69,6 +82,7 @@ function App() {
               element={<Card newHome={newHome} setNewHome={setNewHome} />}
             />
             <Route path="/property/:id" element={<PropertyDetails />} />
+            <Route path="/user/profile" element={<UserProfile />} />
           </Routes>
 
       </div>

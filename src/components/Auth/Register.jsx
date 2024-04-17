@@ -7,12 +7,12 @@ import { useNavigate } from "react-router-dom";
 export const Register = () => {
   const navigate = useNavigate();
 
-  const [phone, setPhone] = useState("");
+  const [phone_number, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
 
-  const ENDPOINT = "https://79b1-102-90-64-25.ngrok-free.app"
+  const ENDPOINT = "https://b820-197-210-226-113.ngrok-free.app"
   // http://127.0.0.1:8000
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,7 +21,7 @@ export const Register = () => {
       // Send registration request to backend
       const response = await axios.post(
         `${ENDPOINT}/api/register`,
-        { phone, email, name, password },
+        { phone_number, email, name, password },
         {
           headers: {
             "Content-Type": "application/json",
@@ -49,7 +49,7 @@ export const Register = () => {
           <p>Phone Number</p>
           <input
             type="tel"
-            value={phone}
+            value={phone_number}
             onChange={(e) => setPhone(e.target.value)}
             className="w-[450px] h-[50px] mt-2 rounded-[10px]"
           />

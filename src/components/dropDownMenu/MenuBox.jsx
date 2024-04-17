@@ -1,7 +1,5 @@
-import { Navigate} from "react-router-dom";
 import { Register } from "../Auth/Register";
 import { SignIn } from "../Auth/Signin";
-import { Register } from "../Auth/Register";
 import PostYourHouse from "../PostYourHouse";
 import Wishlist from "../wishlist";
 import "./dropdown.css";
@@ -10,81 +8,95 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useUser } from "../Provider/UserContext";
 
-
-
 const MenuBox = ({ isOpen, toggleLogin, handleClick, toggleRegister }) => {
   // const Usertoken = localStorage.getItem("token");
-const { currentUser, logout } = useUser();
+  const { currentUser, logout } = useUser();
   const navigate = useNavigate();
 
-const MenuBox = ({ isOpen, handleClick }) => {
   return (
     <>
-      <dialog id="my_modal_4" className="modal">
+      <dialog id="my_modal_4" className="modal ">
         <SignIn />
       </dialog>
       <dialog id="register_modal" className="modal">
         <Register />
       </dialog>
-      <dialog id="my_modal_5" className="modal">
+      {/* <dialog id="my_modal_5" className="modal">
         <UnderConstruction />
+      </dialog> */}
+
+      <dialog id="post_your_house_modal" className="modal">
+        <PostYourHouse />
+      </dialog>
+      <dialog id="wishlist_modal" className="modal">
+        <Wishlist />
       </dialog>
 
       {currentUser ? (
-       <div
-       className="pages mr-[135px] sm:mr-32  md:mr-6 md:mt-5 font-semibold"
-       style={{ display: isOpen ? "flex" : "none" }}
-     >
-       <ul>
-       <li>
-         <button className="postHouse" onClick={() => {
-             document.getElementById("my_modal_5").showModal();
-             handleClick();
-           }}>
-           Post your house
-         </button>
-       </li>
-         <li>
-         <button className="postHouse" onClick={() => {
-            navigate("/user/profile")
-             handleClick();
-           }}>
-           Account Profile
-         </button>
-       </li>
-         <li>
-         <button onClick={() => {
-             document.getElementById("my_modal_5").showModal();
-             handleClick();
-           }}>Wishlists</button>
-       </li>
-         <li>
-           <button
-             onClick={() => {
-               document.getElementById("my_modal_5").showModal();
-               handleClick();
-             }}
-           >
-             Help
-           </button>
-         </li>
-  
-         <div className=" border-[1px] w-[100%] "></div>
-         <li>
-           <button
-             className="login"
-             onClick={() => {
-              //  document.getElementById("my_modal_4").showModal();
-              logout();
-              handleClick();
-              toast("Logged Out!!");
-             }}
-           >
-             Log Out
-           </button>
-         </li>
-       </ul>
-     </div>
+        <div
+          className="pages mr-[135px] sm:mr-32  md:mr-6 md:mt-5 font-semibold"
+          style={{ display: isOpen ? "flex" : "none" }}
+        >
+          <ul>
+            <li>
+              <button
+                className="postHouse"
+                onClick={() => {
+                  document.getElementById("post_your_house_modal").showModal();
+                  handleClick();
+                }}
+              >
+                Post your house
+              </button>
+            </li>
+            <li>
+              <button
+                className="postHouse"
+                onClick={() => {
+                  navigate("/user/profile");
+                  handleClick();
+                }}
+              >
+                Account Profile
+              </button>
+            </li>
+            <li>
+              <button
+                onClick={() => {
+                  document.getElementById("wishlist_modal").showModal();
+                  handleClick();
+                }}
+              >
+                Wishlists
+              </button>
+            </li>
+            <li>
+              <button
+                onClick={() => {
+                  document.getElementById("my_modal_5").showModal();
+                  handleClick();
+                }}
+              >
+                Help
+              </button>
+            </li>
+
+            <div className=" border-[1px] w-[100%] "></div>
+            <li>
+              <button
+                className="login"
+                onClick={() => {
+                  //  document.getElementById("my_modal_4").showModal();
+                  logout();
+                  handleClick();
+                  toast("Logged Out!!");
+                }}
+              >
+                Log Out
+              </button>
+            </li>
+          </ul>
+        </div>
       ) : (
         <div
           className="pages mr-[135px] sm:mr-32  md:mr-6 md:mt-5"
@@ -114,6 +126,20 @@ const MenuBox = ({ isOpen, handleClick }) => {
               </button>
             </li>
             <div className=" border-[1px] w-[100%] "></div>
+            {/* <li>
+            <button className="postHouse" onClick={() => {
+                document.getElementById("my_modal_5").showModal();
+                handleClick();
+              }}>
+              Post your house
+            </button>
+          </li> */}
+            {/* <li>
+            <button onClick={() => {
+                document.getElementById("my_modal_5").showModal();
+                handleClick();
+              }}>Wishlists</button>
+          </li> */}
             <li>
               <button
                 onClick={() => {
@@ -127,34 +153,6 @@ const MenuBox = ({ isOpen, handleClick }) => {
           </ul>
         </div>
       )}
-          </li>
-          <li>
-            <button
-              onClick={() => {
-                document.getElementById("wishlist_modal").showModal();
-                handleClick();
-              }}
-            >
-              Wishlists
-            </button>
-          </li>
-          <li>
-          </li>
-          <li>
-            <button
-              onClick={() => {
-                document.getElementById("wishlist_modal").showModal();
-                handleClick();
-              }}
-            >
-              Wishlists
-            </button>
-          </li>
-          <li>
-            <button onClick={handleClick}>Help</button>
-          </li>
-        </ul>
-      </div>
     </>
   );
 };

@@ -5,7 +5,6 @@ import { useCallback, useEffect, useState } from "react";
 import useRegisterModal from "../../app/hooks/useRegisterModal";
 import useLoginModal from "../../app/hooks/useLoginModal";
 
-
 const UserMenu = () => {
   const registerModal = useRegisterModal();
   const LoginModal = useLoginModal();
@@ -14,20 +13,15 @@ const UserMenu = () => {
   // State to toggle the mobile dropdown menu
   const [toggleDropdown, setToggleDropdown] = useState(false);
 
-
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value);
   }, []);
 
-const onRent = useCallback(
-  () => {
+  const onRent = useCallback(() => {
     if (!session) {
-      return LoginModal.onOpen()
+      return LoginModal.onOpen();
     }
-  },
-  [LoginModal, session],
-)
-
+  }, [LoginModal, session]);
 
   return (
     <div className="relative">

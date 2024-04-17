@@ -30,7 +30,7 @@ export const LgaSearch = ({
                 className="p-1 rounded-[10px] hover:bg-[#00000015] "
               >
                 <div className="w-[120px] h-[120px] overflow-hidden border-[1px]  rounded-[10px]">
-                  <img src="/public/Images/map.png" className=" h-[180px]" />
+                  <img src="/Images/map.png" className=" h-[180px]" />
                 </div>
                 <p className="text-[#00000090] bg-transparent">{items}</p>
               </button>

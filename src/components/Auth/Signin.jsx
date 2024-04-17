@@ -12,7 +12,7 @@ export const SignIn = () => {
   const [password, setPassword] = useState("");
   const {setCurrentUser } = useUser(); // Get the setCurrentUser function from context
 
-  const ENDPOINT = "https://79b1-102-90-64-25.ngrok-free.app"
+  const ENDPOINT = "https://b820-197-210-226-113.ngrok-free.app"
   
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,8 +20,7 @@ export const SignIn = () => {
     try {
       // Send login request to backend
       const response = await axios.post(
-        `${ENDPOINT}/api/login`,
-        { username, password },
+        `${ENDPOINT}/api/login`, { username, password },
         {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -58,7 +57,7 @@ export const SignIn = () => {
     document.getElementById("my_modal_4").close();
   };
   return (
-    <div className="px-5 rounded-xl">
+    <div className="px-5 rounded-xl cursor-default">
       <form
         // method="dialog"
         onSubmit={handleSubmit}
@@ -180,6 +179,7 @@ export const SignIn = () => {
             <button
               onClick={() => {
                 document.getElementById("register_modal").showModal();
+                handleClose()
               }}
               className="text-[#575DFB]"
             >

@@ -1,50 +1,165 @@
-import React from 'react';
+import React from "react";
 
 const PostYourHouse = () => {
+  const handleClose = () => {
+    document.getElementById("post_your_house_modal").close();
+  };
   return (
-    <div className="max-w-md mx-auto p-4 border rounded-lg bg-white">
-      {/* Post Your House Header */}
-      <div className="bg-white text-purple-700 text-center py-2 relative">
-        <h2 className="text-lg font-bold">Post Your House</h2>
-        <div className="h-full absolute right-0 top-0 bg-white w-1"></div>
+    <div className="p-4 pb-[50px] pl-5 border flex flex-col items-center justify-center rounded-[20px] bg-white">
+      <div className="text-center w-full p-2 pb-4 relative border-b-[1px]">
+        <button
+          type="button"
+          onClick={handleClose}
+          className=" absolute left-0 top-0 bg-transparent"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-[30px] h-[30px] ml-1 bg-transparent"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="m6 18 12-12M6 6l12 12"
+            />
+          </svg>
+        </button>
+        <h2 className="text-lg text-[#575DFB] font-bold">Post Your House</h2>
       </div>
 
-      {/* Category Input */}
-      <div className="mt-4 rounded-lg p-2 ">
-        <label htmlFor="category" className="text-black block mb-1">Category*</label>
-        <input
-          type="text"
-          id="category"
-          placeholder="Houses and Apartments for Rent"
-          className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-purple"
-        />
-      </div>
-
-      {/* Select Location Input */}
-      <div className="mt-4 rounded-lg p-2">
-        <label htmlFor="location" className="text-black block mb-1">Select Location*</label>
-        <input
-          type="text"
-          id="location"
-          placeholder="Enugu Trans-Ekulu"
-          className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-purple-600"
-        />
-      </div>
-
-      {/* Add Photos Section */}
-      <div className="mt-4">
-        <p className="text-black mb-1"><strong>Add Photos</strong></p>
-        <p className="text-black mb-1">Add at least 5 photos for this category</p>
-        <p className='font-x'>First picture is the cover photo. You can change the order of photos: just grab your photos and drag.</p>
-        <div className="bg-purple-600 w-20 h-20 flex items-center justify-center rounded-lg mt-2">
-          <span className=" text-2">+</span>
+      <div className="mt-6">
+        <div className="flex gap-3">
+          <div className="mt-4 w-[350px] rounded-lg p-2">
+            <label
+              htmlFor="location"
+              className="text-black block absolute p-1 -mt-4 ml-3"
+            >
+              Listing Name*
+            </label>
+            <input
+              type="text"
+              id="location"
+              placeholder="Input a name for the property being listed"
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none h-[50px] border-[#575DFB]"
+            />
+          </div>
+          <div className="mt-4 w-[350px] rounded-lg p-2 ">
+            <label
+              htmlFor="category"
+              className="absolute ml-3  text-black block -mt-4 p-1"
+            >
+              Category*
+            </label>
+            <input
+              type="text"
+              id="category"
+              placeholder="Duplex, Flats, Bungalow, selfcon, single room"
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none h-[50px] border-[#575DFB]"
+            />
+          </div>
         </div>
-        <p className="text-xs text-black mt-2">Supported formats are *.jpg and *.png</p>
+        <div className="flex gap-3">
+          <div className="mt-4 w-[350px] rounded-lg p-2">
+            <label
+              htmlFor="location"
+              className="text-black block absolute p-1 -mt-4 ml-3"
+            >
+              Address*
+            </label>
+            <input
+              type="text"
+              id="location"
+              placeholder="31 ABC street"
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none h-[50px] border-[#575DFB]"
+            />
+          </div>
+
+          <div className="mt-4 w-[350px] rounded-lg p-2">
+            <label
+              htmlFor="location"
+              className="text-black block absolute p-1 -mt-4 ml-3"
+            >
+              Area*
+            </label>
+            <input
+              type="text"
+              id="location"
+              placeholder="Trans-Ekulu"
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none h-[50px] border-[#575DFB]"
+            />
+          </div>
+        </div>
+        <div className="flex">
+          <div className="mt-4 rounded-lg p-2">
+            <label
+              htmlFor="location"
+              className="text-black block absolute p-1 -mt-4 ml-3"
+            >
+              Amount*
+            </label>
+            <label
+              htmlFor="location"
+              className="text-black block absolute p-1 mt-3 text-[20px] bg-transparent ml-3"
+            >
+              &#8358;
+            </label>
+            <input
+              type="text"
+              id="location"
+              placeholder=""
+              className="w-[340px] pl-11 px-4 py-2 border rounded-lg focus:outline-none h-[50px] border-[#575DFB]"
+            />
+          </div >
+          <div className="mt-4 w-[370px] pl-1 flex justify-between items-center">
+              <div>
+                <p>rooms</p>
+              </div>
+              <div>
+                <p>baths</p>
+              </div>
+              <div className="flex gap-1 items-center">
+                <p>POP ceiling</p>
+                <div className="w-6 h-6  border-black border-[1px]"></div>
+              </div>
+              <div className="flex gap-1 items-center"> 
+                <p>Flowing water</p>
+                <div className="w-6 h-6  border-black border-[1px]"></div>
+
+              </div>
+          </div>
+        </div>
+      </div>
+      <div className="w-full mt-4">
+        <p className="text-black ml-5 mb-1">Add Photos</p>
+      <div className="w-full pl-5 flex justify-between">
+        <div className="flex flex-col">
+          <input type="file" name="file" multiple className="mt-4 file:bg-[#575DFB] file:rounded-sm" />
+          <input type="file" name="file" multiple className="mt-4" />
+        </div>
+        <div className="flex flex-col">
+          <input type="file" name="file" multiple className="mt-4" />
+          <input type="file" name="file" multiple className="mt-4" />
+        </div>
+      </div>
+      </div>
+      
+
+      <div className="mt-2 w-full pl-3">
+        <p className="text-xs text-black ">
+          Supported format is *.jpg 
+        </p>
+        <p className="font-x w-[60%] mt-5">
+          First picture is the cover photo. You can change the order of photos:
+          just grab your photos and drag.
+        </p>
+        
       </div>
 
-      {/* Verify Button */}
-      <button className="mt-4 bg-purple-900 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full w-full">
-        Verify
+      <button className="mt-4 bg-[#575DFB] w-[40%] hover:bg-[#575DFB90] text-white h-[50px] rounded-[10px]">
+        Post
       </button>
     </div>
   );

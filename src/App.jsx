@@ -7,6 +7,8 @@ import { BottomNav } from "./components/Auth/BottomNav";
 import PropertyDetails from "./components/propetrydetails/PropertyDetails";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Wishlist from './components/wishlist'; // Correct import with uppercase
+import PostYourHouse from './components/PostYourHouse';
 import axios from "axios";
 import UserProfile from "./components/userprofile/UserProfile";
 import { UserProvider } from "./components/Provider/UserContext";
@@ -16,6 +18,7 @@ function App() {
   const [location, setLocation] = useState(false);
   const [cheapest, setCheapest] = useState(false);
   const [mobileFilter, setMobileFilter] = useState(false);
+  const [showWishlist, setShowWishlist] =useState(false);
   const [propertyList, setPropertyList] = useState([{}]);
 
   const ENDPOINT = "https://3f77-105-120-130-202.ngrok-free.app/";
@@ -84,10 +87,13 @@ function App() {
             <Route path="/property/:id" element={<PropertyDetails />} />
             <Route path="/user/profile" element={<UserProfile />} />
           </Routes>
-
       </div>
       <BottomNav />
       <ToastContainer />
+      {/* <Wishlist/> */}
+      {/* <PostYourHouse /> */}
+      
+       
     </div>
   );
 }

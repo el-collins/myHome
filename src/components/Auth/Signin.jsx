@@ -12,6 +12,7 @@ export const SignIn = () => {
   const [password, setPassword] = useState("");
   const {setCurrentUser } = useUser(); // Get the setCurrentUser function from context
 
+
   const ENDPOINT = "https://b820-197-210-226-113.ngrok-free.app"
   
   const handleSubmit = async (e) => {
@@ -48,7 +49,7 @@ export const SignIn = () => {
       }
     } catch (error) {
       console.log(error);
-      handleClose()
+      // handleClose()
       toast("Incorrect email or password");
     }
   };

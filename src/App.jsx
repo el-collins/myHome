@@ -23,11 +23,11 @@ function App() {
 
   const ENDPOINT = "https://3f77-105-120-130-202.ngrok-free.app/";
 
-  useEffect(() => {
-    const response = axios.get(`${ENDPOINT}/api/v1/properties`).then((res) => {
-      setPropertyList(res.data);
-    });
-  });
+  // useEffect(() => {
+  //   const response = axios.get(`${ENDPOINT}/api/v1/properties`).then((res) => {
+  //     setPropertyList(res.data);
+  //   });
+  // });
 
   // Function to fetch wishlist items from the API
 

@@ -6,49 +6,67 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useUser } from "../Provider/UserContext";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Card({ newHome, setNewHome }) {
   const { currentUser } = useUser(); // Access the currentUser from user context
   const navigate = useNavigate();
   const [wishlist, setWishlist] = useState(new Set());
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
-  
-  console.log(currentUser);
   const token = localStorage.getItem("token");
-  console.log(token);
+  // https://my-home-xlox.onrender.com/docs
 
-  const ENPOINT = "http://127.0.0.1:8000";
+  const ENDPOINT = "https://my-home-xlox.onrender.com";
 
-  // Fetch the user's wishlist when the component is mounted
+  // Fetch the current user when the component is mounted
   useEffect(() => {
-    const fetchWishlist = async () => {
+    const fetchCurrentUser = async () => {
       try {
-        const response = await axios.get(`${ENPOINT}/wishlist/`, {
+        const response = await axios.get(`${ENDPOINT}/api/me`, {
           headers: {
             accept: "application/json",
             Authorization: `Bearer ${token}`,
           },
         });
-        console.log(response);
-        // Update the wishlist state with the fetched wishlist
-        setWishlist(new Set(response.data.map((item) => item.property_id)));
-        setIsLoading(false); // Set isLoading to false after the data has been fetched
+        const user = response.data;
+
+        setWishlist(new Set(user.wishlist));
+        setIsLoading(false);
       } catch (error) {
         console.error(error);
-        setIsLoading(false); // Also set isLoading to false if an error occurs
       }
     };
 
-    fetchWishlist();
-  }, []); // Empty dependency array means this effect will only run once, when the component is mounted
+    fetchCurrentUser();
+  }, []);
+ 
 
-  const addToWishlist = async (propertyId) => {
-    if (wishlist.has(propertyId)) {
-      // Property is already in wishlist, remove it
-      try {
-        const response = await axios.delete(
-          `${ENPOINT}/wishlist/${propertyId}`,
+  const toggleWishlist = async (propertyId) => {
+    if (!currentUser) {
+      // User is not logged in, redirect to login page
+      toast("User is not logged in");
+      return;
+    }
+    
+    try {
+      const response = await axios.get(`${ENDPOINT}/api/me`, {
+        headers: {
+          accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const user = response.data;
+
+      // Create a new set based on the current wishlist
+      const updatedWishlist = new Set([...wishlist]);
+
+      // Check if property is in wishlist
+      if (user.wishlist.includes(propertyId)) {
+        // Property is in wishlist, remove it
+        await axios.delete(
+          `${ENDPOINT}/api/user/wishlist/?property_id=${propertyId}`,
           {
             headers: {
               accept: "application/json",
@@ -56,22 +74,15 @@ export default function Card({ newHome, setNewHome }) {
             },
           }
         );
+        // Update the wishlist state
+        updatedWishlist.delete(propertyId);
 
-        // Remove property from local state
-        setWishlist((prevWishlist) => {
-          const newWishlist = new Set(prevWishlist);
-          newWishlist.delete(propertyId);
-          return newWishlist;
-        });
-      } catch (error) {
-        console.error(error);
-      }
-    } else {
-      // Property is not in wishlist, add it
-      try {
-        // /wishlist/?property_id=afd'
+        // Show toast message for property removed from wishlist
+        toast("Property removed from wishlist");
+      } else {
+        // Property is not in wishlist, add it
         const response = await axios.post(
-          `${ENPOINT}/wishlist/?property_id=${propertyId}`,
+          `${ENDPOINT}/api/user/wishlist/?property_id=${propertyId}`,
           {},
           {
             headers: {
@@ -80,56 +91,17 @@ export default function Card({ newHome, setNewHome }) {
             },
           }
         );
-        console.log(response.data);
-        // Add property to local state
-        setWishlist((prevWishlist) => {
-          const newWishlist = new Set(prevWishlist);
-          newWishlist.add(propertyId);
-          return newWishlist;
-        });
-      } catch (error) {
-        console.error(error);
+        // Update the wishlist state
+        updatedWishlist.add(propertyId);
+
+        // Show toast message for property added to wishlist
+        toast("Property added to wishlist");
       }
+      // Update the wishlist state with the new set
+      setWishlist(updatedWishlist);
+    } catch (error) {
+      console.error(error);
     }
-  };
-
-  // const liked = async (id) => {
-  //   if (!currentUser) {
-  //     navigateToLogin();
-  //     return;
-  //   }
-
-  //   try {
-  //     // Assuming your backend API endpoint for adding to wishlist is '/wishlist'
-  //     await axios.post("/wishlist", { property_id: id });
-
-  //     const newFavourite = newHome.map((item) => {
-  //       if (item.id === id) {
-  //         return { ...item, checked: !item.checked };
-  //       }
-  //       return item;
-  //     });
-
-  //     setNewHome(newFavourite);
-  //   } catch (error) {
-  //     console.error("Error adding property to wishlist:", error);
-  //   }
-  // };
-
-  const liked = (id) => {
-    const newFavourite = newHome.map((item) => {
-      if (item.id === id) {
-        return { ...item, checked: !item.checked };
-      }
-      return item;
-    });
-
-    setNewHome(newFavourite);
-  };
-
-  const redirectToDetails = (id) => {
-    // Redirect to the details page for the selected property
-    navigate(`/property/${id}`);
   };
 
   return isLoading ? (
@@ -141,7 +113,7 @@ export default function Card({ newHome, setNewHome }) {
       >
         <svg
           aria-hidden="true"
-          class="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+          className="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
           viewBox="0 0 100 101"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -156,20 +128,17 @@ export default function Card({ newHome, setNewHome }) {
           />
         </svg>
         <span className="sr-only">Loading...</span>
-        </div>
       </div>
-    // </div>
+    </div>
   ) : (
+    // </div>
     <div className="min-h-screen flex flex-wrap gap-6 justify-center mt-5">
       {newHome.map((home, id) => (
         <div key={id} className="singleCard pb-6">
           <svg
-            onClick={() => {
-              addToWishlist(home.id);
-              // liked(home.id);
-            }}
+            onClick={() => toggleWishlist(home.id.toString())}
             xmlns="http://www.w3.org/2000/svg"
-            fill={`${wishlist.has(home.id) ? "red" : "#00000070"}`}
+            fill={`${currentUser && wishlist.has(home.id) ? "red" : "#00000070"}`}
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
@@ -205,6 +174,7 @@ export default function Card({ newHome, setNewHome }) {
           </div>
         </div>
       ))}
+      <ToastContainer />
     </div>
   );
 }

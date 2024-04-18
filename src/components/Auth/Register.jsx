@@ -14,7 +14,9 @@ export const Register = () => {
 
   const PASSWORD_REGEX = /^(?=.*\d)(?=.*[A-Z]).{8,}$/;
   const PHONE_REGEX = /^\+\d{1,3}\d{6,14}$/;
-  const ENDPOINT = "https://8eb6-102-90-58-223.ngrok-free.app";
+
+  const ENDPOINT = "https://my-home-xlox.onrender.com";
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();

@@ -12,9 +12,9 @@ export const Register = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
 
-
   const PASSWORD_REGEX = /^(?=.*\d)(?=.*[A-Z]).{8,}$/;
   const PHONE_REGEX = /^\+\d{1,3}\d{6,14}$/;
+
   const ENDPOINT = "https://my-home-xlox.onrender.com";
 
   const handleSubmit = async (e) => {
@@ -33,8 +33,8 @@ export const Register = () => {
       );
       if (response.status === 201) {
         // Registration successful
-        document.getElementById("my_modal_4").showModal()
-        handleClose()
+        document.getElementById("my_modal_4").showModal();
+        handleClose();
         toast("Registration successful");
       } else {
         // Handle other response statuses
@@ -52,9 +52,10 @@ export const Register = () => {
 
   return (
     <div className="px-5 rounded-xl">
-
-      <form onSubmit={handleSubmit} className="flex flex-col p-4 pb-[80px] rounded-[30px]">
-
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col p-4 pb-[80px] rounded-[30px]"
+      >
         {/* Form Inputs */}
         <div className=" flex flex-col justify-center items-center relative">
           <button
@@ -158,4 +159,3 @@ export const Register = () => {
     </div>
   );
 };
-

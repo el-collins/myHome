@@ -12,7 +12,8 @@ export const SignIn = () => {
   const [password, setPassword] = useState("");
   const {setCurrentUser } = useUser(); // Get the setCurrentUser function from context
 
-  const ENDPOINT = "https://b820-197-210-226-113.ngrok-free.app"
+
+  const ENDPOINT = "https://my-home-xlox.onrender.com"
   
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -48,7 +49,7 @@ export const SignIn = () => {
       }
     } catch (error) {
       console.log(error);
-      handleClose()
+      // handleClose()
       toast("Incorrect email or password");
     }
   };

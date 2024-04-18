@@ -18,7 +18,7 @@ export const Register = () => {
 =======
   const PASSWORD_REGEX = /^(?=.*\d)(?=.*[A-Z]).{8,}$/;
   const PHONE_REGEX = /^\+\d{1,3}\d{6,14}$/;
-  const ENDPOINT = "https://b820-197-210-226-113.ngrok-free.app";
+  const ENDPOINT = "https://8eb6-102-90-58-223.ngrok-free.app";
 
 >>>>>>> 372994e7b71e0cd225bc37aa8d44ce2175bdca4d
   const handleSubmit = async (e) => {

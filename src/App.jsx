@@ -21,7 +21,7 @@ function App() {
   const [showWishlist, setShowWishlist] =useState(false);
   const [propertyList, setPropertyList] = useState([{}]);
 
-  const ENDPOINT = "https://3f77-105-120-130-202.ngrok-free.app/";
+  const ENDPOINT = "https://my-home-xlox.onrender.com";
 
   // useEffect(() => {
   //   const response = axios.get(`${ENDPOINT}/api/v1/properties`).then((res) => {

@@ -18,7 +18,7 @@ export default function Card({ newHome, setNewHome }) {
   const token = localStorage.getItem("token");
   // https://my-home-xlox.onrender.com/docs
 
-  const ENDPOINT = "http://127.0.0.1:8000";
+  const ENDPOINT = "https://my-home-xlox.onrender.com";
 
   // Fetch the current user when the component is mounted
   useEffect(() => {

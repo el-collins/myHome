@@ -12,28 +12,19 @@ export const Register = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
 
-<<<<<<< HEAD
-  const ENDPOINT = "https://79b1-102-90-64-25.ngrok-free.app/api/register";
-  // http://127.0.0.1:8000
-=======
+
   const PASSWORD_REGEX = /^(?=.*\d)(?=.*[A-Z]).{8,}$/;
   const PHONE_REGEX = /^\+\d{1,3}\d{6,14}$/;
   const ENDPOINT = "https://8eb6-102-90-58-223.ngrok-free.app";
 
->>>>>>> 372994e7b71e0cd225bc37aa8d44ce2175bdca4d
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       // Send registration request to backend
       const response = await axios.post(
-<<<<<<< HEAD
-        ENDPOINT,
-        { phone, email, name, password },
-=======
         `${ENDPOINT}/api/register`,
         { phone_number, email, name, password },
->>>>>>> 372994e7b71e0cd225bc37aa8d44ce2175bdca4d
         {
           headers: {
             "Content-Type": "application/json",
@@ -61,14 +52,9 @@ export const Register = () => {
 
   return (
     <div className="px-5 rounded-xl">
-<<<<<<< HEAD
-      <form
-        onSubmit={handleSubmit}
-        className="flex flex-col p-4 pb-[150px] rounded-[30px]"
-      >
-=======
+
       <form onSubmit={handleSubmit} className="flex flex-col p-4 pb-[80px] rounded-[30px]">
->>>>>>> 372994e7b71e0cd225bc37aa8d44ce2175bdca4d
+
         {/* Form Inputs */}
         <div className=" flex flex-col justify-center items-center relative">
           <button

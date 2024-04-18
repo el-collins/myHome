@@ -1,6 +1,6 @@
 export const HOMES = [
   {
-    id: 0,
+    id: "0",
     user: {
       firstName: "Jonah",
       lastName: "Onah",
@@ -23,7 +23,7 @@ export const HOMES = [
     },
   },
   {
-    id: 1,
+    id: "1",
     user: {
       firstName: "Luke",
       lastName: "Onah",
@@ -35,7 +35,7 @@ export const HOMES = [
         "/Images/image (2).svg",
         "/Images/image (3).svg",
       ],
-      location: " Trans, Enugu",
+      location: "Trans, Enugu",
       LGA: "Trans",
       address: "10 Dental close",
       amount: 250000.0,
@@ -46,7 +46,7 @@ export const HOMES = [
     },
   },
   {
-    id: 2,
+    id: "2",
     user: {
       firstName: "Jonah",
       lastName: "Seyi",
@@ -69,7 +69,7 @@ export const HOMES = [
     },
   },
   {
-    id: 3,
+    id: "3",
     user: {
       firstName: "Theodore",
       lastName: "Onah",
@@ -83,7 +83,7 @@ export const HOMES = [
       ],
       location: "Independence Layout, Enugu",
       LGA: "Independence",
-      address: " 5A achi lane",
+      address: "5A achi lane",
       amount: 800000.0,
       rating: 3.0,
       propertyType: "Duplex",
@@ -92,7 +92,7 @@ export const HOMES = [
     },
   },
   {
-    id: 4,
+    id: "4",
     user: {
       firstName: "Sam",
       lastName: "Klef",
@@ -115,7 +115,7 @@ export const HOMES = [
     },
   },
   {
-    id: 5,
+    id: "5",
     user: {
       firstName: "Jonah",
       lastName: "Onah",
@@ -138,7 +138,7 @@ export const HOMES = [
     },
   },
   {
-    id: 6,
+    id: "6",
     user: {
       firstName: "Jonah",
       lastName: "Onah",
@@ -161,7 +161,7 @@ export const HOMES = [
     },
   },
   {
-    id: 7,
+    id: "7",
     user: {
       firstName: "Jonah",
       lastName: "Onah",
@@ -175,7 +175,7 @@ export const HOMES = [
       ],
       location: "Independence Layout, Enugu",
       LGA: "Independence",
-      address: " 5A achi lane",
+      address: "5A achi lane",
       amount: 800000.0,
       rating: 3.0,
       propertyType: "Flat",
@@ -184,7 +184,7 @@ export const HOMES = [
     },
   },
   {
-    id: 8,
+    id: "8",
     user: {
       firstName: "Jonah",
       lastName: "Onah",
@@ -203,11 +203,11 @@ export const HOMES = [
       rating: 2.8,
       propertyType: "Self-con",
       rooms: 1,
-      baths:1,
+      baths: 1,
     },
   },
   {
-    id: 9,
+    id: "9",
     user: {
       firstName: "Jonah",
       lastName: "Onah",
@@ -226,11 +226,11 @@ export const HOMES = [
       rating: 4.4,
       propertyType: "Flat",
       rooms: 3,
-      baths:4,
+      baths: 4,
     },
   },
   {
-    id: 10,
+    id: "10",
     user: {
       firstName: "Jonah",
       lastName: "Onah",
@@ -249,11 +249,11 @@ export const HOMES = [
       rating: 4.4,
       propertyType: "Flat",
       rooms: 2,
-      baths:3,
+      baths: 3,
     },
   },
   {
-    id: 11,
+    id: "11",
     user: {
       firstName: "Jonah",
       lastName: "Onah",
@@ -272,11 +272,11 @@ export const HOMES = [
       rating: 4.4,
       propertyType: "Duplex",
       rooms: 6,
-      baths:7,
+      baths: 7,
     },
   },
   {
-    id: 12,
+    id: "12",
     user: {
       firstName: "Jonah",
       lastName: "Onah",
@@ -295,11 +295,11 @@ export const HOMES = [
       rating: 4.4,
       propertyType: "Semi-Detached bungalow",
       rooms: 3,
-      baths:2,
+      baths: 2,
     },
   },
   {
-    id: 13,
+    id: "13",
     user: {
       firstName: "Jonah",
       lastName: "Onah",
@@ -318,7 +318,7 @@ export const HOMES = [
       rating: 2.8,
       propertyType: "Single room",
       rooms: 1,
-      baths:1,
+      baths: 1,
     },
   },
 ];

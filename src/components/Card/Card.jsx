@@ -13,16 +13,16 @@ export default function Card({ newHome, setNewHome }) {
   const { currentUser } = useUser(); // Access the currentUser from user context
   const navigate = useNavigate();
   const [wishlist, setWishlist] = useState(new Set());
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const token = localStorage.getItem("token");
-  // https://my-home-xlox.onrender.com/docs
 
   const ENDPOINT = "https://my-home-xlox.onrender.com";
 
   // Fetch the current user when the component is mounted
   useEffect(() => {
     const fetchCurrentUser = async () => {
+      // setIsLoading(true);
       try {
         const response = await axios.get(`${ENDPOINT}/api/me`, {
           headers: {
@@ -104,6 +104,13 @@ export default function Card({ newHome, setNewHome }) {
     }
   };
 
+
+ const redirectToDetails = (id) =>
+    navigate(`/property/${id.toString()}`);
+
+   
+  
+
   return isLoading ? (
     <div className="w-full h-screen flex items-center justify-center">
       {/* <div className="flex items-center justify-center"> */}
@@ -174,7 +181,7 @@ export default function Card({ newHome, setNewHome }) {
           </div>
         </div>
       ))}
-      <ToastContainer />
+      <ToastContainer containerId={"friendRequest"}/>
     </div>
   );
 }

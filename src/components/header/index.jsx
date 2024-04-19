@@ -32,6 +32,8 @@ function Header({
     // console.log(username);
 
 
+
+
   return (
     <div className="nav pl-4 md:pl-11 md:pr-11 sticky z-30 top-0 border-[1px] border-b-gray-200">
       <div className="nav-bar relative">

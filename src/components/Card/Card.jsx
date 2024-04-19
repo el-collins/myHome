@@ -1,4 +1,3 @@
-import { HOMES } from "../../assets/data/homes";
 import "./style.css";
 import React, { useState, useEffect } from "react";
 import { Carousel } from "react-responsive-carousel";
@@ -13,11 +12,27 @@ export default function Card({ newHome, setNewHome }) {
   const { currentUser } = useUser(); // Access the currentUser from user context
   const navigate = useNavigate();
   const [wishlist, setWishlist] = useState(new Set());
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const token = localStorage.getItem("token");
 
-  const ENDPOINT = "https://my-home-xlox.onrender.com";
+  // const ENDPOINT = "http://127.0.0.1:8000";
+    const ENDPOINT = "https://my-home-xlox.onrender.com";
+
+  const [properties, setProperties] = useState([]);
+
+  useEffect(() => {
+    toast("welcome")
+    const fetchProperties = async () => {
+      const res = await axios.get(`${ENDPOINT}/properties`);
+      console.log(res);
+      setProperties(res.data);
+      console.log(properties);
+    };
+
+    fetchProperties();
+  }, []);
+
 
   // Fetch the current user when the component is mounted
   useEffect(() => {
@@ -41,7 +56,6 @@ export default function Card({ newHome, setNewHome }) {
 
     fetchCurrentUser();
   }, []);
- 
 
   const toggleWishlist = async (propertyId) => {
     if (!currentUser) {
@@ -49,7 +63,7 @@ export default function Card({ newHome, setNewHome }) {
       toast("User is not logged in");
       return;
     }
-    
+
     try {
       const response = await axios.get(`${ENDPOINT}/api/me`, {
         headers: {
@@ -104,11 +118,7 @@ export default function Card({ newHome, setNewHome }) {
     }
   };
 
-
- const redirectToDetails = (id) =>
-    navigate(`/property/${id.toString()}`);
-
-   
+  const redirectToDetails = (id) => navigate(`/property/${id.toString()}`);
   
 
   return isLoading ? (
@@ -138,14 +148,15 @@ export default function Card({ newHome, setNewHome }) {
       </div>
     </div>
   ) : (
-    // </div>
     <div className="min-h-screen flex flex-wrap gap-6 justify-center mt-5">
-      {newHome.map((home, id) => (
-        <div key={id} className="singleCard pb-6">
+      {properties.map((property, index) => (
+        <div key={index} className="singleCard pb-6">
           <svg
-            onClick={() => toggleWishlist(home.id.toString())}
+            onClick={() => toggleWishlist(property.id.toString())}
             xmlns="http://www.w3.org/2000/svg"
-            fill={`${currentUser && wishlist.has(home.id) ? "red" : "#00000070"}`}
+            fill={`${
+              currentUser && wishlist.has(property.id) ? "red" : "#00000070"
+            }`}
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
@@ -159,29 +170,29 @@ export default function Card({ newHome, setNewHome }) {
           </svg>
 
           <Carousel className="carouselImg">
-            {home.value.images.map((img) => (
-              <div key={id} onClick={() => redirectToDetails(home.id)}>
+            {property?.images.map((img) => (
+              <div key={index} onClick={() => redirectToDetails(property.id)}>
                 <img src={img} alt="" />
               </div>
             ))}
           </Carousel>
           <div className="infoDiv">
             <div className="location">
-              <p className="pmain">{home.value.location}</p>
-              <p className="p2">{home.value.address}</p>
-              <p>&#8358; {home.value.amount}.00</p>
+              <p className="pmain">{property?.property_type}</p>
+              <p className="p2">{property?.property_type}</p>
+              <p>&#8358; {property?.property_type}.00</p>
             </div>
             <div className="rating">
               <div className="star mt-1">
                 <img src="./Images/Star 1.svg" alt="" />
               </div>
 
-              <p>{home.value.rating}</p>
+              <p>{property?.property_type}</p>
             </div>
           </div>
         </div>
       ))}
-      <ToastContainer containerId={"friendRequest"}/>
+      <ToastContainer containerId={"friendRequest"} />
     </div>
   );
 }

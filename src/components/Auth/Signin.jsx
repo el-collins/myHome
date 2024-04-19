@@ -181,7 +181,7 @@ export const SignIn = () => {
           </div>
         </div>
       </form>
-      <ToastContainer containerId={"friendRequest"}/>
+      <ToastContainer />
     </div>
   );
 };

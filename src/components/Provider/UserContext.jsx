@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 import axios from 'axios';
 
 
-export const removeCookie = (key)=> Cookies.remove(key) 
+// export const removeCookie = (key)=> Cookies.remove(key) 
 const ENDPOINT = "https://my-home-xlox.onrender.com"
 
 const UserContext = createContext();

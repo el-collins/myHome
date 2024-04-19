@@ -21,9 +21,7 @@ const MenuBox = ({ isOpen, toggleLogin, handleClick, toggleRegister }) => {
       <dialog id="register_modal" className="modal">
         <Register />
       </dialog>
-      {/* <dialog id="my_modal_5" className="modal">
-        <UnderConstruction />
-      </dialog> */}
+    
 
       <dialog id="post_your_house_modal" className="modal">
         <PostYourHouse />
@@ -126,20 +124,7 @@ const MenuBox = ({ isOpen, toggleLogin, handleClick, toggleRegister }) => {
               </button>
             </li>
             <div className=" border-[1px] w-[100%] "></div>
-            {/* <li>
-            <button className="postHouse" onClick={() => {
-                document.getElementById("my_modal_5").showModal();
-                handleClick();
-              }}>
-              Post your house
-            </button>
-          </li> */}
-            {/* <li>
-            <button onClick={() => {
-                document.getElementById("my_modal_5").showModal();
-                handleClick();
-              }}>Wishlists</button>
-          </li> */}
+
             <li>
               <button
                 onClick={() => {

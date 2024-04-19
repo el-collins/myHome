@@ -1,3 +1,4 @@
+import { useUser } from "../Provider/UserContext";
 import MenuBox from "./MenuBox";
 import "./dropdown.css";
 import { useEffect, useState, useRef } from "react";
@@ -5,7 +6,7 @@ import { useEffect, useState, useRef } from "react";
 // Component: Dropdown
 // Description: A dropdown menu that toggles between login and register options
 function Dropdown({ toggleLogin, toggleRegister }) {
-
+  const {loading,setToken,currentUser } = useUser(); // Get the setCurrentUser function from context
   // State: isOpen
   // Type: Boolean
   // Description: A state variable to keep track of whether the dropdown menu is open or not
@@ -30,14 +31,13 @@ function Dropdown({ toggleLogin, toggleRegister }) {
         setIsOpen(false);
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
-
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
+  if(loading) return <> loading... </>
   return (
     <>
       {/* Dropdown Menu */}

@@ -5,12 +5,13 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../Provider/UserContext";
+import Cookies from "js-cookie";
 
 export const SignIn = () => {
   const navigate = useNavigate();
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const {setCurrentUser } = useUser(); // Get the setCurrentUser function from context
+  const [username, setUsername] = useState("User5@gmail.com");
+  const [password, setPassword] = useState("User5@gmail.com");
+  const {setToken } = useUser(); // Get the setCurrentUser function from context
 
 
   const ENDPOINT = "https://my-home-xlox.onrender.com"
@@ -29,19 +30,10 @@ export const SignIn = () => {
         }
       );
       if (response.status === 200) {
-
         const token = response.data.access_token;
-        // Store token in local storage
-        localStorage.setItem("token", token);
-
-        // Decode token to get user information
-        const decodedToken = jwtDecode(token);
-         // Set current user state
-        setCurrentUser(decodedToken);
-        // Redirect or update UI as needed upon successful login
+        Cookies.set("token", token);
+        setToken("token", token);
         handleClose()
-
-        navigate("/");
         toast("Logged successfully");
       } else {
         // Handle other response statuses

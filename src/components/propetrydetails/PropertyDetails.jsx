@@ -1,36 +1,39 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { HOMES } from "../../assets/data/homes";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { useState, useEffect } from "react";
+import Loading from "../loading";
 
-const PropertyDetails = () => {
+const PropertyDetails = ({ properties }) => {
+  const [property, setProperty] = useState(null);
+
   const { id } = useParams();
-  const propertyId = Number(id);
-  const property = HOMES.find((home) => home.id === propertyId);
+  const propertyId = id;
+
+  useEffect(() => {
+    const foundProperty = properties.find((home) => home.id === propertyId);
+    setProperty(foundProperty);
+  }, [propertyId, properties]);
 
   if (!property) {
-    return <div>Property not found.</div>;
+    return <Loading/>;
   }
 
   return (
-    <div className="container mx-auto px-4 text-black pb-11">
+    <div className="container mx-auto px-4 text-black pb-11 h-screen">
       <div className="flex items-center justify-between w-[54%]">
         <h1 className="text-2xl font-semibold  my-4">
-          {property.value.location}
+          {/* {property?.value?.location} */}
         </h1>
-        <p className=" text-[26px] mt-2">₦ {property.value.amount}.00</p>
+        <p className=" text-[26px] mt-2">₦ {property.price}.00</p>
       </div>
       <div className=" flex gap-[150px] mt-2">
         <div className=" w-[700px] ">
           <Carousel>
-            {property.value.images.map((image, index) => (
+            {property.images.map((image, index) => (
               <div key={index} className="">
-                <img
-                  src={image}
-                  alt={`Property ${index + 1}`}
-                  className=""
-                />
+                <img src={image} alt={`Property ${index + 1}`} className="" />
               </div>
             ))}
           </Carousel>
@@ -52,9 +55,7 @@ const PropertyDetails = () => {
               />
             </svg>
 
-            <p>
-              {property.user.firstName} {property.user.lastName}
-            </p>
+            <p>{/* {property.user.firstName} {property.user.lastName} */}</p>
           </div>
           <div className="flex mt-4 gap-2">
             <svg
@@ -77,7 +78,7 @@ const PropertyDetails = () => {
               />
             </svg>
 
-            <p className="text-black">{property.value.address}</p>
+            <p className="text-black">{/* {property.value.address} */}</p>
           </div>
 
           <div className="mt-4 flex gap-2">
@@ -96,16 +97,16 @@ const PropertyDetails = () => {
               />
             </svg>
 
-            <p className="text-black">+{property.user.phoneNo}</p>
+            <p className="text-black">+{/* {property.user.phoneNo} */}</p>
           </div>
           <div className="flex justify-between w-[60%]">
             <div className="mt-4 flex gap-1">
               <img src="/Images/🦆 icon _bed_.svg" className="w-6 h-6" />
-              <p className="text-black">{property.value.rooms}</p>
+              <p className="text-black">{/* {property.value.rooms} */}</p>
             </div>
             <div className="mt-4 flex gap-1">
               <img src="/Images/🦆 icon _bathroom_.svg" className="w-6 h-6" />
-              <p className="text-black">{property.value.baths}</p>
+              <p className="text-black">{/* {property.value.baths} */}</p>
             </div>
           </div>
         </div>

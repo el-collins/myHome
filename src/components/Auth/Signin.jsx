@@ -6,23 +6,27 @@ import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../Provider/UserContext";
 import Cookies from "js-cookie";
+import { ClipLoader } from "react-spinners";
 
 export const SignIn = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("User5@gmail.com");
   const [password, setPassword] = useState("User5@gmail.com");
-  const {setToken } = useUser(); // Get the setCurrentUser function from context
+  const { setToken } = useUser(); // Get the setCurrentUser function from context
+  const [isLoading, setIsLoading] = useState(false);
 
+  const ENDPOINT = "https://my-home-xlox.onrender.com";
 
-  const ENDPOINT = "https://my-home-xlox.onrender.com"
-  
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    setIsLoading(true);
 
     try {
       // Send login request to backend
       const response = await axios.post(
-        `${ENDPOINT}/api/login`, { username, password },
+        `${ENDPOINT}/api/login`,
+        { username, password },
         {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -33,8 +37,9 @@ export const SignIn = () => {
         const token = response.data.access_token;
         Cookies.set("token", token);
         setToken("token", token);
-        handleClose()
-        toast("Logged successfully");
+        handleClose();
+        // window.location.reload();
+        toast.success("Logged successfully");
       } else {
         // Handle other response statuses
         toast("Incorrect email or password");
@@ -42,7 +47,9 @@ export const SignIn = () => {
     } catch (error) {
       console.log(error);
       // handleClose()
-      toast("Incorrect email or password");
+      toast.error("Incorrect email or password");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -152,27 +159,37 @@ export const SignIn = () => {
         <div className=" flex flex-col justify-center items-center mt-9">
           <button
             type="submit"
-            className="sm:w-[420px] h-[50px] w-[350px] mt-2 rounded-[10px] bg-[#575DFB] text-white"
+            className={`sm:w-[420px] h-[50px] w-[350px] mt-2 rounded-[10px] bg-[#575DFB] text-white  transition duration-200 ${
+              isLoading ? "opacity-50 cursor-not-allowed" : "hover:bg-[#434BE6]"
+            }`}
+            disabled={isLoading}
           >
-            Login
+            {isLoading ? (
+              <ClipLoader className="bg-transparent" color="#ffffff" />
+            ) : (
+              "Login"
+            )}
           </button>
-          <div className="flex justify-center items-center gap-5 mt-7">
+
+          {/* <div className="flex justify-center items-center gap-5 mt-7 text-center">
             <div className="w-[120px] border-[1px] h-0 border-[#000000D990]"></div>
             <p>or</p>
             <div className="w-[120px] sm:w-[180px] border-[#000000D990] border-[1px] h-0"></div>
-          </div>
-          <div className="sm:w-[420px] h-[50px] w-[350px] overflow-hidden  mt-6 border-black rounded-[10px] flex justify-center items-center border-[1px]">
+          </div> */}
+
+          <div className="sm:w-[420px] h-[50px] w-[350px] overflow-hidden mt-6 border-black rounded-[10px] flex justify-center items-center border-[1px] hover:bg-gray-100 hover:text-gray-900 focus:z-10 focus:ring-4 focus:ring-gray-200">
             <div className="h-6 w-6 mr-2">
-              <img src="/Images/Logo.svg" />
+              <img className="" src="/Images/Logo.svg" alt="Logo" />
             </div>
-            <a href="">Continue with Google</a>
+            <a className="hover:bg-gray-100" href="/your-url-here">Continue with Google</a>
           </div>
+
           <div className="text-[12px] flex gap-1 mt-4  w-[220px] ">
             <p className="bold">Don't have an account?</p>
             <button
               onClick={() => {
                 document.getElementById("register_modal").showModal();
-                handleClose()
+                handleClose();
               }}
               className="text-[#575DFB]"
             >

@@ -11,7 +11,9 @@ import Wishlist from "./components/wishlist"; // Correct import with uppercase
 import PostYourHouse from "./components/PostYourHouse";
 import axios from "axios";
 import UserProfile from "./components/userprofile/UserProfile";
-import { UserProvider } from "./components/Provider/UserContext";
+
+import useFetchProperties from "./components/hooks/useFetchProperties";
+
 
 function App() {
   const [newHome, setNewHome] = useState(HOMES);
@@ -19,9 +21,10 @@ function App() {
   const [cheapest, setCheapest] = useState(false);
   const [mobileFilter, setMobileFilter] = useState(false);
   const [showWishlist, setShowWishlist] = useState(false);
-  const [propertyList, setPropertyList] = useState([{}]);
+  const [propertyList, setPropertyList] = useState([]);
+  const { properties } = useFetchProperties();
 
-  const ENDPOINT = "https://my-home-xlox.onrender.com";
+
 
   const searchLocation = () => {
     setLocation(!location);
@@ -73,10 +76,13 @@ function App() {
           <Route
             exact
             path="/"
-            element={<Card newHome={newHome} setNewHome={setNewHome} />}
+            element={<Card properties={properties} />}
           />
-          <Route path="/property/:id" element={<PropertyDetails />} />
-          <Route path="/user/profile" element={<UserProfile />} />
+          <Route
+            path="/property/:id"
+            element={<PropertyDetails properties={properties}/>}
+          />
+          {/* <Route path="/user/profile" element={<UserProfile />} /> */}
         </Routes>
       </div>
       <BottomNav />

@@ -28,8 +28,7 @@ export default function Card({ properties }) {
 
   const toggleWishlist = async (propertyId) => {
     if (!currentUser) {
-      // User is not logged in, redirect to login page
-      toast("User is not logged in");
+      document.getElementById("my_modal_4").showModal();
       return;
     }
   

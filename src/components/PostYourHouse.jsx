@@ -2,8 +2,6 @@ import axios from "axios";
 import React, { useState } from "react";
 
 const PostYourHouse = () => {
-  const [rooms, setRooms] = useState("1");
-  const [baths, setBaths] = useState("1");
   const [pop, setPOP] = useState(false);
   const [water, setWater] = useState(false);
   const [property, setProperty] = useState({
@@ -56,7 +54,12 @@ const PostYourHouse = () => {
   };
 
   const post = () => {
-    axios.post("https://f459-105-120-130-202.ngrok-free.app/api/v1/property", upload).then().catch
+    axios.post("https://f459-105-120-130-202.ngrok-free.app/api/v1/property", upload, {
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
     console.log(property);
     console.log(upload);
   };
@@ -186,15 +189,16 @@ const PostYourHouse = () => {
               className="w-[340px] pl-11 px-4 py-2 border rounded-lg focus:outline-none h-[50px] border-[#575DFB]"
             />
           </div>
-          <div className="mt-4 w-[390px] flex justify-between items-center">
+          <div className="mt-4 w-[390px] flex flex-wrap gap-4 justify-start pl-11 items-center">
             <div className="flex gap-1">
-              <p>rooms</p>
+              <p>Rooms</p>
               <select
                 id="rooms"
                 name="number_of_rooms"
                 onChange={updatePost}
                 className="border-[1px] border-[black] outline-none text-black p-0 h-6 flex items-center justify-center text-center"
               >
+                <option value="0"></option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -202,13 +206,14 @@ const PostYourHouse = () => {
               </select>
             </div>
             <div className="flex gap-1">
-              <p>baths</p>
+              <p>Baths</p>
               <select
                 id="baths"
                 name="number_of_toilets"
                 onChange={updatePost}
                 className="border-[1px] border-[black] outline-none appearance-none h-6 flex items-center justify-center text-center p-0"
               >
+                <option value="0"></option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -263,7 +268,7 @@ const PostYourHouse = () => {
           </div>
         </div>
       </div>
-      <div className="w-full mt-4">
+      {/* <div className="w-full mt-4">
         <p className="text-black ml-5 mb-1">Add Photos</p>
         <div className="w-full pl-5 flex justify-between">
           <div className="flex flex-col">
@@ -280,22 +285,24 @@ const PostYourHouse = () => {
             <input type="file" name="file" multiple className="mt-4" />
           </div>
         </div>
-      </div>
+      </div> */}
 
-      <div className="mt-2 w-full pl-3">
+      {/* <div className="mt-2 w-full pl-3">
         <p className="text-xs text-black ">Supported format is *.jpg</p>
         <p className="font-x w-[60%] mt-5">
           First picture is the cover photo. You can change the order of photos:
           just grab your photos and drag.
         </p>
-      </div>
+      </div> */}
 
       <button
         onClick={post}
-        className="mt-4 bg-[#575DFB] w-[40%] hover:bg-[#575DFB90] text-white h-[50px] rounded-[10px]"
+        className=" mt-6 bg-[#575DFB] w-[40%] hover:bg-[#575DFB90] text-white h-[50px] rounded-[10px]"
       >
-        Post
+        Next
       </button>
+      <p className="text-[11px]">click next to upload images</p>
+
     </div>
   );
 };

@@ -27,6 +27,8 @@ export const SignIn = () => {
       const response = await axios.post(
         `${ENDPOINT}/api/login`,
         { username, password },
+        `${ENDPOINT}/api/login`,
+        { username, password },
         {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -189,6 +191,7 @@ export const SignIn = () => {
             <button
               onClick={() => {
                 document.getElementById("register_modal").showModal();
+                handleClose();
                 handleClose();
               }}
               className="text-[#575DFB]"

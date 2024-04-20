@@ -33,10 +33,12 @@
     background: transparent;
   }
   
-  .carouselImg{
-    width: 303px;
-    height: 287px;
-  }
+  .carousel .slide img {
+    width: 100%;
+    vertical-align: top;
+    border: 0;
+    height: 300px;
+}
 
   .carousel-status{
     display: none;

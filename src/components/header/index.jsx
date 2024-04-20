@@ -5,6 +5,7 @@ import "./styles.css";
 import Dropdown from "../dropDownMenu/dropdown.jsx";
 import { LgaSearch } from "../Search/LgaSearch.jsx";
 import { MobileFilterBox } from "../Search/MobileFilterBox.jsx";
+import { useUser } from "../Provider/UserContext.jsx";
 
 function Header({
   searchLocation,
@@ -22,7 +23,12 @@ function Header({
   const urlLocation = useLocation(); // Get the current location
   // Check if the current path is not the home page
   const isPropertyPage = urlLocation.pathname.includes("/property/");
-  const Usertoken = localStorage.getItem("token");
+  const { currentUser } = useUser();
+
+  // Check if currentUser is defined before destructuring
+  // const { username } = currentUser || {};
+
+  // console.log(username);
 
   return (
     <div className="nav pl-4 md:pl-11 md:pr-11 sticky z-30 top-0 border-[1px] border-b-gray-200">
@@ -30,9 +36,12 @@ function Header({
         <div className=" ">
           <Link to="/">
             <img
+              onClick={() => {
+                window.location.href = "/";
+              }}
               src="/Images/myhomeblue.png"
               alt="logo"
-              className="h-auto w-16 md:w-16 "
+              className="h-auto w-17 md:w-16 "
             />
           </Link>
         </div>
@@ -79,14 +88,20 @@ function Header({
           filterSearchMobile={filterSearchMobile}
         />
         <div className="profileDiv">
-          {Usertoken ? (
+          {currentUser ? (
             <div className="post md:block">
-              <a href="#">Post Your House </a>
+              <button href="#">Post Your House </button>
             </div>
           ) : (
-            <div className="post md:block">
-              <a href="#">Post Your House</a>
-            </div>
+            <button
+              onClick={() => {
+                document.getElementById("my_modal_4").showModal();
+                handleClick();
+              }}
+              className="text-white bg-[#575dfb] hover:bg-[#4a4fc9] text-base py-3 px-6 rounded-3xl hover:transition"
+            >
+              Login
+            </button>
           )}
 
           <div className="language hidden sm:block">
@@ -109,7 +124,7 @@ function Header({
         </div>
       </div>
       {!isPropertyPage && (
-        <div className="nav-links2 shadow-[0_3px_10px_rgb(0,0,0,0.2)] sm:hidden md:flex overflow-hidden border-0">
+        <div className="nav-links2 shadow-[0_3px_10px_rgb(0,0,0,0.2)] sm:hidden md:flex overflow-hidden border-0 mt-5">
           <div
             onClick={searchLocation}
             className={`${

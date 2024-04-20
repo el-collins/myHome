@@ -4,11 +4,11 @@ import PostYourHouse from "../PostYourHouse";
 import Wishlist from "../wishlist";
 import "./dropdown.css";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { toast, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useUser } from "../Provider/UserContext";
 
-const MenuBox = ({ isOpen, toggleLogin, handleClick, toggleRegister }) => {
+const MenuBox = ({ isOpen, handleClick, }) => {
   // const Usertoken = localStorage.getItem("token");
   const { currentUser, logout } = useUser();
   const navigate = useNavigate();
@@ -21,11 +21,9 @@ const MenuBox = ({ isOpen, toggleLogin, handleClick, toggleRegister }) => {
       <dialog id="register_modal" className="modal">
         <Register />
       </dialog>
-      {/* <dialog id="my_modal_5" className="modal">
-        <UnderConstruction />
-      </dialog> */}
+    
 
-      <dialog id="post_your_house_modal" className="modal">
+      <dialog id="post_your_house_modal" className="modal cursor-default">
         <PostYourHouse />
       </dialog>
       <dialog id="wishlist_modal" className="modal">
@@ -89,7 +87,18 @@ const MenuBox = ({ isOpen, toggleLogin, handleClick, toggleRegister }) => {
                   //  document.getElementById("my_modal_4").showModal();
                   logout();
                   handleClick();
-                  toast("Logged Out!!");
+                  // toast("Logged Out!!");
+                  toast.success('Logged out', {
+                    position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: false,
+                    pauseOnHover: true,
+                    draggable: false,
+                    progress: undefined,
+                    theme: "light",
+                    transition: Bounce,
+                    });
                 }}
               >
                 Log Out
@@ -126,20 +135,7 @@ const MenuBox = ({ isOpen, toggleLogin, handleClick, toggleRegister }) => {
               </button>
             </li>
             <div className=" border-[1px] w-[100%] "></div>
-            {/* <li>
-            <button className="postHouse" onClick={() => {
-                document.getElementById("my_modal_5").showModal();
-                handleClick();
-              }}>
-              Post your house
-            </button>
-          </li> */}
-            {/* <li>
-            <button onClick={() => {
-                document.getElementById("my_modal_5").showModal();
-                handleClick();
-              }}>Wishlists</button>
-          </li> */}
+
             <li>
               <button
                 onClick={() => {

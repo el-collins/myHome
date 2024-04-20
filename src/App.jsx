@@ -5,31 +5,20 @@ import Card from "./components/Card/Card";
 import Header from "../src/components/header/index";
 import { BottomNav } from "./components/Auth/BottomNav";
 import PropertyDetails from "./components/propetrydetails/PropertyDetails";
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Wishlist from './components/wishlist'; // Correct import with uppercase
-import PostYourHouse from './components/PostYourHouse';
-import axios from "axios";
-import UserProfile from "./components/userprofile/UserProfile";
-import { UserProvider } from "./components/Provider/UserContext";
+import useFetchProperties from "./components/hooks/useFetchProperties";
+
 
 function App() {
   const [newHome, setNewHome] = useState(HOMES);
   const [location, setLocation] = useState(false);
   const [cheapest, setCheapest] = useState(false);
   const [mobileFilter, setMobileFilter] = useState(false);
-  const [showWishlist, setShowWishlist] =useState(false);
-  const [propertyList, setPropertyList] = useState([{}]);
+  const [showWishlist, setShowWishlist] = useState(false);
+  const [propertyList, setPropertyList] = useState([]);
+  const { properties } = useFetchProperties();
 
-  const ENDPOINT = "https://my-home-xlox.onrender.com";
 
-  // useEffect(() => {
-  //   const response = axios.get(`${ENDPOINT}/api/v1/properties`).then((res) => {
-  //     setPropertyList(res.data);
-  //   });
-  // });
-
-  // Function to fetch wishlist items from the API
 
   const searchLocation = () => {
     setLocation(!location);
@@ -63,6 +52,8 @@ function App() {
 
   return (
     <div className="text-black">
+    
+
       <Header
         searchLocation={searchLocation}
         location={location}
@@ -77,24 +68,23 @@ function App() {
         filterSearchMobile={filterSearchMobile}
       />
       <div className="">
-
-          <Routes>
-            <Route
-              exact
-              path="/"
-              element={<Card newHome={newHome} setNewHome={setNewHome} />}
-            />
-            <Route path="/property/:id" element={<PropertyDetails />} />
-            <Route path="/user/profile" element={<UserProfile />} />
-          </Routes>
+        <Routes>
+          <Route
+            exact
+            path="/"
+            element={<Card properties={properties} />}
+          />
+          <Route
+            path="/property/:id"
+            element={<PropertyDetails properties={properties}/>}
+          />
+          {/* <Route path="/user/profile" element={<UserProfile />} /> */}
+        </Routes>
       </div>
       <BottomNav />
-      <ToastContainer />
-      {/* <Wishlist/> */}
-      {/* <PostYourHouse /> */}
-      
-       
+ 
     </div>
+    
   );
 }
 

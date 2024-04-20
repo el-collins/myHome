@@ -4,7 +4,7 @@ import PostYourHouse from "../PostYourHouse";
 import Wishlist from "../wishlist";
 import "./dropdown.css";
 import { useNavigate } from "react-router-dom";
-import { toast, Bounce } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useUser } from "../Provider/UserContext";
 
@@ -23,7 +23,7 @@ const MenuBox = ({ isOpen, handleClick, }) => {
       </dialog>
     
 
-      <dialog id="post_your_house_modal" className="modal cursor-default">
+      <dialog id="post_your_house_modal" className="modal">
         <PostYourHouse />
       </dialog>
       <dialog id="wishlist_modal" className="modal">
@@ -87,18 +87,7 @@ const MenuBox = ({ isOpen, handleClick, }) => {
                   //  document.getElementById("my_modal_4").showModal();
                   logout();
                   handleClick();
-                  // toast("Logged Out!!");
-                  toast.success('Logged out', {
-                    position: "top-center",
-                    autoClose: 2000,
-                    hideProgressBar: false,
-                    closeOnClick: false,
-                    pauseOnHover: true,
-                    draggable: false,
-                    progress: undefined,
-                    theme: "light",
-                    transition: Bounce,
-                    });
+                  toast("Logged Out!!");
                 }}
               >
                 Log Out

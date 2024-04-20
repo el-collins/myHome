@@ -5,7 +5,13 @@ import Card from "./components/Card/Card";
 import Header from "../src/components/header/index";
 import { BottomNav } from "./components/Auth/BottomNav";
 import PropertyDetails from "./components/propetrydetails/PropertyDetails";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Wishlist from "./components/wishlist"; // Correct import with uppercase
+import PostYourHouse from "./components/PostYourHouse";
+import axios from "axios";
+import UserProfile from "./components/userprofile/UserProfile";
+
 import useFetchProperties from "./components/hooks/useFetchProperties";
 
 
@@ -52,8 +58,6 @@ function App() {
 
   return (
     <div className="text-black">
-    
-
       <Header
         searchLocation={searchLocation}
         location={location}
@@ -82,9 +86,10 @@ function App() {
         </Routes>
       </div>
       <BottomNav />
- 
+      <ToastContainer />
+      {/* <Wishlist/> */}
+      {/* <PostYourHouse /> */}
     </div>
-    
   );
 }
 

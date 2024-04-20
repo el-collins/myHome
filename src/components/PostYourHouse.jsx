@@ -1,118 +1,81 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { ClipLoader } from "react-spinners";
-import { useUser } from "./Provider/UserContext";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 const PostYourHouse = () => {
+  const [pop, setPOP] = useState(false);
+  const [water, setWater] = useState(false);
   const [property, setProperty] = useState({
     name: "",
-    price: "",
+    price: 0,
     property_type: "",
     phone_number: "",
     street_address: "",
     area: "",
-    state: "",
+    state: "Enugu",
     number_of_rooms: 0,
     number_of_toilets: 0,
     running_water: false,
     POP_available: false,
   });
-  const [isLoading, setIsLoading] = useState(false);
-  const [isWater, setIsWater] = useState(false);
-  const [image, setImage] = useState(null);
-  const [isPop, setIsPop] = useState(false);
-  const { token, currentUser } = useUser();
-  const ENDPOINT = "https://my-home-xlox.onrender.com";
-
-  const handleChange = (event) => {
-    setProperty({
-      ...property,
-      [event.target.name]: event.target.value,
-    });
-  };
-
-  const handleImageChange = (event) => {
-    const files = Array.from(event.target.files);
-    const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
-  
-    const areValidFiles = files.every((file) => validImageTypes.includes(file.type));
-  
-    if (areValidFiles) {
-      setImage(files);
-    } else {
-      toast.error('Invalid file input, please select only image files.');
-      event.target.value = '';
-    }
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    if (!image || image.length === 0) {
-      toast.error('Please upload an image.');
-      return;
-    }
-    setIsLoading(true);
-
-    const upload = {
-      name: property.name,
-      price: property.price,
-      property_type: property.property_type,
-      phone_number: currentUser.phone_number,
-      property_location_details: {
-        street_address: property.street_address,
-        area: property.area,
-        state: property.state,
+  const upload ={
+      "name": property.name,
+      "price": property.price,
+      "property_type": property.property_type,
+      "phone_number": "+2347084857362",
+      "property_location_details": {
+        "street_address": property.street_address,
+        "area": property.area,
+        "state": "Enugu"
       },
-      property_features: {
-        number_of_rooms: property.number_of_rooms,
-        number_of_toilets: property.number_of_toilets,
-        running_water: isWater,
-        POP_available: isPop,
-      },
-    };
-
-    const formData = new FormData();
-
-    for (const key in upload) {
-      if (key === "property_location_details" || key === "property_features") {
-        formData.append(key, JSON.stringify(upload[key]));
-      } else {
-        formData.append(key, upload[key]);
+      "property_features": {
+        "number_of_rooms": property.number_of_rooms,
+        "number_of_toilets": property.number_of_toilets,
+        "running_water": property.running_water,
+        "POP_available": property.POP_available
       }
     }
 
-    for (const file of image) {
-      formData.append("images", file);
-    }
-    const postProperty = () => {
-      return axios.post(`${ENDPOINT}/properties`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${token}`,
+  const updatePost = (e) => {
+    const { name, value } = e.target;
+    if (name === "running_water" || name === "POP_available") {
+      setProperty((prevProperty) => ({
+        ...prevProperty,
+        property_features: {
+          ...prevProperty.property_features,
+          [name]: e.target.checked,
         },
-      });
-    };
-    toast
-      .promise(postProperty(), {
-        pending: "Posting property...",
-        success: "Property posted successfully!",
-        error: "Error posting property.",
-      })
-      .then(() => {
-        handleClose();
-      }) .catch((error) => {
-        toast.error(`Error posting property: ${error.message}`);
-        setIsLoading(false);
-        window.location.reload();
-      })
-      .finally(() => {
-        // handleClose();
-        setIsLoading(false);
-        window.location.reload();
-      });
+      }));
+    } else {
+      setProperty((prevProperty) => ({
+        ...prevProperty,
+        [name]: value,
+      }));
+    }
+  };
+
+  const post = () => {
+    axios.post("https://f459-105-120-130-202.ngrok-free.app/api/v1/property", upload, {
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log(property);
+    console.log(upload);
+  };
+
+  const togglePop = () => {
+    setProperty((prevProperty) => ({...prevProperty,
+      POP_available : !property.POP_available 
+    }));
+    console.log(property.POP_available);
+  };
+
+  const toggleWater = () => {
+    setProperty((prevProperty) => ({...prevProperty,
+      running_water : !property.running_water 
+    }))
+    console.log(property.running_water);
   };
 
   const handleClose = () => {
@@ -120,13 +83,11 @@ const PostYourHouse = () => {
   };
 
   return (
-    <div className="p-6 border flex flex-col items-center justify-center rounded-[20px] bg-white">
+    <div className="p-4 pb-[50px] pl-5 border flex flex-col items-center justify-center rounded-[20px] bg-white">
       <div className="text-center w-full p-2 pb-4 relative border-b-[1px]">
         <button
           type="button"
-          onClick={() => {
-            handleClose();
-          }}
+          onClick={handleClose}
           className="absolute left-0 top-0 bg-transparent"
         >
           <svg
@@ -147,195 +108,201 @@ const PostYourHouse = () => {
         <h2 className="text-lg text-[#575DFB] font-bold">Post Your House</h2>
       </div>
 
-      <form onSubmit={handleSubmit}>
-        <div className="mt-6">
-          <div className="flex justify-between">
-            <div className="mt-4 w-[350px] rounded-lg p-2">
-              <label
-                htmlFor="name"
-                className="text-black block absolute p-1 -mt-4 ml-3"
-              >
-                Listing Name*
-              </label>
-              <input
-                autoComplete="off"
-                onChange={handleChange}
-                name="name"
-                type="text"
-                id="name"
-                required
-                placeholder="Name for the property to be listed"
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none h-[50px] border-[#575DFB]"
-              />
-            </div>
-
-            <div className="mt-4 w-[350px] rounded-lg p-2 ">
-              <label
-                htmlFor="category"
-                className="absolute ml-3 text-black block -mt-4 p-1"
-              >
-                Category*
-              </label>
-              <input
-                autoComplete="off"
-                onChange={handleChange}
-                name="property_type"
-                type="text"
-                id="category"
-                required
-                placeholder="Duplex, Flats, Bungalow, Selfcon, Single room"
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none h-[50px] border-[#575DFB]"
-              />
-            </div>
+      <div className="mt-6">
+        <div className="flex justify-between">
+          <div className="mt-4 w-[350px] rounded-lg p-2">
+            <label
+              htmlFor="location"
+              className="text-black block absolute p-1 -mt-4 ml-3"
+            >
+              Listing Name*
+            </label>
+            <input
+              onChange={updatePost}
+              name="name"
+              type="text"
+              id="location"
+              placeholder="Input a name for the property being listed"
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none h-[50px] border-[#575DFB]"
+            />
+          </div>
+          <div className="mt-4 w-[350px] rounded-lg p-2 ">
+            <label
+              htmlFor="category"
+              className="absolute ml-3 text-black block -mt-4 p-1"
+            >
+              Category*
+            </label>
+            <input
+              onChange={updatePost}
+              name="property_type"
+              type="text"
+              id="category"
+              placeholder="Duplex, Flats, Bungalow, selfcon, single room"
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none h-[50px] border-[#575DFB]"
+            />
+          </div>
+        </div>
+        <div className="flex justify-between">
+          <div className="mt-4 w-[350px] rounded-lg p-2">
+            <label className="text-black block absolute p-1 -mt-4 ml-3">
+              Address*
+            </label>
+            <input
+              onChange={updatePost}
+              name="street_address"
+              type="text"
+              id="Address"
+              placeholder="31 ABC street"
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none h-[50px] border-[#575DFB]"
+            />
           </div>
 
-          <div className="flex justify-between">
-            <div className="mt-4 w-[350px] rounded-lg p-2">
-              <label className="text-black block absolute p-1 -mt-4 ml-3">
-                Address*
-              </label>
-              <input
-                autoComplete="off"
-                onChange={handleChange}
-                name="street_address"
-                type="text"
-                id="Address"
-                required
-                placeholder="14 Golf view layout"
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none h-[50px] border-[#575DFB]"
-              />
-            </div>
-
-            <div className="mt-4 w-[350px] rounded-lg p-2">
-              <label className="text-black block absolute p-1 -mt-4 ml-3">
-                Area*
-              </label>
-              <input
-                autoComplete="off"
-                onChange={handleChange}
-                name="area"
-                type="text"
-                id="area"
-                required
-                placeholder="Trans-Ekulu"
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none h-[50px] border-[#575DFB]"
-              />
-            </div>
+          <div className="mt-4 w-[350px] rounded-lg p-2">
+            <label className="text-black block absolute p-1 -mt-4 ml-3">
+              Area*
+            </label>
+            <input
+              onChange={updatePost}
+              name="area"
+              type="text"
+              id="area"
+              placeholder="Trans-Ekulu"
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none h-[50px] border-[#575DFB]"
+            />
           </div>
-
-          <div className="flex justify-between items-center">
-            <div className="mt-4 rounded-lg p-2">
-              <label className="text-black block absolute p-1 -mt-4 ml-3">
-                Amount*
-              </label>
-              <label className="text-black block absolute p-1 mt-3 text-[20px] bg-transparent ml-3">
-                &#8358;
-              </label>
-              <input
-                autoComplete="off"
-                onChange={handleChange}
-                name="price"
-                type="text"
-                id="Amount"
-                required
-                value={property.price}
-                placeholder="400,000"
-                className="w-[340px] pl-11 px-4 py-2 border rounded-lg focus:outline-none h-[50px] border-[#575DFB]"
-              />
+        </div>
+        <div className="flex">
+          <div className="mt-4 rounded-lg p-2">
+            <label className="text-black block absolute p-1 -mt-4 ml-3">
+              Amount*
+            </label>
+            <label className="text-black block absolute p-1 mt-3 text-[20px] bg-transparent ml-3">
+              &#8358;
+            </label>
+            <input
+              onChange={updatePost}
+              name="price"
+              type="text"
+              id="Amount"
+              placeholder=""
+              className="w-[340px] pl-11 px-4 py-2 border rounded-lg focus:outline-none h-[50px] border-[#575DFB]"
+            />
+          </div>
+          <div className="mt-4 w-[390px] flex flex-wrap gap-4 justify-start pl-11 items-center">
+            <div className="flex gap-1">
+              <p>Rooms</p>
+              <select
+                id="rooms"
+                name="number_of_rooms"
+                onChange={updatePost}
+                className="border-[1px] border-[black] outline-none text-black p-0 h-6 flex items-center justify-center text-center"
+              >
+                <option value="0"></option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+              </select>
             </div>
-
-            <div className="mt-4 flex justify-between items-center gap-1">
-              <div className="">
-                <select
-                  name="number_of_rooms"
-                  className="w-full h-[50px] rounded-[10px] border border-[#C4C4C4] pl-4"
-                  onChange={(e) =>
-                    setProperty({
-                      ...property,
-                      number_of_rooms: e.target.value,
-                    })
-                  }
+            <div className="flex gap-1">
+              <p>Baths</p>
+              <select
+                id="baths"
+                name="number_of_toilets"
+                onChange={updatePost}
+                className="border-[1px] border-[black] outline-none appearance-none h-6 flex items-center justify-center text-center p-0"
+              >
+                <option value="0"></option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+              </select>
+            </div>
+            <div className="flex gap-1 items-center">
+              <p>POP</p>
+              <div
+                onClick={togglePop}
+                className="w-6 h-6 border-black border-[1px]"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className={`w-5 h-5 bg-transparent ${
+                    property.POP_available ? "block" : "hidden"
+                  }`}
                 >
-                  <option value="" disabled defaultValue>
-                    Number of Rooms
-                  </option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                </select>
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="m4.5 12.75 6 6 9-13.5"
+                  />
+                </svg>
               </div>
-              <div className="">
-                <select
-                  name="number_of_toilets"
-                  className="w-full h-[50px] rounded-[10px] border border-[#C4C4C4] pl-4"
-                  onChange={(e) =>
-                    setProperty({
-                      ...property,
-                      number_of_toilets: e.target.value,
-                    })
-                  }
+            </div>
+            <div onClick={toggleWater} className="flex gap-1 items-center">
+              <p>Flowing water</p>
+              <div className="w-6 h-6 border-black border-[1px]">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className={`w-5 h-5 bg-transparent ${
+                    property.running_water ? "block" : "hidden"
+                  }`}
                 >
-                  <option value="" disabled defaultValue>
-                    Number of Toilets
-                  </option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                </select>
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="m4.5 12.75 6 6 9-13.5"
+                  />
+                </svg>
               </div>
             </div>
           </div>
         </div>
-
-        <div className="w-full mt-4">
-          <div className="w-full pl-5 flex justify-between">
-            <div className="flex flex-col">
-              <input
-                type="file"
-                name="file"
-                multiple
-                className="mt-4 file:bg-[#575DFB] file:rounded-sm"
-                onChange={handleImageChange}
-              />
-            </div>
-            <div className="flex gap-1 items-center">
-              <label>Has POP?</label>
-              <input
-                type="checkbox"
-                className="rounded-md w-6 h-6 ml-2"
-                checked={isPop}
-                onChange={() => setIsPop(!isPop)}
-              />
-            </div>
-
-            <div className="flex gap-1 items-center">
-              <p>Running water?</p>
-              <input
-                type="checkbox"
-                className="rounded-md w-6 h-6 ml-2"
-                checked={isWater}
-                onChange={() => setIsWater(!isWater)}
-              />
-            </div>
+      </div>
+      {/* <div className="w-full mt-4">
+        <p className="text-black ml-5 mb-1">Add Photos</p>
+        <div className="w-full pl-5 flex justify-between">
+          <div className="flex flex-col">
+            <input
+              type="file"
+              name="file"
+              multiple
+              className="mt-4 file:bg-[#575DFB] file:rounded-sm"
+            />
+            <input type="file" name="file" multiple className="mt-4" />
+          </div>
+          <div className="flex flex-col">
+            <input type="file" name="file" multiple className="mt-4" />
+            <input type="file" name="file" multiple className="mt-4" />
           </div>
         </div>
+      </div> */}
 
-        <button
-          type="submit"
-          className={`sm:w-[420px] h-[50px] w-[350px] my-8 rounded-[10px] bg-[#575DFB] text-white  transition duration-200 ${
-            isLoading ? "opacity-50 cursor-not-allowed" : "hover:bg-[#434BE6]"
-          }`}
-          disabled={isLoading}
-        >
-          {isLoading ? (
-            <ClipLoader className="bg-transparent" color="#ffffff" />
-          ) : (
-            "Upload"
-          )}
-        </button>
-      </form>
+      {/* <div className="mt-2 w-full pl-3">
+        <p className="text-xs text-black ">Supported format is *.jpg</p>
+        <p className="font-x w-[60%] mt-5">
+          First picture is the cover photo. You can change the order of photos:
+          just grab your photos and drag.
+        </p>
+      </div> */}
+
+      <button
+        onClick={post}
+        className=" mt-6 bg-[#575DFB] w-[40%] hover:bg-[#575DFB90] text-white h-[50px] rounded-[10px]"
+      >
+        Next
+      </button>
+      <p className="text-[11px]">click next to upload images</p>
+
     </div>
   );
 };

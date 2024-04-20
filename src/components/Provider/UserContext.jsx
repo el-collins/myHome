@@ -15,7 +15,7 @@ export const UserProvider = ({ children }) => {
   const logout = () => {
     // Remove the user's information from localStorage
     Cookies.remove("token");
-    // window.location.reload();
+    window.location.reload();
 
     // Update the currentUser state
     setCurrentUser(null);

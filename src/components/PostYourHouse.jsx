@@ -54,7 +54,12 @@ const PostYourHouse = () => {
   };
 
   const post = () => {
-    axios.post("https://f459-105-120-130-202.ngrok-free.app/api/v1/property", upload).then().catch
+    axios.post("https://f459-105-120-130-202.ngrok-free.app/api/v1/property", upload, {
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
     console.log(property);
     console.log(upload);
   };

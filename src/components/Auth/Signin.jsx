@@ -11,18 +11,18 @@ export const SignIn = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("User5@gmail.com");
   const [password, setPassword] = useState("User5@gmail.com");
-  const {setToken } = useUser(); // Get the setCurrentUser function from context
+  const { setToken } = useUser();
+  const [isLoading, setIsLoading] = useState(true);
 
-
-  const ENDPOINT = "https://my-home-xlox.onrender.com"
-  
+  const ENDPOINT = "https://my-home-xlox.onrender.com";
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       // Send login request to backend
       const response = await axios.post(
-        `${ENDPOINT}/api/login`, { username, password },
+        `${ENDPOINT}/api/login`,
+        { username, password },
         {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -33,7 +33,7 @@ export const SignIn = () => {
         const token = response.data.access_token;
         Cookies.set("token", token);
         setToken("token", token);
-        handleClose()
+        handleClose();
         toast("Logged successfully");
       } else {
         // Handle other response statuses
@@ -172,7 +172,7 @@ export const SignIn = () => {
             <button
               onClick={() => {
                 document.getElementById("register_modal").showModal();
-                handleClose()
+                handleClose();
               }}
               className="text-[#575DFB]"
             >

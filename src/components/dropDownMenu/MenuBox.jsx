@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useUser } from "../Provider/UserContext";
 
-const MenuBox = ({ isOpen, toggleLogin, handleClick, toggleRegister }) => {
+const MenuBox = ({ isOpen, handleClick, }) => {
   // const Usertoken = localStorage.getItem("token");
   const { currentUser, logout } = useUser();
   const navigate = useNavigate();

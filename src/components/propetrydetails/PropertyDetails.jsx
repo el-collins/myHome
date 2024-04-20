@@ -5,6 +5,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import axios from "axios";
 import { Loading } from "../Card/Loading";
 
+const PropertyDetails = () => {
   const { id } = useParams();
   const [property, setProperty] = useState(null);
   const [isLoading, setIsLoading] = useState(true);

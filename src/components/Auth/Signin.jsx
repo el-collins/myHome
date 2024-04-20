@@ -192,7 +192,6 @@ export const SignIn = () => {
               onClick={() => {
                 document.getElementById("register_modal").showModal();
                 handleClose();
-                handleClose();
               }}
               className="text-[#575DFB]"
             >

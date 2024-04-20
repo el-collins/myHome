@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { jwtDecode } from "jwt-decode";
 import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
+import { toast, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../Provider/UserContext";
@@ -10,10 +9,11 @@ import { ClipLoader } from "react-spinners";
 
 export const SignIn = () => {
   const navigate = useNavigate();
-  const [username, setUsername] = useState("User5@gmail.com");
-  const [password, setPassword] = useState("User5@gmail.com");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const { setToken } = useUser(); // Get the setCurrentUser function from context
   const [isLoading, setIsLoading] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
 
   const ENDPOINT = "https://my-home-xlox.onrender.com";
 
@@ -27,8 +27,6 @@ export const SignIn = () => {
       const response = await axios.post(
         `${ENDPOINT}/api/login`,
         { username, password },
-        `${ENDPOINT}/api/login`,
-        { username, password },
         {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -40,8 +38,21 @@ export const SignIn = () => {
         Cookies.set("token", token);
         setToken("token", token);
         handleClose();
+
+        // toast.success("Logged successfully");
         // window.location.reload();
-        toast.success("Logged successfully");
+
+        toast.success("Logged in successfully", {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: false,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
       } else {
         // Handle other response statuses
         toast("Incorrect email or password");
@@ -49,7 +60,7 @@ export const SignIn = () => {
     } catch (error) {
       console.log(error);
       // handleClose()
-      toast.error("Incorrect email or password");
+      // toast.error("Incorrect email or password");
     } finally {
       setIsLoading(false);
     }
@@ -58,6 +69,20 @@ export const SignIn = () => {
   const handleClose = () => {
     document.getElementById("my_modal_4").close();
   };
+
+  useEffect(() => {
+    const rememberMeCookie = Cookies.get('rememberMe');
+    if (rememberMeCookie) {
+      setRememberMe(rememberMeCookie === 'true');
+    }
+  }, []);
+
+  const handleRememberMeChange = (event) => {
+    const isChecked = event.target.checked;
+    setRememberMe(isChecked);
+    Cookies.set('rememberMe', isChecked ? 'true' : 'false', { expires: 365 });
+  };
+
   return (
     <div className="px-5 rounded-xl cursor-default">
       <form
@@ -151,7 +176,17 @@ export const SignIn = () => {
               className="sm:w-[420px] sm:h-[50px] w-[350px] border-[#575DFB] mt-2 rounded-[10px] pl-11"
             />
           </div>
+ 
         </div>
+          {/* remember me */}
+          <div className="mt-3">
+
+        <label>
+      <input type="checkbox" checked={rememberMe} onChange={handleRememberMeChange} className="rounded-sm mr-2" />
+      Remember me
+    </label>
+          </div>
+
         <a
           className=" text-[12px] text-[#575DFB] border-b-[#575DFB] border-b-[1px] w-[102px] mt-3"
           href=""
@@ -183,7 +218,9 @@ export const SignIn = () => {
             <div className="h-6 w-6 mr-2">
               <img className="" src="/Images/Logo.svg" alt="Logo" />
             </div>
-            <a className="hover:bg-gray-100" href="/your-url-here">Continue with Google</a>
+            <a className="hover:bg-gray-100" href="/your-url-here">
+              Continue with Google
+            </a>
           </div>
 
           <div className="text-[12px] flex gap-1 mt-4  w-[220px] ">
@@ -200,7 +237,6 @@ export const SignIn = () => {
           </div>
         </div>
       </form>
-      <ToastContainer />
     </div>
   );
 };

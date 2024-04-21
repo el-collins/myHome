@@ -22,9 +22,9 @@ function Header({
 }) {
   const urlLocation = useLocation(); // Get the current location
   // Check if the current path is not the home page
-  const isPropertyPage = urlLocation.pathname.includes("/property/");
-  const isWhistListPage = urlLocation.pathname.includes("/wishlistpage");
 
+  const isWhistListPage = urlLocation.pathname.includes("/wishlistpage");
+  const isPropertyPage = urlLocation.pathname.includes("/property/") || urlLocation.pathname.includes("/user/profile");
   const { currentUser } = useUser();
 
   // Check if currentUser is defined before destructuring

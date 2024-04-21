@@ -35,15 +35,17 @@ const PostYourHouse = () => {
 
   const handleImageChange = (event) => {
     const files = Array.from(event.target.files);
-    const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
-  
-    const areValidFiles = files.every((file) => validImageTypes.includes(file.type));
-  
+    const validImageTypes = ["image/gif", "image/jpeg", "image/png"];
+
+    const areValidFiles = files.every((file) =>
+      validImageTypes.includes(file.type)
+    );
+
     if (areValidFiles) {
       setImage(files);
     } else {
-      toast.error('Invalid file input, please select only image files.');
-      event.target.value = '';
+      toast.error("Invalid file input, please select only image files.");
+      event.target.value = "";
     }
   };
 
@@ -51,7 +53,7 @@ const PostYourHouse = () => {
     event.preventDefault();
 
     if (!image || image.length === 0) {
-      toast.error('Please upload an image.');
+      toast.error("Please upload an image.");
       return;
     }
     setIsLoading(true);
@@ -101,17 +103,22 @@ const PostYourHouse = () => {
         success: "Property posted successfully!",
         error: "Error posting property.",
       })
-      .then(() => {
-        handleClose();
-      }) .catch((error) => {
-        toast.error(`Error posting property: ${error.message}`);
-        setIsLoading(false);
-        window.location.reload();
-      })
+      // .then(() => {
+      //   handleClose();
+      // }) .catch((error) => {
+      //   toast.error(`Error posting property: ${error.message}`);
+      //   setIsLoading(false);
+      //   window.location.reload();
+      // })
       .finally(() => {
-        // handleClose();
+        handleClose();
         setIsLoading(false);
-        window.location.reload();
+        // set a timer to reload the page after 2 seconds
+        setTimeout(() => {
+          window.location.reload();
+        }, 3000);
+
+        // window.location.reload();
       });
   };
 
@@ -255,10 +262,9 @@ const PostYourHouse = () => {
                       number_of_rooms: e.target.value,
                     })
                   }
+                  required
                 >
-                  <option value="" disabled defaultValue>
-                    Number of Rooms
-                  </option>
+                  <option value="">Number of Rooms</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
@@ -275,8 +281,9 @@ const PostYourHouse = () => {
                       number_of_toilets: e.target.value,
                     })
                   }
+                  required
                 >
-                  <option value="" disabled defaultValue>
+                  <option value="" defaultValue>
                     Number of Toilets
                   </option>
                   <option value="1">1</option>

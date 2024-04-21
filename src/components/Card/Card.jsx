@@ -86,10 +86,12 @@ export default function Card({ properties }) {
     <Loading/>
   ) : (
     <div className="h-screen cursor-default">
-    <div className="flex flex-wrap gap-6 justify-center mt-5">
+    <div className="flex flex-wrap gap-6 justify-center items-center mt-5">
       {properties.map((property, index) => (
         <PropertyCard
           key={index}
+          showLike={true}
+          showIcons={false}
           property={property}
           index={index}
           toggleWishlist={toggleWishlist}

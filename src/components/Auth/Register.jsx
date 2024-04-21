@@ -98,6 +98,7 @@ export const Register = () => {
               pattern={PHONE_REGEX.source}
               title="Please enter a valid phone number starting with a country code"
               required
+              placeholder="+234"
             />
           </div>
           <div className="mt-4">
@@ -107,6 +108,7 @@ export const Register = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-[450px] h-[50px] mt-2 rounded-[10px]"
+              placeholder="email@example"
             />
           </div>
           <div className="mt-4">
@@ -116,6 +118,7 @@ export const Register = () => {
               value={name}
               onChange={(e) => setName(e.target.value)}
               className="w-[450px] h-[50px] mt-2 rounded-[10px]"
+              placeholder="John Doe"
             />
           </div>
           <div className="mt-4">
@@ -128,6 +131,7 @@ export const Register = () => {
               pattern={PASSWORD_REGEX.source}
               title="Password must contain at least one digit, one uppercase letter, and be at least 8 characters long"
               required
+              placeholder="password"
             />
           </div>
           <div className=" flex flex-col justify-center items-center mt-9">

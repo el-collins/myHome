@@ -39,9 +39,6 @@ export const SignIn = () => {
         setToken("token", token);
         handleClose();
 
-        // toast.success("Logged successfully");
-        // window.location.reload();
-
         toast.success("Logged in successfully", {
           position: "top-center",
           autoClose: 2000,

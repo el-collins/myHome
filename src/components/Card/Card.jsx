@@ -90,6 +90,8 @@ export default function Card({ properties }) {
       {properties.map((property, index) => (
         <PropertyCard
           key={index}
+          showLike={true}
+          showIcons={false}
           property={property}
           index={index}
           toggleWishlist={toggleWishlist}

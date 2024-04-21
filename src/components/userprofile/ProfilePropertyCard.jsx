@@ -1,30 +1,29 @@
 // Import necessary modules and functions
-"use client";
 import { useState } from "react";
-import Image from "next/image";
-import { useSession } from "next-auth/react";
-import { usePathname, useRouter } from "next/navigation";
+// import Image from "next/image";
+// import { useSession } from "next-auth/react";
+// import { usePathname, useRouter } from "next/navigation";
 
-// PromptCard component receives post data and callback functions as props
-const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
+// ProfilePropertyCard component receives post data and callback functions as props
+const ProfilePropertyCard = ({ property, handleTagClick, handleEdit, handleDelete }) => {
   // Get user session data using the useSession hook
-  const { data: session } = useSession();
+  // const { data: session } = useSession();
   // Get the current pathname and router object using Next.js navigation hooks
-  const pathName = usePathname();
-  const router = useRouter();
+  // const pathName = usePathname();
+  // const router = useRouter();
 
   // State to manage the copied status of the prompt
   const [copied, setCopied] = useState("");
 
   // Function to handle copying the prompt text to the clipboard
-  const handleCopy = () => {
-    setCopied(post.prompt);
-    navigator.clipboard.writeText(post.prompt);
-    // Reset the copied status after 3 seconds
-    setTimeout(() => setCopied(""), 3000);
-  };
+  // const handleCopy = () => {
+  //   setCopied(post.prompt);
+  //   navigator.clipboard.writeText(post.prompt);
+  //   // Reset the copied status after 3 seconds
+  //   setTimeout(() => setCopied(""), 3000);
+  // };
 
-  // Render the PromptCard component
+  // Render the ProfilePropertyCard component
   return (
     <div className="prompt_card">
       <div className="flex justify-between items-start gap-5">
@@ -57,13 +56,16 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
           />
         </div> */}
       </div>
-      <p className="my-4 font-satoshi text-sm text-gray-700">{post.prompt}</p>
-      <p
+      <p className="my-4 font-satoshi text-sm text-gray-700">
+        {/* {post.prompt} */}
+        This is a sample prompt
+        </p>
+      {/* <p
         className="font-inter text-sm blue_gradient cursor-pointer"
         onClick={() => handleTagClick && handleTagClick(post.tag)}
       >
         #{post.tag}
-      </p>
+      </p> */}
 
       {session?.user.id === post.creator._id && pathName === "/profile" && (
         <div className="mt-5 flex-center gap-4 border-t border-gray-100 pt-3">
@@ -85,5 +87,5 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
   );
 };
 
-export default PromptCard;
+export default ProfilePropertyCard;
 

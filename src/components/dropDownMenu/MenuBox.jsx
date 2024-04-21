@@ -1,7 +1,6 @@
 import { Register } from "../Auth/Register";
 import { SignIn } from "../Auth/Signin";
 import PostYourHouse from "../PostYourHouse";
-import Wishlist from "../wishlist";
 import "./dropdown.css";
 import { useNavigate } from "react-router-dom";
 import { toast, Bounce } from "react-toastify";
@@ -9,7 +8,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { useUser } from "../Provider/UserContext";
 
 const MenuBox = ({ isOpen, handleClick, }) => {
-  // const Usertoken = localStorage.getItem("token");
   const { currentUser, logout } = useUser();
   const navigate = useNavigate();
 
@@ -25,9 +23,6 @@ const MenuBox = ({ isOpen, handleClick, }) => {
 
       <dialog id="post_your_house_modal" className="modal cursor-default">
         <PostYourHouse />
-      </dialog>
-      <dialog id="wishlist_modal" className="modal">
-        <Wishlist />
       </dialog>
 
       {currentUser ? (
@@ -61,7 +56,7 @@ const MenuBox = ({ isOpen, handleClick, }) => {
             <li>
               <button
                 onClick={() => {
-                  document.getElementById("wishlist_modal").showModal();
+                  navigate("/wishlistpage");
                   handleClick();
                 }}
               >
@@ -84,10 +79,8 @@ const MenuBox = ({ isOpen, handleClick, }) => {
               <button
                 className="login"
                 onClick={() => {
-                  //  document.getElementById("my_modal_4").showModal();
                   logout();
                   handleClick();
-                  // toast("Logged Out!!");
                   toast.success('Logged out', {
                     position: "top-center",
                     autoClose: 2000,

@@ -7,6 +7,7 @@ import { BottomNav } from "./components/Auth/BottomNav";
 import PropertyDetails from "./components/propetrydetails/PropertyDetails";
 import "react-toastify/dist/ReactToastify.css";
 import useFetchProperties from "./components/hooks/useFetchProperties";
+import { WishlistPage } from "./components/Card/WishlistPage";
 import UserProfile from "./components/userprofile/UserProfile";
 
 
@@ -79,7 +80,11 @@ function App() {
             path="/property/:id"
             element={<PropertyDetails properties={properties}/>}
           />
+          {/* <Route path="/user/profile" element={<UserProfile />} /> */}
+          <Route path="/wishlistpage" element={<WishlistPage properties={properties}/>} />
+
           <Route path="/user/profile" element={<UserProfile />} />
+
         </Routes>
       </div>
       <BottomNav />

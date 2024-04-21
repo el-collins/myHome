@@ -17,8 +17,6 @@ export default function Card({ properties }) {
 
   const ENDPOINT = "https://my-home-xlox.onrender.com";
 
-  console.log(properties);
-
   useEffect(() => {
     if (currentUser && currentUser.wishlist) {
       setWishlist(new Set(currentUser.wishlist));
@@ -87,7 +85,7 @@ export default function Card({ properties }) {
   return loading ? (
     <Loading/>
   ) : (
-    <div className="h-screen">
+    <div className="h-screen cursor-default">
     <div className="flex flex-wrap gap-6 justify-center mt-5">
       {properties.map((property, index) => (
         <PropertyCard

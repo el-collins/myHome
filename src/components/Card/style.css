@@ -1,69 +1,61 @@
 .infoDiv{
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-  }
-  .location{
-    text-align: left;
-  }
-  .location h2{
-    line-height: 25px;
-    font-size: 20px;
-  }
-  .location p{
-    height: 20px;
-    font-size: 16px;
-    margin-top: 7px;
-  }
-  .rating{
-    text-align: left;
-    display: flex;
-    gap: 5px;
-  }
-  
-  .rating p{
-    height: 20px;
-    justify-content: center;
-    display: flex;
-  }
-  .star{
-    padding-top: 0px;
-  }
-  .control-dots, .carousel-status{
-    background: transparent;
-  }
-  
-  .carousel .slide img {
-    width: 100%;
-    vertical-align: top;
-    border: 0;
-    height: 300px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+.location{
+  text-align: left;
+}
+.location h2{
+  line-height: 25px;
+  font-size: 20px;
+}
+.location p{
+  height: 20px;
+  font-size: 16px;
+  margin-top: 7px;
+}
+.rating{
+  text-align: left;
+  display: flex;
+  gap: 5px;
 }
 
-  .carousel-status{
-    display: none;
-  }
-  
-  .carousel .thumb{
-    display: none !important;
-  }
+.rating p{
+  height: 20px;
+  justify-content: center;
+  display: flex;
+}
+.star{
+  padding-top: 0px;
+}
+.control-dots, .carousel-status{
+  background: transparent;
+}
 
-  /* .singleCard{
-    width: 303px;
-    cursor: pointer;
-  } */
+.carousel .slide img {
+  width: 100%;
+  vertical-align: top;
+  border: 0;
+  height: 300px;
+}
 
-  .p2{
-    color: #B2BEB5;
-  }
-  .carousel{
-    background-color: transparent;
-  }
+.carousel-status{
+  display: none;
+}
 
-  .pmain{
-    font-size: 18px !important;
-  }
+.carousel .thumb{
+  display: none !important;
+}
 
-  .carousel .slide img {
-    height: 500px;
+
+.p2{
+  color: #B2BEB5;
+}
+.carousel{
+  background-color: transparent;
+}
+
+.pmain{
+  font-size: 18px !important;
 }

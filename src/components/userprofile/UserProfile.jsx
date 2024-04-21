@@ -11,6 +11,7 @@ import { Card, Dropdown } from "flowbite-react";
 const UserProfile = () => {
   const ENDPOINT = "https://my-home-xlox.onrender.com";
   const [myProperties, setMyProperties] = useState([]);
+  const {currentUser} = useUser();
 
   // add an account section to this code. where the user can change or update his profile, update his name, phone
   useEffect(() => {

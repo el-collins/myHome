@@ -32,7 +32,7 @@ const MenuBox = ({ isOpen, handleClick, }) => {
 
       {currentUser ? (
         <div
-          className="pages mr-[135px] sm:mr-32  md:mr-6 md:mt-5 font-semibold"
+          className="pages mr-[135px] sm:mr-32  md:mr-6 md:mt-5 font-bold"
           style={{ display: isOpen ? "flex" : "none" }}
         >
           <ul>

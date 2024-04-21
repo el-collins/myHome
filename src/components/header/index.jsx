@@ -22,7 +22,7 @@ function Header({
 }) {
   const urlLocation = useLocation(); // Get the current location
   // Check if the current path is not the home page
-  const isPropertyPage = urlLocation.pathname.includes("/property/");
+  const isPropertyPage = urlLocation.pathname.includes("/property/") || urlLocation.pathname.includes("/user/profile");
   const { currentUser } = useUser();
 
   // Check if currentUser is defined before destructuring
@@ -89,8 +89,16 @@ function Header({
         />
         <div className="profileDiv">
           {currentUser ? (
-            <div className="post md:block">
-              <button href="#">Post Your House </button>
+            <div className="post md:block font-extrabold">
+              <button
+                onClick={() => {
+                  document.getElementById("post_your_house_modal").showModal();
+                  handleClick();
+                }}
+                href="#"
+              >
+                Post Your House{" "}
+              </button>
             </div>
           ) : (
             <button

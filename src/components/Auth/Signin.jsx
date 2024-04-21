@@ -59,10 +59,9 @@ export const SignIn = () => {
       }
     } catch (error) {
       console.log(error);
-      // handleClose()
-      // toast.error("Incorrect email or password");
     } finally {
       setIsLoading(false);
+      window.location.reload();
     }
   };
 
@@ -71,16 +70,16 @@ export const SignIn = () => {
   };
 
   useEffect(() => {
-    const rememberMeCookie = Cookies.get('rememberMe');
+    const rememberMeCookie = Cookies.get("rememberMe");
     if (rememberMeCookie) {
-      setRememberMe(rememberMeCookie === 'true');
+      setRememberMe(rememberMeCookie === "true");
     }
   }, []);
 
   const handleRememberMeChange = (event) => {
     const isChecked = event.target.checked;
     setRememberMe(isChecked);
-    Cookies.set('rememberMe', isChecked ? 'true' : 'false', { expires: 365 });
+    Cookies.set("rememberMe", isChecked ? "true" : "false", { expires: 365 });
   };
 
   return (
@@ -176,16 +175,19 @@ export const SignIn = () => {
               className="sm:w-[420px] sm:h-[50px] w-[350px] border-[#575DFB] mt-2 rounded-[10px] pl-11"
             />
           </div>
- 
         </div>
-          {/* remember me */}
-          <div className="mt-3">
-
-        <label>
-      <input type="checkbox" checked={rememberMe} onChange={handleRememberMeChange} className="rounded-sm mr-2" />
-      Remember me
-    </label>
-          </div>
+        {/* remember me */}
+        <div className="mt-3">
+          <label>
+            <input
+              type="checkbox"
+              checked={rememberMe}
+              onChange={handleRememberMeChange}
+              className="rounded-sm mr-2"
+            />
+            Remember me
+          </label>
+        </div>
 
         <a
           className=" text-[12px] text-[#575DFB] border-b-[#575DFB] border-b-[1px] w-[102px] mt-3"

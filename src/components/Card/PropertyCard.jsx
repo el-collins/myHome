@@ -18,7 +18,7 @@ function PropertyCard({
 
   return (
 
-    <div className="block rounded-lg bg-white w-72 ">
+    <div className="block rounded-lg bg-white w-[20rem] ">
       <div
         className="relative overflow-hidden bg-cover bg-no-repeat"
         data-te-ripple-init

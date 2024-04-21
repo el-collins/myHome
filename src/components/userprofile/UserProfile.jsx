@@ -1,106 +1,58 @@
-import React, { useState, useEffect } from 'react';
+import { useEffect, useState } from "react";
+import { useUser } from "../Provider/UserContext";
+
+import Profile from "./Profile";
 
 const UserProfile = () => {
-    const [propertyId, setPropertyId] = useState('');
-    const [wishlist, setWishlist] = useState([]);
-    const [error, setError] = useState('');
+  // const router = useRouter();
+  // const { data: session } = useSession();
+  const { currentUser } = useUser();
 
-    // Function to fetch wishlist items
+  const [myProperties, setMyProperties] = useState([]);
 
-    const getWishlist = async () => {
-        try {
-            const response = await fetch(' https://b820-197-210-226-113.ngrok-free.app/wishlist/', {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('access_token')}`, // Retrieve access token from localStorage
-                    'Content-Type': 'application/json'
-                }
-            });
-            console.log(response);
-            if (response.ok) {
-                const data = await response.json();
-                setWishlist(data);
-            } else {
-                throw new Error('Failed to fetch wishlist');
-            }
-        } catch (error) {
-            setError(error.message);
-        }
-    };
+  // useEffect(() => {
+  //   const fetchPosts = async () => {
+  //     const response = await fetch(`/api/users/${session?.user.id}/posts`);
+  //     const data = await response.json();
 
-    // Function to add an item to the wishlist
-    const addToWishlist = async () => {
-        try {
-            const response = await fetch('/wishlist/', {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('access_token')}`, // Retrieve access token from localStorage
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ property_id: propertyId })
-            });
-            if (response.ok) {
-                getWishlist(); // Refresh wishlist after adding item
-            } else {
-                throw new Error('Failed to add to wishlist');
-            }
-        } catch (error) {
-            setError(error.message);
-        }
-    };
+  //     setMyProperties(data);
+  //   };
 
-    // Function to remove an item from the wishlist
-    const removeFromWishlist = async (propertyIdToRemove) => {
-        try {
-            const response = await fetch(`/wishlist/${propertyIdToRemove}`, {
-                method: 'DELETE',
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('access_token')}` // Retrieve access token from localStorage
-                }
-            });
-            if (response.ok) {
-                setWishlist(wishlist.filter(item => item.property_id !== propertyIdToRemove));
-            } else {
-                throw new Error('Failed to remove from wishlist');
-            }
-        } catch (error) {
-            setError(error.message);
-        }
-    };
+  //   if (session?.user.id) fetchPosts();
+  // }, [session?.user.id]);
 
-    // Load wishlist on component mount
-    useEffect(() => {
-        // Check if user is authenticated
-        const accessToken = localStorage.getItem('access_token');
-        if (accessToken) {
-            getWishlist();
-        } else {
-            // Redirect to login page or handle authentication flow
-            // Example: history.push('/login');
-        }
-    }, []); // Empty dependency array to run only once on mount
+  // const handleEdit = (post) => {
+  //   router.push(`/update-prompt?id=${post._id}`);
+  // };
 
-    return (
-        <div>
-            <h1>Wishlist Management</h1>
-            <button onClick={getWishlist}>Get Wishlist</button>
-            <br />
-            <input type="text" placeholder="Enter Property ID" value={propertyId} onChange={(e) => setPropertyId(e.target.value)} />
-            <button onClick={addToWishlist}>Add to Wishlist</button>
-            <br />
-            {wishlist.length > 0 && (
-                <ul>
-                    {wishlist.map(item => (
-                        <li key={item.property_id}>
-                            {item.property_id}
-                            <button onClick={() => removeFromWishlist(item.property_id)}>Remove</button>
-                        </li>
-                    ))}
-                </ul>
-            )}
-            {error && <p>{error}</p>}
-        </div>
-    );
+  // const handleDelete = async (post) => {
+  //   const hasConfirmed = confirm(
+  //     "Are you sure you want to delete this prompt?"
+  //   );
+
+  //   if (hasConfirmed) {
+  //     try {
+  //       await fetch(`/api/prompt/${post._id.toString()}`, {
+  //         method: "DELETE",
+  //       });
+  //       const filteredPosts = myProperties.filter((item) => item._id !== post._id);
+
+  //       setMyProperties(filteredPosts);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   }
+  // };
+
+  return (
+    <Profile
+      name='My'
+      desc='Welcome to your personalized profile page. Share your exceptional prompts and inspire others with the power of your imagination'
+      // data={myProperties}
+      // handleEdit={handleEdit}
+      // handleDelete={handleDelete}
+    />
+  );
 };
 
 export default UserProfile;

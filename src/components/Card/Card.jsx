@@ -10,7 +10,7 @@ import PropertyCard from "../Card/PropertyCard";
 import Loading from "../loading";
 
 export default function Card({ properties }) {
-  const { currentUser, loading, token } = useUser(); // Access the currentUser from user context
+  const { currentUser, loading, token } = useUser(); 
   const navigate = useNavigate();
   const [wishlist, setWishlist] = useState(new Set());
 

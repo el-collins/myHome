@@ -23,6 +23,8 @@ function Header({
   const urlLocation = useLocation(); // Get the current location
   // Check if the current path is not the home page
   const isPropertyPage = urlLocation.pathname.includes("/property/");
+  const isWhistListPage = urlLocation.pathname.includes("/wishlistpage");
+
   const { currentUser } = useUser();
 
   // Check if currentUser is defined before destructuring
@@ -131,7 +133,7 @@ function Header({
           <Dropdown />
         </div>
       </div>
-      {!isPropertyPage && (
+      {(!isPropertyPage && !isWhistListPage )&& (
         <div className="nav-links2 shadow-[0_3px_10px_rgb(0,0,0,0.2)] sm:hidden md:flex overflow-hidden border-0 mt-5">
           <div
             onClick={searchLocation}

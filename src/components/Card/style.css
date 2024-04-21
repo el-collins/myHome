@@ -59,3 +59,11 @@
 .pmain{
   font-size: 18px !important;
 }
+
+.carousel .thumbs-wrapper{
+  display: none;
+}
+
+.imge{
+  height: 500px !important;
+}

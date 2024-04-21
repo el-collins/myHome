@@ -9,12 +9,17 @@ function PropertyCard({
   toggleWishlist,
   currentUser,
   wishlist,
-}) {
+})
+{
   const redirectToDetails = (id) => {
+    (currentUser ? window.location.href = `/property/${id}`:document.getElementById("my_modal_4").showModal())
     console.log(id);
-    window.location.href = `/property/${id}`;
     // const redirectToDetails = (id) => navigate(`/property/${id.toString()}`);
   };
+  // const check = () =>{
+//   console.log(property);
+// }
+console.log(property);
 
   return (
 
@@ -50,10 +55,10 @@ function PropertyCard({
                 src={img}
                 alt=""
               />
-              <Link to={`property/${property.id}`}>
+              {/* <Link to={`property/${property.id}`}>
                 {" "}
                 <div className="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-[hsla(0,0%,98%,0.15)] bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-100"></div>
-                </Link>
+                </Link> */}
             </div>
           ))}
         </Carousel>

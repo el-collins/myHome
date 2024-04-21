@@ -63,3 +63,7 @@
   .pmain{
     font-size: 18px !important;
   }
+
+  .carousel .slide img {
+    height: 500px;
+}

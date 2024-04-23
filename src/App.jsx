@@ -3,15 +3,19 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { HOMES } from "../src/assets/data/homes";
 import Card from "./components/Card/Card";
 import Header from "../src/components/header/index";
+import ForgotPassword from "./components/Auth/ForgotPassword";
+import ResetPassword from "./components/Auth/ResetPassword";
 import { BottomNav } from "./components/Auth/BottomNav";
 import PropertyDetails from "./components/propetrydetails/PropertyDetails";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Wishlist from './components/wishlist'; // Correct import with uppercase
+// import Wishlist from './components/wishlist'; // Correct import with uppercase
 import PostYourHouse from './components/PostYourHouse';
 import axios from "axios";
 import UserProfile from "./components/userprofile/UserProfile";
 import { UserProvider } from "./components/Provider/UserContext";
+import { SignIn } from "./components/Auth/Signin";
+
 
 function App() {
   const [newHome, setNewHome] = useState(HOMES);
@@ -86,6 +90,10 @@ function App() {
             />
             <Route path="/property/:id" element={<PropertyDetails />} />
             <Route path="/user/profile" element={<UserProfile />} />
+            <Route path="/signin" element={<SignIn/>} />
+            <Route path="/forgot-password" element={<ForgotPassword/>} />
+            <Route path="/reset-password" element={<ResetPassword/>} />
+            {/* <Route path="/wishlist" element={<Wishlist />} /> */}
           </Routes>
       </div>
       <BottomNav />

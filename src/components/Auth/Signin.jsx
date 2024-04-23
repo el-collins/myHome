@@ -1,46 +1,50 @@
-import React, { useState, useEffect } from "react";
-import { jwtDecode } from "jwt-decode";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom"; // Import Link and useNavigate for navigation
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router-dom";
 import { useUser } from "../Provider/UserContext";
+import ForgotPassword from "./ForgotPassword";
+import ResetPassword from "./ResetPassword";
 
 export const SignIn = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const {setCurrentUser } = useUser(); // Get the setCurrentUser function from context
+  const { setCurrentUser } = useUser(); // Get the setCurrentUser function from context
+  const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
+  const [showResetPasswordModal, setShowResetPasswordModal] = useState(false);
 
+  const ENDPOINT = "https://my-home-xlox.onrender.com";
 
-  const ENDPOINT = "https://my-home-xlox.onrender.com"
-  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       // Send login request to backend
       const response = await axios.post(
-        `${ENDPOINT}/api/login`, { username, password },
+        `${ENDPOINT}/api/login`,
+        { username, password },
         {
           headers: {
             "Content-Type": "multipart/form-data",
           },
         }
       );
-      if (response.status === 200) {
 
+      if (response.status === 200) {
         const token = response.data.access_token;
         // Store token in local storage
         localStorage.setItem("token", token);
 
         // Decode token to get user information
         const decodedToken = jwtDecode(token);
-         // Set current user state
+        // Set current user state
         setCurrentUser(decodedToken);
-        // Redirect or update UI as needed upon successful login
-        handleClose()
 
+        // Redirect or update UI as needed upon successful login
+        handleClose();
         navigate("/");
         toast("Logged successfully");
       } else {
@@ -57,14 +61,14 @@ export const SignIn = () => {
   const handleClose = () => {
     document.getElementById("my_modal_4").close();
   };
+
   return (
     <div className="px-5 rounded-xl cursor-default">
       <form
-        // method="dialog"
         onSubmit={handleSubmit}
         className="flex flex-col sm:p-4 p-7 sm:pb-[150px] pb-11 rounded-[30px]"
       >
-        <div className=" flex flex-col justify-center items-center relative">
+        <div className="flex flex-col justify-center items-center relative">
           <button
             type="button"
             onClick={handleClose}
@@ -88,16 +92,16 @@ export const SignIn = () => {
 
           <div className="absolute top-1 w-full bg-transparent"></div>
 
-          <div className="flex justify-center items-center  w-[100%] border-b-[1px] p-6">
+          <div className="flex justify-center items-center w-[100%] border-b-[1px] p-6">
             <p className="text-[28px] sm:text-[36px] text-[#575DFB]">Login</p>
           </div>
           <div className="flex items-center justify-center">
-            <p className="w-[px] p-4 flex text-center justify-center text-[18px]  sm:text-[24px]">
+            <p className="w-[px] p-4 flex text-center justify-center text-[18px] sm:text-[24px]">
               Welcome back to myHome!
             </p>
           </div>
           <div className="mt-4">
-            <div className="flex items-center gap-2 ">
+            <div className="flex items-center gap-2">
               <p className="ml-2">Email</p>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -120,12 +124,12 @@ export const SignIn = () => {
               placeholder="abc@example.com"
               type="email"
               required
-              className="sm:w-[420px] sm:h-[50px] w-[350px] border-[#575DFB] mt-2 rounded-[10px] pl-11 "
+              className="sm:w-[420px] sm:h-[50px] w-[350px] border-[#575DFB] mt-2 rounded-[10px] pl-11"
             />
           </div>
           <div className="mt-4">
             <div className="flex items-center gap-2">
-              <p className="ml-41 ">Your password</p>
+              <p className="ml-41">Your password</p>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -151,13 +155,33 @@ export const SignIn = () => {
             />
           </div>
         </div>
-        <a
-          className=" text-[12px] text-[#575DFB] border-b-[#575DFB] border-b-[1px] w-[102px] mt-3"
-          href=""
+        <Link
+          to="#"
+          className="text-[12px] text-[#575DFB] border-b-[#575DFB] border-b-[1px] w-[102px] mt-3"
+          onClick={(e) => {
+            e.preventDefault();
+            setShowForgotPasswordModal(true);
+          }}
         >
           Forgot Password?
-        </a>
-        <div className=" flex flex-col justify-center items-center mt-9">
+        </Link>
+        {showForgotPasswordModal && (
+        <ForgotPassword onClose={() => setShowForgotPasswordModal(false)} />
+        )}
+         <Link
+          to="#"
+          className="text-[12px] text-[#575DFB] border-b-[#575DFB] border-b-[1px] w-[102px] mt-3"
+          onClick={(e) => {
+            e.preventDefault();
+            setShowResetPasswordModal(true);
+          }}
+        >
+          Reset Password?
+        </Link>
+        {showResetPasswordModal && (
+        <ResetPassword onClose={() => setShowResetPasswordModal(false)} />
+        )}
+        <div className="flex flex-col justify-center items-center mt-9">
           <button
             type="submit"
             className="sm:w-[420px] h-[50px] w-[350px] mt-2 rounded-[10px] bg-[#575DFB] text-white"
@@ -169,18 +193,18 @@ export const SignIn = () => {
             <p>or</p>
             <div className="w-[120px] sm:w-[180px] border-[#000000D990] border-[1px] h-0"></div>
           </div>
-          <div className="sm:w-[420px] h-[50px] w-[350px] overflow-hidden  mt-6 border-black rounded-[10px] flex justify-center items-center border-[1px]">
+          <div className="sm:w-[420px] h-[50px] w-[350px] overflow-hidden mt-6 border-black rounded-[10px] flex justify-center items-center border-[1px]">
             <div className="h-6 w-6 mr-2">
-              <img src="/Images/Logo.svg" />
+              <img src="/Images/Logo.svg" alt="Google Logo" />
             </div>
-            <a href="">Continue with Google</a>
+            <a href="/">Continue with Google</a>
           </div>
-          <div className="text-[12px] flex gap-1 mt-4  w-[220px] ">
+          <div className="text-[12px] flex gap-1 mt-4 w-[220px]">
             <p className="bold">Don't have an account?</p>
             <button
               onClick={() => {
                 document.getElementById("register_modal").showModal();
-                handleClose()
+                handleClose();
               }}
               className="text-[#575DFB]"
             >

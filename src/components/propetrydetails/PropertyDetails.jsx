@@ -162,7 +162,7 @@ const PropertyDetails = () => {
                   <img
                     src={image}
                     alt={`Property ${index + 1}`}
-                    className="imge rounded-[20px]"
+                    className="imge rounded-[20px] object-cover"
                   />
                 </div>
               ))}

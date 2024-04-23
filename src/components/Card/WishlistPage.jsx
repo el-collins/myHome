@@ -101,11 +101,13 @@ export const WishlistPage = ({ properties }) => {
   };
 
   return isLoading ? (
-    <div className="w-full h-screen flex items-center justify-center">
+    <div className="w-full h-screen flex items-center justify-center  mt-[80px] sm:mt-0 ">
       <Loading />
     </div>
   ) : (
-    <div className="flex flex-col">
+    <div className="flex flex-col mt-[80px] sm:mt-0 items-center justify-center sm:items-start sm:justify-start">
+      <div>
+        
       <p className="ml-20 mt-8 text-[30px] mb-4">Your Wishlist</p>
       <div className="min-h-screen flex flex-wrap gap-6 ml-5 mt-5">
         {properties
@@ -160,6 +162,7 @@ export const WishlistPage = ({ properties }) => {
             </div>
           ))}
         <ToastContainer containerId={"friendRequest"} />
+      </div>
       </div>
     </div>
   );

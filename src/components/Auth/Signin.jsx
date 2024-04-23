@@ -163,7 +163,7 @@ export const SignIn = () => {
     <div className="px-5 rounded-xl cursor-default">
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col sm:p-4 p-7 sm:pb-[150px] pb-11 rounded-[30px]"
+        className="flex flex-col sm:p-4 p-3 sm:pb-[150px] pb-8 rounded-[30px]"
       >
         <div className="flex flex-col justify-center items-center relative">
           <button
@@ -264,7 +264,6 @@ export const SignIn = () => {
             <p className="text-red-500 mt-2">{passwordError}</p>
           )}
         </div>
-        {/* remember me */}
         <div className="mt-3">
           <label>
             <input
@@ -294,7 +293,7 @@ export const SignIn = () => {
         <div className="flex flex-col justify-center items-center mt-9">
           <button
             type="submit"
-            className={`sm:w-[420px] h-[50px] w-[350px] mt-2 rounded-[10px] bg-[#575DFB] text-white  transition duration-200 ${
+            className={`sm:w-[420px] sm:h-[50px] h-[40px] w-[300px] mt-2 rounded-[10px] bg-[#575DFB] text-white  transition duration-200 ${
               isLoading ? "opacity-50 cursor-not-allowed" : "hover:bg-[#434BE6]"
             }`}
             disabled={isLoading}

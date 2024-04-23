@@ -3,10 +3,11 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
+import { endpoint } from "../hooks/config";
+
 
 export const Register = () => {
   const navigate = useNavigate();
-
   const [phone_number, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
@@ -15,7 +16,7 @@ export const Register = () => {
   const PASSWORD_REGEX = /^(?=.*\d)(?=.*[A-Z]).{8,}$/;
   const PHONE_REGEX = /^\+\d{1,3}\d{6,14}$/;
 
-  const ENDPOINT = "https://my-home-xlox.onrender.com";
+
 
 
   const handleSubmit = async (e) => {
@@ -24,7 +25,7 @@ export const Register = () => {
     try {
       // Send registration request to backend
       const response = await axios.post(
-        `${ENDPOINT}/api/register`,
+        `${endpoint}/api/register`,
         { phone_number, email, name, password },
         {
           headers: {

@@ -13,15 +13,11 @@ function PropertyCard({
   handleEdit,
   handleDelete,
 }) {
-  const redirectToDetails = (id) => {
-    (currentUser ? window.location.href = `/property/${id}`:document.getElementById("my_modal_4").showModal())
-    console.log(id);
-    // const redirectToDetails = (id) => navigate(`/property/${id.toString()}`);
-  };
-  // const check = () =>{
-//   console.log(property);
-// }
-console.log(property);
+  // const redirectToDetails = (id) => {
+  //   currentUser
+  //     ? (window.location.href = `/property/${id}`)
+  //     : document.getElementById("my_modal_4").showModal();
+  // };
 
   return (
     <div className="block rounded-lg bg-white w-[20rem] ">
@@ -35,12 +31,18 @@ console.log(property);
           onClick={() => toggleWishlist(property.id.toString())}
           xmlns="http://www.w3.org/2000/svg"
           fill={`${
-            showLike && currentUser && wishlist.has(property.id) ? "red" : "#00000070"
+            showLike && currentUser && wishlist.has(property.id)
+              ? "red"
+              : "#00000070"
           }`}
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className={`${showLike ? "w-8 h-8 absolute z-10 bg-transparent text-white mt-3 ml-[10px] cursor-pointer" : "hidden"}`}
+          className={`${
+            showLike
+              ? "w-8 h-8 absolute z-10 bg-transparent text-white mt-3 ml-[10px] cursor-pointer"
+              : "hidden"
+          }`}
         >
           <path
             strokeLinecap="round"
@@ -50,7 +52,8 @@ console.log(property);
         </svg>
 
         {/* Delete button */}
-        <svg onClick={() => handleDelete(property.id)}
+        <svg
+          onClick={() => handleDelete(property.id)}
           className={`${
             showIcons
               ? "w-6 h-6 absolute z-10  text-white bg-[#bfbcbc6d] rounded-full mt-3 ml-[10px] cursor-pointer"
@@ -69,8 +72,8 @@ console.log(property);
             y2="43.484"
             gradientUnits="userSpaceOnUse"
           >
-            <stop offset="0" stop-color="#32bdef" />
-            <stop offset="1" stop-color="#1ea2e4" />
+            <stop offset="0" stopColor="#32bdef" />
+            <stop offset="1" stopColor="#1ea2e4" />
           </linearGradient>
           <path
             fill="url(#nyvBozV7VK1PdF3LtMmOna)"
@@ -87,7 +90,8 @@ console.log(property);
         </svg>
 
         {/* Edit button */}
-        <svg onClick={() => handleEdit(property.id)}
+        <svg
+          onClick={() => handleEdit(property.id)}
           className={`${
             showIcons
               ? "w-6 h-6 absolute top-0 right-0 z-10 text-white bg-[#a3aac421] rounded-full mt-3 mr-3 cursor-pointer"
@@ -108,13 +112,19 @@ console.log(property);
 
         <Carousel className="">
           {property?.images.map((img) => (
-            <div key={index} onClick={() => redirectToDetails(property.id)}>
+            <div
+              key={index}
+              // onClick={() => redirectToDetails(property.id)}
+            >
               <img
                 className="rounded-lg  sm:m-h-64 md:h-64 w-full"
                 src={img}
                 alt=""
               />
- 
+              <Link to={`property/${property.id}`}>
+                {" "}
+                <div className="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-[hsla(0,0%,98%,0.15)] bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-100"></div>
+              </Link>
             </div>
           ))}
         </Carousel>

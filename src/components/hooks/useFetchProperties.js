@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { endpoint } from "../hooks/config";
 
 const useFetchProperties = () => {
   const [properties, setProperties] = useState([]);
@@ -8,7 +9,7 @@ const useFetchProperties = () => {
   useEffect(() => {
     const fetchProperties = async () => {
       try {
-        const res = await axios.get("https://my-home-xlox.onrender.com/properties");
+        const res = await axios.get(`${endpoint}/properties`);
         setProperties(res.data);
         setIsLoading(false);
       } catch (error) {

@@ -125,7 +125,7 @@ const PropertyDetails = () => {
 
   if (filteredProperty) {
     return filteredProperty.map((_prop, id) => (
-      <div key={id} className="container mx-auto px-4 text-black pb-11">
+      <div key={id} className="container mx-auto px-4 min-h-screen text-black pb-11">
         <div className="w-[87%] flex justify-between items-center">
           <div className="flex pl-4 flex-col">
             <h1 className="text-[22px] font-semibold mb-2 mt-4">
@@ -267,7 +267,7 @@ const PropertyDetails = () => {
     ));
   }
 
-  return <div className="">Property not found.</div>;
+  return <div className="min-h-screen">Property not found.</div>;
 };
 
 export default PropertyDetails;

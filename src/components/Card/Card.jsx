@@ -8,14 +8,15 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PropertyCard from "../Card/PropertyCard";
 import Loading from "../loading";
+import { endpoint } from "../hooks/config";
 
 export default function Card({ properties }) {
-  const { currentUser, loading, token } = useUser(); // Access the currentUser from user context
+  const { currentUser, loading, token } = useUser(); 
   const navigate = useNavigate();
   const [wishlist, setWishlist] = useState(new Set());
 
 
-  const ENDPOINT = "https://my-home-xlox.onrender.com";
+
 
   useEffect(() => {
     if (currentUser && currentUser.wishlist) {
@@ -46,7 +47,7 @@ export default function Card({ properties }) {
       if (wishlist.has(propertyId)) {
         // Property is in wishlist, remove it
         await axios.delete(
-          `${ENDPOINT}/api/user/wishlist/?property_id=${propertyId}`,
+          `${endpoint}/api/user/wishlist/?property_id=${propertyId}`,
           {
             headers: {
               accept: "application/json",
@@ -57,7 +58,7 @@ export default function Card({ properties }) {
       } else {
         // Property is not in wishlist, add it
         const response = await axios.post(
-          `${ENDPOINT}/api/user/wishlist/?property_id=${propertyId}`,
+          `${endpoint}/api/user/wishlist/?property_id=${propertyId}`,
           {},
           {
             headers: {
@@ -86,10 +87,12 @@ export default function Card({ properties }) {
     <Loading/>
   ) : (
     <div className="h-screen cursor-default">
-    <div className="flex flex-wrap gap-6 justify-center mt-5">
+    <div className="flex flex-wrap gap-6 justify-center items-center mt-5">
       {properties.map((property, index) => (
         <PropertyCard
           key={index}
+          showLike={true}
+          showIcons={false}
           property={property}
           index={index}
           toggleWishlist={toggleWishlist}

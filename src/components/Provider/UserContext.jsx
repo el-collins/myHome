@@ -1,9 +1,9 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 import Cookies from "js-cookie";
 import axios from "axios";
+import { endpoint } from "../hooks/config";
 
 // export const removeCookie = (key)=> Cookies.remove(key)
-const ENDPOINT = "https://my-home-xlox.onrender.com";
 
 const UserContext = createContext();
 
@@ -29,7 +29,7 @@ export const UserProvider = ({ children }) => {
       }
       setIsLoading(true);
       try {
-        const response = await axios.get(`${ENDPOINT}/api/me`, {
+        const response = await axios.get(`${endpoint}/api/me`, {
           headers: {
             accept: "application/json",
             Authorization: `Bearer ${Cookies.get("token")}`,

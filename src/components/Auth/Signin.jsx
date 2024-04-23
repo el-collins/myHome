@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useUser } from "../Provider/UserContext";
 import Cookies from "js-cookie";
 import { ClipLoader } from "react-spinners";
+import { endpoint } from "../hooks/config";
 
 export const SignIn = () => {
   const navigate = useNavigate();
@@ -15,7 +16,6 @@ export const SignIn = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
 
-  const ENDPOINT = "https://my-home-xlox.onrender.com";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,7 +25,7 @@ export const SignIn = () => {
     try {
       // Send login request to backend
       const response = await axios.post(
-        `${ENDPOINT}/api/login`,
+        `${endpoint}/api/login`,
         { username, password },
         {
           headers: {
@@ -38,9 +38,6 @@ export const SignIn = () => {
         Cookies.set("token", token);
         setToken("token", token);
         handleClose();
-
-        // toast.success("Logged successfully");
-        // window.location.reload();
 
         toast.success("Logged in successfully", {
           position: "top-center",

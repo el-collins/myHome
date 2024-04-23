@@ -3,10 +3,11 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
+import { endpoint } from "../hooks/config";
+
 
 export const Register = () => {
   const navigate = useNavigate();
-
   const [phone_number, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
@@ -15,7 +16,7 @@ export const Register = () => {
   const PASSWORD_REGEX = /^(?=.*\d)(?=.*[A-Z]).{8,}$/;
   const PHONE_REGEX = /^\+\d{1,3}\d{6,14}$/;
 
-  const ENDPOINT = "https://my-home-xlox.onrender.com";
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,7 +24,7 @@ export const Register = () => {
     try {
       // Send registration request to backend
       const response = await axios.post(
-        `${ENDPOINT}/api/register`,
+        `${endpoint}/api/register`,
         { phone_number, email, name, password },
         {
           headers: {
@@ -100,6 +101,7 @@ export const Register = () => {
               pattern={PHONE_REGEX.source}
               title="Please enter a valid phone number starting with a country code"
               required
+              placeholder="+234"
             />
           </div>
           <div className="mt-4">
@@ -109,6 +111,7 @@ export const Register = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-[450px] h-[50px] mt-2 rounded-[10px]"
+              placeholder="email@example"
             />
           </div>
           <div className="mt-4">
@@ -118,6 +121,7 @@ export const Register = () => {
               value={name}
               onChange={(e) => setName(e.target.value)}
               className="w-[450px] h-[50px] mt-2 rounded-[10px]"
+              placeholder="John Doe"
             />
           </div>
           <div className="mt-4">
@@ -130,6 +134,7 @@ export const Register = () => {
               pattern={PASSWORD_REGEX.source}
               title="Password must contain at least one digit, one uppercase letter, and be at least 8 characters long"
               required
+              placeholder="password"
             />
           </div>
           <div className=" flex flex-col justify-center items-center mt-9">

@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { HOMES } from "../src/assets/data/homes";
 import Card from "./components/Card/Card";
 import Header from "../src/components/header/index";
+import ForgotPassword from "./components/Auth/ForgotPassword";
+import ResetPassword from "./components/Auth/ResetPassword";
 import { BottomNav } from "./components/Auth/BottomNav";
 import PropertyDetails from "./components/propetrydetails/PropertyDetails";
 import "react-toastify/dist/ReactToastify.css";
@@ -84,7 +86,8 @@ function App() {
           <Route path="/wishlistpage" element={<WishlistPage properties={properties}/>} />
 
           <Route path="/user/profile" element={<UserProfile />} />
-
+          <Route path="/forgot-password" element={<ForgotPassword/>} />
+            <Route path="/reset-password" element={<ResetPassword/>} />
         </Routes>
       </div>
       <BottomNav />

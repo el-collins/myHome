@@ -2,19 +2,22 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { toast, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router-dom";
 import { useUser } from "../Provider/UserContext";
 import Cookies from "js-cookie";
 import { ClipLoader } from "react-spinners";
 import { endpoint } from "../hooks/config";
+import ForgotPassword from "./ForgotPassword";
+import ResetPassword from "./ResetPassword";
+import {Link } from 'react-router-dom';
 
 export const SignIn = () => {
-  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { setToken } = useUser(); // Get the setCurrentUser function from context
   const [isLoading, setIsLoading] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
+  const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
+  const [showResetPasswordModal, setShowResetPasswordModal] = useState(false);
 
 
   const handleSubmit = async (e) => {
@@ -33,6 +36,7 @@ export const SignIn = () => {
           },
         }
       );
+
       if (response.status === 200) {
         const token = response.data.access_token;
         Cookies.set("token", token);
@@ -82,11 +86,10 @@ export const SignIn = () => {
   return (
     <div className="px-5 rounded-xl cursor-default">
       <form
-        // method="dialog"
         onSubmit={handleSubmit}
         className="flex flex-col sm:p-4 p-7 sm:pb-[150px] pb-11 rounded-[30px]"
       >
-        <div className=" flex flex-col justify-center items-center relative">
+        <div className="flex flex-col justify-center items-center relative">
           <button
             type="button"
             onClick={handleClose}
@@ -110,16 +113,16 @@ export const SignIn = () => {
 
           <div className="absolute top-1 w-full bg-transparent"></div>
 
-          <div className="flex justify-center items-center  w-[100%] border-b-[1px] p-6">
+          <div className="flex justify-center items-center w-[100%] border-b-[1px] p-6">
             <p className="text-[28px] sm:text-[36px] text-[#575DFB]">Login</p>
           </div>
           <div className="flex items-center justify-center">
-            <p className="w-[px] p-4 flex text-center justify-center text-[18px]  sm:text-[24px]">
+            <p className="w-[px] p-4 flex text-center justify-center text-[18px] sm:text-[24px]">
               Welcome back to myHome!
             </p>
           </div>
           <div className="mt-4">
-            <div className="flex items-center gap-2 ">
+            <div className="flex items-center gap-2">
               <p className="ml-2">Email</p>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -142,12 +145,12 @@ export const SignIn = () => {
               placeholder="abc@example.com"
               type="email"
               required
-              className="sm:w-[420px] sm:h-[50px] w-[350px] border-[#575DFB] mt-2 rounded-[10px] pl-11 "
+              className="sm:w-[420px] sm:h-[50px] w-[350px] border-[#575DFB] mt-2 rounded-[10px] pl-11"
             />
           </div>
           <div className="mt-4">
             <div className="flex items-center gap-2">
-              <p className="ml-41 ">Your password</p>
+              <p className="ml-41">Your password</p>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -186,13 +189,33 @@ export const SignIn = () => {
           </label>
         </div>
 
-        <a
-          className=" text-[12px] text-[#575DFB] border-b-[#575DFB] border-b-[1px] w-[102px] mt-3"
-          href=""
+        <Link
+          to="#"
+          className="text-[12px] text-[#575DFB] border-b-[#575DFB] border-b-[1px] w-[102px] mt-3"
+          onClick={(e) => {
+            e.preventDefault();
+            setShowForgotPasswordModal(true);
+          }}
         >
           Forgot Password?
-        </a>
-        <div className=" flex flex-col justify-center items-center mt-9">
+        </Link>
+        {showForgotPasswordModal && (
+        <ForgotPassword onClose={() => setShowForgotPasswordModal(false)} />
+        )}
+         <Link
+          to="#"
+          className="text-[12px] text-[#575DFB] border-b-[#575DFB] border-b-[1px] w-[102px] mt-3"
+          onClick={(e) => {
+            e.preventDefault();
+            setShowResetPasswordModal(true);
+          }}
+        >
+          Reset Password?
+        </Link>
+        {showResetPasswordModal && (
+        <ResetPassword onClose={() => setShowResetPasswordModal(false)} />
+        )}
+        <div className="flex flex-col justify-center items-center mt-9">
           <button
             type="submit"
             className={`sm:w-[420px] h-[50px] w-[350px] mt-2 rounded-[10px] bg-[#575DFB] text-white  transition duration-200 ${

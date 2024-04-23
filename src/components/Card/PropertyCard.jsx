@@ -12,6 +12,7 @@ function PropertyCard({
   showIcons,
   handleEdit,
   handleDelete,
+  propertyEdit,
 }) {
   // const redirectToDetails = (id) => {
   //   currentUser
@@ -20,7 +21,7 @@ function PropertyCard({
   // };
 
   return (
-    <div className="block rounded-lg bg-white w-[20rem] ">
+    <div className="block rounded-[20px] sm:mb-6 bg-white w-[20rem] ">
       <div
         className="relative overflow-hidden bg-cover bg-no-repeat"
         data-te-ripple-init
@@ -91,7 +92,7 @@ function PropertyCard({
 
         {/* Edit button */}
         <svg
-          onClick={() => handleEdit(property.id)}
+          onClick={()=>propertyEdit(property.id)}
           className={`${
             showIcons
               ? "w-6 h-6 absolute top-0 right-0 z-10 text-white bg-[#a3aac421] rounded-full mt-3 mr-3 cursor-pointer"
@@ -130,12 +131,12 @@ function PropertyCard({
         </Carousel>
       </div>
 
-      <div className="p-2">
+      <div className="p-2 pt-0">
         <div className="flex justify-between">
-          <h5 className="mb-2 text-sm font-bold leading-tight text-neutral-800 dark:text-neutral-50">
+          <h5 className="mb-1 text-sm font-bold leading-tight text-neutral-800 dark:text-neutral-50">
             {property.property_location_details.state}
           </h5>
-          <h5 className="mb-2 text-sm font-bold leading-tight text-neutral-800 dark:text-neutral-50 flex">
+          <h5 className="mb-1 text-sm font-bold leading-tight text-neutral-800 dark:text-neutral-50 flex">
             5.0{" "}
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -155,10 +156,10 @@ function PropertyCard({
           {property.property_location_details.area}
         </p>
 
-        <p className="mb-4 text-base text-neutral-600 dark:text-neutral-200">
+        <p className="mb-1 text-base text-neutral-600 dark:text-neutral-200">
           {property.property_location_details.street_address}
         </p>
-        <h5 className="mb-2 text-sm font-bold leading-tight text-neutral-800 dark:text-neutral-50">
+        <h5 className="mb- text-sm font-bold leading-tight text-neutral-800 dark:text-neutral-50">
           &#8358;
           {property.price.toLocaleString("en-NG", {})}
         </h5>

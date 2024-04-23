@@ -44,12 +44,14 @@ function App() {
     setMyProperties(cheapest ? properties : sorted);
   };
 
-  const uniqueLocations = [...new Set(HOMES.map((items) => items.value.LGA))];
+  const uniqueLocations = [...new Set(properties.map((items) => items.property_location_details.area))];
 
   const filterSearch = (LGA) => {
-    const filteredSearch = HOMES.filter((items) => items.value.LGA === LGA);
-    setNewHome(filteredSearch);
+    const filteredSearch = properties.filter((items) => items.property_location_details.area === LGA);
+    setMyProperties(filteredSearch);
     setLocation(!location);
+    console.log(uniqueLocations);
+    console.log(myProperties);
   };
   const filterSearchMobile = (LGA) => {
     const filteredSearch = HOMES.filter((items) => items.value.LGA === LGA);
@@ -75,6 +77,8 @@ function App() {
         toggleMobileFilter={toggleMobileFilter}
         mobileFilter={mobileFilter}
         filterSearchMobile={filterSearchMobile}
+        setMyProperties={setMyProperties}
+        properties = {properties}
       />
       <div className="">
         <Routes>
@@ -87,7 +91,6 @@ function App() {
             path="/property/:id"
             element={<PropertyDetails properties={properties}/>}
           />
-          {/* <Route path="/user/profile" element={<UserProfile />} /> */}
           <Route path="/wishlistpage" element={<WishlistPage properties={properties}/>} />
 
           <Route path="/user/profile" element={<UserProfile />} />

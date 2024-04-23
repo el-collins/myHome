@@ -125,7 +125,7 @@ const PropertyDetails = () => {
 
   if (filteredProperty) {
     return filteredProperty.map((_prop, id) => (
-      <div key={id} className="container mx-auto px-4 min-h-screen text-black pb-11">
+      <div key={id} className="container mx-auto px-4 min-h-screen text-black pb-11 sm:mt-0 mt-[70px]">
         <div className="w-[87%] flex justify-between items-center">
           <div className="flex pl-4 flex-col">
             <h1 className="text-[22px] font-semibold mb-2 mt-4">
@@ -154,8 +154,8 @@ const PropertyDetails = () => {
             <p>save</p>
           </div>
         </div>
-        <div className=" flex gap-[10px] mt-4 flex-col ">
-          <div className=" w-[90%] h-[80%] ">
+        <div className=" flex gap-[10px] justify-between mt-4 sm:flex-row flex-col items-center ">
+          <div className=" sm:w-[90%]  w-[100%] ">
             <Carousel>
               {_prop.images.map((image, index) => (
                 <div key={index} className="">
@@ -168,8 +168,8 @@ const PropertyDetails = () => {
               ))}
             </Carousel>
           </div>
-          <div className="md:col-span-1 flex justify-between p-4 h-[40%] w-[90%]">
-            <div className="  border-[1px] py-6 px-8">
+          <div className="md:col-span-1 flex flex-col items-center  p-4 h-[40%] w-[90%]">
+            <div className="  border-[1px] py-6 px-8 sm:w-[50%] w-[90%]">
               <div className="flex items-center justify-center gap-2 border-b-[1px]">
                 <p className="text-[22px]">
                   {_prop.property_location_details.area}
@@ -218,7 +218,7 @@ const PropertyDetails = () => {
                   />
                 </svg>
 
-                <p className="text-black">+234 {_prop.phone_number}</p>
+                <p className="text-black">{_prop.phone_number}</p>
               </div>
               <div className="flex mt-4 justify-between w-[100%]">
                 <div className="mt-4 flex gap-1">
@@ -244,7 +244,7 @@ const PropertyDetails = () => {
                 </div>
               </div>
             </div>
-            <div className=" w-[30%] border-[1px] py-6 p-2">
+            <div className=" sm:w-[50%] w-full border-[1px] py-6 p-2 mt-8">
               <div className="flex items-center justify-center gap-2 border-b-[1px]">
                 <p className="text-[22px]">₦ {formattingPrice(_prop.price)}</p>
               </div>

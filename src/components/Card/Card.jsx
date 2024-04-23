@@ -11,12 +11,9 @@ import Loading from "../loading";
 import { endpoint } from "../hooks/config";
 
 export default function Card({ properties }) {
-  const { currentUser, loading, token } = useUser(); 
+  const { currentUser, loading, token } = useUser();
   const navigate = useNavigate();
   const [wishlist, setWishlist] = useState(new Set());
-
-
-
 
   useEffect(() => {
     if (currentUser && currentUser.wishlist) {
@@ -24,17 +21,16 @@ export default function Card({ properties }) {
     }
   }, [currentUser]);
 
-
   const toggleWishlist = async (propertyId) => {
     if (!currentUser) {
       document.getElementById("my_modal_4").showModal();
       return;
     }
-  
+
     try {
       // Create a new set based on the current wishlist
       const updatedWishlist = new Set([...wishlist]);
-  
+
       // Update the wishlist state immediately to reflect the change in UI
       if (wishlist.has(propertyId)) {
         updatedWishlist.delete(propertyId);
@@ -42,7 +38,7 @@ export default function Card({ properties }) {
         updatedWishlist.add(propertyId);
       }
       setWishlist(updatedWishlist);
-  
+
       // Send request to update the wishlist on the server
       if (wishlist.has(propertyId)) {
         // Property is in wishlist, remove it
@@ -67,13 +63,11 @@ export default function Card({ properties }) {
             },
           }
         );
-   
       }
     } catch (error) {
       console.error(error);
     }
   };
-  
 
   // const redirectToDetails = (id) => navigate(`/property/${id.toString()}`);
   const redirectToDetails = (id) => {
@@ -84,25 +78,25 @@ export default function Card({ properties }) {
   };
 
   return loading ? (
-    <Loading/>
+    <Loading />
   ) : (
-    <div className="h-screen cursor-default">
-    <div className="flex flex-wrap gap-6 justify-center items-center mt-5">
-      {properties.map((property, index) => (
-        <PropertyCard
-          key={index}
-          showLike={true}
-          showIcons={false}
-          property={property}
-          index={index}
-          toggleWishlist={toggleWishlist}
-          currentUser={currentUser}
-          wishlist={wishlist}
-          redirectToDetails={redirectToDetails}
-        />
-      ))}
-      <ToastContainer />
+    <div className="h-screen cursor-default mt-5 pt-[80px] sm:pt-0 ">
+      <div className="flex flex-wrap gap-6  justify-center items-center  pb-[70px] sm:pb-0">
+        {properties.map((property, index) => (
+          <PropertyCard
+            key={index}
+            showLike={true}
+            showIcons={false}
+            property={property}
+            index={index}
+            toggleWishlist={toggleWishlist}
+            currentUser={currentUser}
+            wishlist={wishlist}
+            redirectToDetails={redirectToDetails}
+          />
+        ))}
+        <ToastContainer />
+      </div>
     </div>
-     </div>
   );
 }

@@ -6,71 +6,60 @@ import axios from "axios";
 import { useLocation } from "react-router-dom";
 import EditButton from "./EditButton";
 import { Card, Dropdown } from "flowbite-react";
-// import Image from "next/image";
+import { endpoint } from "../hooks/config";
+import UpdateProperty from "../PropertyDetails/UpdateProperty";
+
 
 const UserProfile = () => {
-  const ENDPOINT = "https://my-home-xlox.onrender.com";
   const [myProperties, setMyProperties] = useState([]);
   const {currentUser} = useUser();
+  const [id, setId] = useState("");
 
-  // add an account section to this code. where the user can change or update his profile, update his name, phone
+  const fetchProperties = async () => {
+    const response = await axios.get(`${endpoint}/users/me/properties`, {
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${Cookies.get("token")}`,
+      },
+    });
+    setMyProperties(response.data);
+  };
+
   useEffect(() => {
-    const fetchProperties = async () => {
-      const response = await axios.get(`${ENDPOINT}/users/me/properties`, {
-        headers: {
-          accept: "application/json",
-          Authorization: `Bearer ${Cookies.get("token")}`,
-        },
-      });
-      console.log(response.data);
-      setMyProperties(response.data);
-    };
-
+    fetchProperties()
     if (currentUser?.id) fetchProperties();
   }, [currentUser?.id]);
 
-  // Delete handler
   const handleDelete = async (propertyId) => {
     try {
-      await axios.delete(`${ENDPOINT}/users/me/properties/${propertyId}`, {
+      await axios.delete(`${endpoint}/users/me/properties/${propertyId}`, {
         headers: {
           accept: "application/json",
           Authorization: `Bearer ${Cookies.get("token")}`,
         },
       });
 
-      // Refresh the data in your component (e.g., remove the item from state)
       fetchProperties();
     } catch (error) {
       console.error(error);
     }
   };
 
+  const propertyEdit = (id)=>{
+    setId(id)
+    document.getElementById("updateProperty_modal").showModal()
+
+  }
+
   return (
+    <div>
+      <dialog id="updateProperty_modal" className="modal">
+        <UpdateProperty key={id} id={id}/>
+      </dialog>
     <div className="">
       {currentUser ? (
         <div className="w-full h-screen">
           <Card className="">
-            <div className="flex justify-end px-4 pt-4">
-              <Dropdown inline label="settings">
-                <Dropdown.Item>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >
-                    Edit
-                  </a>
-                </Dropdown.Item>
-                <Dropdown.Item>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >
-                    Account Delete
-                  </a>
-                </Dropdown.Item>
-              </Dropdown>
-            </div>
             <div className="flex flex-col items-center pb-10">
               <img
                 alt="Bonnie image"
@@ -113,10 +102,8 @@ const UserProfile = () => {
                   index={index}
                   showLike={false}
                   showIcons={true}
-                  // handleEdit={handleEdit}
+                  propertyEdit={propertyEdit}
                   handleDelete={handleDelete}
-                  // toggleWishlist={toggleWishlist}
-                  // currentUser={currentUser}
                 />
               ))}
             </div>
@@ -125,6 +112,7 @@ const UserProfile = () => {
       ) : (
         (window.location.href = "/")
       )}
+    </div>
     </div>
   );
 };

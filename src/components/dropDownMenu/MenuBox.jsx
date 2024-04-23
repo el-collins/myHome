@@ -27,8 +27,82 @@ const MenuBox = ({ isOpen, handleClick, }) => {
         <PostYourHouse />
       </dialog>
 
-      {(currentUser && !isUserProfile)? (
+      {(currentUser)? (isUserProfile?
         <div
+          className="pages mr-[135px] sm:mr-32  md:mr-6 md:mt-5 font-bold"
+          style={{ display: isOpen ? "flex" : "none" }}
+        >
+          <ul>
+            <li>
+              <button
+                className="postHouse"
+                onClick={() => {
+                  document.getElementById("post_your_house_modal").showModal();
+                  handleClick();
+                }}
+              >
+                Post your house
+              </button>
+            </li>
+            <li>
+              <button
+                className="postHouse"
+                onClick={() => {
+                  // navigate("/user/profile");
+                  handleClick();
+                }}
+              >
+                Edit Profile
+              </button>
+            </li>
+            <li>
+              <button
+                onClick={() => {
+                  navigate("/wishlistpage");
+                  handleClick();
+                }}
+              >
+                Wishlists
+              </button>
+            </li>
+            <li>
+              <button
+                onClick={() => {
+                  document.getElementById("my_modal_5").showModal();
+                  handleClick();
+                }}
+              >
+                Help
+              </button>
+            </li>
+
+            <div className=" border-[1px] w-[100%] "></div>
+            <li>
+              <button
+                className="login"
+                onClick={() => {
+                  logout();
+                  handleClick();
+                  toast.success('Logged out', {
+                    position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: false,
+                    pauseOnHover: true,
+                    draggable: false,
+                    progress: undefined,
+                    theme: "light",
+                    transition: Bounce,
+                    });
+                }}
+              >
+                Log Out
+              </button>
+            </li>
+          </ul>
+        </div>
+      :
+      <div
           className="pages mr-[135px] sm:mr-32  md:mr-6 md:mt-5 font-bold"
           style={{ display: isOpen ? "flex" : "none" }}
         >
@@ -100,8 +174,7 @@ const MenuBox = ({ isOpen, handleClick, }) => {
               </button>
             </li>
           </ul>
-        </div>
-      ) : (
+        </div> ) : (
         <div
           className="pages mr-[135px] sm:mr-32  md:mr-6 md:mt-5"
           style={{ display: isOpen ? "flex" : "none" }}

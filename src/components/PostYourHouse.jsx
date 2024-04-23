@@ -128,8 +128,8 @@ const PostYourHouse = () => {
   };
 
   return (
-    <div className=" p-3 sm:p-6 border flex flex-col items-center justify-center rounded-[20px] bg-white">
-      <div className="text-center w-full p-2 pb-4 relative border-b-[1px]">
+    <div className=" p-2 sm:p-6 border flex flex-col items-center justify-center rounded-[20px] bg-white">
+      <div className="text-center w-full p-2 sm:pb-4  relative border-b-[1px]">
         <button
           type="button"
           onClick={() => {
@@ -156,9 +156,9 @@ const PostYourHouse = () => {
       </div>
 
       <form onSubmit={handleSubmit}>
-        <div className="mt-6">
+        <div className="sm:mt-6 mt-3">
           <div className="flex flex-col sm:flex-row justify-between">
-            <div className="mt-4 w-[320px] sm:w-[350px] rounded-lg pt-0 sm:pt-2 p-2">
+            <div className="mt-4 w-[300px] sm:w-[350px]  rounded-lg pt-0 sm:pt-2 p-2">
               <label
                 htmlFor="name"
                 className="text-black block absolute p-1 -mt-4 ml-3"
@@ -173,11 +173,11 @@ const PostYourHouse = () => {
                 id="name"
                 required
                 placeholder="Name for the property to be listed"
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none h-[50px] border-[#575DFB]"
+                className="w-full px-4 py-2 border rounded-lg focus:outline-none sm:h-[50px] h-[40px] border-[#575DFB]"
               />
             </div>
 
-            <div className="mt-4 w-[320px] sm:w-[350px] rounded-lg pt-0 sm:pt-2 p-2 ">
+            <div className="mt-4 w-[300px] sm:w-[350px] rounded-lg pt-0 sm:pt-2 p-2 ">
               <label
                 htmlFor="category"
                 className="absolute ml-3 text-black block -mt-4 p-1"
@@ -208,7 +208,7 @@ const PostYourHouse = () => {
           </div>
 
           <div className="flex flex-col sm:flex-row justify-between">
-            <div className="mt-4 w-[320px] sm:w-[350px] rounded-lg pt-0 sm:pt-2 p-2">
+            <div className="mt-4 w-[300px] sm:w-[350px] rounded-lg pt-0 sm:pt-2 p-2">
               <label className="text-black block absolute p-1 -mt-4 ml-3">
                 Address*
               </label>
@@ -220,11 +220,11 @@ const PostYourHouse = () => {
                 id="Address"
                 required
                 placeholder="14 Golf view layout"
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none h-[50px] border-[#575DFB]"
+                className="w-full px-4 py-2 border rounded-lg focus:outline-none sm:h-[50px] h-[40px] border-[#575DFB]"
               />
             </div>
 
-            <div className="mt-4 w-[320px] sm:w-[350px] rounded-lg pt-0 sm:pt-2 p-2">
+            <div className="mt-4 w-[300px] sm:w-[350px] rounded-lg pt-0 sm:pt-2 p-2">
               <label className="text-black block absolute p-1 -mt-4 ml-3">
                 Area*
               </label>
@@ -236,12 +236,12 @@ const PostYourHouse = () => {
                 id="area"
                 required
                 placeholder="Trans-Ekulu"
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none h-[50px] border-[#575DFB]"
+                className="w-full px-4 py-2 border rounded-lg focus:outline-none sm:h-[50px] h-[40px] border-[#575DFB]"
               />
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row justify-between sm:items-center w-[350px] sm:w-full">
+          <div className="flex flex-col sm:flex-row justify-between sm:items-center w-[310px] sm:w-full">
             <div className="mt-4 rounded-lg sm:mr-0 p-1 sm:p-2">
               <label className="text-black block absolute p-1 -mt-4 ml-3">
                 Amount*
@@ -258,15 +258,15 @@ const PostYourHouse = () => {
                 required
                 value={property.price}
                 placeholder="400,000"
-                className="w-[300px] sm:w-[340px] ml-2 sm:ml-0 pl-11 px-4 py-2 border rounded-lg focus:outline-none h-[50px] border-[#575DFB]"
+                className="w-[280px] sm:w-[340px] ml-2 sm:ml-0 pl-11 px-4 py-2 border rounded-lg focus:outline-none sm:h-[50px] h-[40px] border-[#575DFB]"
               />
             </div>
 
             <div className="mt-4 flex justify-between items-center gap-1">
-              <div className="">
+              <div className="flex justify-center items-center">
                 <select
                   name="number_of_rooms"
-                  className="w-[70%] sm:w-full h-[50px] rounded-[10px] border border-[#C4C4C4] pl-4"
+                  className="w-[70%] sm:w-full sm:h-[50px] h-[40px] rounded-[10px] border border-[#C4C4C4] pl-4"
                   onChange={(e) =>
                     setProperty({
                       ...property,
@@ -282,10 +282,10 @@ const PostYourHouse = () => {
                   <option value="4">4</option>
                 </select>
               </div>
-              <div className="">
+              <div className="flex justify-center items-center">
                 <select
                   name="number_of_toilets"
-                  className="w-[70%] sm:w-full h-[50px] rounded-[10px] border border-[#C4C4C4] pl-4"
+                  className="w-[70%] sm:w-full sm:h-[50px] h-[40px] rounded-[10px] border border-[#C4C4C4] pl-4"
                   onChange={(e) =>
                     setProperty({
                       ...property,
@@ -307,9 +307,9 @@ const PostYourHouse = () => {
           </div>
         </div>
 
-        <div className="w-full mt-4">
-          <div className="w-full pl-5 flex justify-between flex-col sm:flex-row">
-            <div className="flex flex-col">
+        <div className="w-full sm:mt-4 mt-2">
+          <div className="w-full pl-5 flex items-center justify-center flex-col sm:flex-row">
+            <div className="flex ml- flex-col">
               <input
                 type="file"
                 name="file"
@@ -318,6 +318,8 @@ const PostYourHouse = () => {
                 onChange={handleImageChange}
               />
             </div>
+            <div className="flex sm:w-[300px] mr-6 sm:mr-0 w-[250px] mt-2 justify-between">
+
             <div className="flex gap-1 mt-2 sm:mt-0 items-center">
               <label>Has POP?</label>
               <input
@@ -337,12 +339,13 @@ const PostYourHouse = () => {
                 onChange={() => setIsWater(!isWater)}
               />
             </div>
+            </div>
           </div>
         </div>
-
+<div className="flex items-center justify-center">
         <button
           type="submit"
-          className={`sm:w-[420px] h-[50px] w-[95%] my-8  rounded-[10px] bg-[#575DFB] text-white  transition duration-200 ${
+          className={`sm:w-[420px] sm:h-[50px] h-[40px] w-[280px] sm:my-8 my-4  rounded-[10px] bg-[#575DFB] text-white  transition duration-200 ${
             isLoading ? "opacity-50 cursor-not-allowed" : "hover:bg-[#434BE6]"
           }`}
           disabled={isLoading}
@@ -353,6 +356,7 @@ const PostYourHouse = () => {
             "Post"
           )}
         </button>
+</div>
       </form>
     </div>
   );

@@ -2,11 +2,13 @@ import { useUser } from "../Provider/UserContext";
 import MenuBox from "./MenuBox";
 import "./dropdown.css";
 import { useEffect, useState, useRef } from "react";
+import useFetchProfilePicture from "../hooks/useFetchProfilePicture";
 
 // Component: Dropdown
 // Description: A dropdown menu that toggles between login and register options
 function Dropdown({ toggleLogin, toggleRegister }) {
-  const {loading,setToken,currentUser } = useUser(); // Get the setCurrentUser function from context
+  const { imageUrl } = useFetchProfilePicture();
+  const { loading, setToken, currentUser } = useUser(); // Get the setCurrentUser function from context
   // State: isOpen
   // Type: Boolean
   // Description: A state variable to keep track of whether the dropdown menu is open or not
@@ -20,14 +22,14 @@ function Dropdown({ toggleLogin, toggleRegister }) {
   // Function: handleClick
   // Description: A function to toggle the isOpen state when the dropdown menu is clicked
   const handleClick = () => {
-    setIsOpen((prev) =>!prev);
+    setIsOpen((prev) => !prev);
   };
 
   // Effect: handleClickOutside
   // Description: An effect that listens for clicks outside the dropdown menu and closes it if a click is detected
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (dropdownRef.current &&!dropdownRef.current.contains(event.target)) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsOpen(false);
       }
     };
@@ -37,13 +39,16 @@ function Dropdown({ toggleLogin, toggleRegister }) {
     };
   }, []);
 
-  if(loading) return <> loading... </>
+  if (loading) return <> loading... </>;
   return (
     <>
       {/* Dropdown Menu */}
       <div ref={dropdownRef} className="menu cursor-pointer">
         {/* Dropdown Toggle Button */}
-        <div className="flex p-2 border-[2px] rounded-full hover:shadow-md transition" onClick={handleClick}>
+        <div
+          className="flex p-2 border-[2px] rounded-full hover:shadow-md transition"
+          onClick={handleClick}
+        >
           {/* Dropdown Toggle Icon */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -53,15 +58,32 @@ function Dropdown({ toggleLogin, toggleRegister }) {
             stroke="currentColor"
             className="w-6 h-6 md:h-8 md:w-8"
           >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+            />
           </svg>
           {/* Dropdown Toggle Avatar */}
           <div>
-            <img src="/Images/placeholder.jpg" alt="" className="w-6 h-6 md:h-8 md:w-8 rounded-full" />
+            <img
+              src={
+                currentUser?.profile_picture
+                  ? imageUrl
+                  : "/Images/placeholder.jpg"
+              }
+              alt=""
+              className="w-6 h-6 md:h-8 md:w-8 rounded-full"
+            />
           </div>
         </div>
         {/* Dropdown Menu Box */}
-        <MenuBox isOpen={isOpen} handleClick={handleClick} toggleRegister={toggleRegister} toggleLogin={toggleLogin} />
+        <MenuBox
+          isOpen={isOpen}
+          handleClick={handleClick}
+          toggleRegister={toggleRegister}
+          toggleLogin={toggleLogin}
+        />
       </div>
     </>
   );

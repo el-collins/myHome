@@ -4,6 +4,7 @@ import { ClipLoader } from "react-spinners";
 import { useUser } from "./Provider/UserContext";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { endpoint } from "./hooks/config";
 
 const PostYourHouse = () => {
   const [property, setProperty] = useState({
@@ -24,7 +25,6 @@ const PostYourHouse = () => {
   const [image, setImage] = useState(null);
   const [isPop, setIsPop] = useState(false);
   const { token, currentUser } = useUser();
-  const ENDPOINT = "https://my-home-xlox.onrender.com";
 
   const handleChange = (event) => {
     setProperty({
@@ -90,7 +90,7 @@ const PostYourHouse = () => {
       formData.append("images", file);
     }
     const postProperty = () => {
-      return axios.post(`${ENDPOINT}/properties`, formData, {
+      return axios.post(`${endpoint}/properties`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,

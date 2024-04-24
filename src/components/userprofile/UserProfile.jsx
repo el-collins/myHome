@@ -4,35 +4,82 @@ import Cookies from "js-cookie";
 import PropertyCard from "../Card/PropertyCard";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
-import EditButton from "./EditButton";
 import { Card, Dropdown } from "flowbite-react";
-// import Image from "next/image";
+import { endpoint } from "../hooks/config";
+import Loading from "../loading";
+import Spinner from "react-bootstrap/Spinner";
+import useFetchProfilePicture from "../hooks/useFetchProfilePicture";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const UserProfile = () => {
-  const ENDPOINT = "https://my-home-xlox.onrender.com";
   const [myProperties, setMyProperties] = useState([]);
-  const {currentUser} = useUser();
+  const { currentUser } = useUser();
+  const { imageUrl } = useFetchProfilePicture();
+  const [isUploading, setIsUploading] = useState(false);
 
   // add an account section to this code. where the user can change or update his profile, update his name, phone
   useEffect(() => {
     const fetchProperties = async () => {
-      const response = await axios.get(`${ENDPOINT}/users/me/properties`, {
+      const response = await axios.get(`${endpoint}/users/me/properties`, {
         headers: {
           accept: "application/json",
           Authorization: `Bearer ${Cookies.get("token")}`,
         },
       });
-      console.log(response.data);
       setMyProperties(response.data);
     };
 
     if (currentUser?.id) fetchProperties();
   }, [currentUser?.id]);
 
+  // Image upload handler
+
+  const handleImageUpload = (event) => {
+    setIsUploading(true);
+
+    const file = event.target.files[0];
+    const formData = new FormData();
+    formData.append("profile_picture", file);
+
+    // Create a URL representing the selected file
+    const fileUrl = URL.createObjectURL(file);
+
+    axios
+      .post(`${endpoint}/api/user/profile-picture`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${Cookies.get("token")}`,
+        },
+      })
+      .then((response) => {
+        if (response.status == 200) {
+          toast.success("Profile picture updated successfully", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        }
+
+        window.location.reload();
+      })
+
+      .catch((error) => console.error(error))
+      .finally(() => {
+        setIsUploading(false);
+
+        // window.location.reload();
+      }); // Set isUploading to false when the upload is finished;
+  };
+
   // Delete handler
   const handleDelete = async (propertyId) => {
     try {
-      await axios.delete(`${ENDPOINT}/users/me/properties/${propertyId}`, {
+      await axios.delete(`${endpoint}/users/me/properties/${propertyId}`, {
         headers: {
           accept: "application/json",
           Authorization: `Bearer ${Cookies.get("token")}`,
@@ -46,6 +93,25 @@ const UserProfile = () => {
     }
   };
 
+// Edit handler
+
+const handleEdit = async (propertyId, updatedPropertyData) => {
+  try {
+    await axios.put(`${endpoint}/users/me/properties/${propertyId}`, updatedPropertyData, {
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${Cookies.get("token")}`,
+      },
+    });
+
+    // Refresh the data in your component (e.g., remove the item from state)
+    fetchProperties();
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+
   return (
     <div className="">
       {currentUser ? (
@@ -53,14 +119,18 @@ const UserProfile = () => {
           <Card className="">
             <div className="flex justify-end px-4 pt-4">
               <Dropdown inline label="settings">
-                <Dropdown.Item>
+                <Dropdown.Item >
                   <a
+                  onClick={() => {}}
                     href="#"
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
                   >
                     Edit
                   </a>
                 </Dropdown.Item>
+
+
+                
                 <Dropdown.Item>
                   <a
                     href="#"
@@ -71,14 +141,29 @@ const UserProfile = () => {
                 </Dropdown.Item>
               </Dropdown>
             </div>
+
             <div className="flex flex-col items-center pb-10">
-              <img
-                alt="Bonnie image"
-                height="96"
-                src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-                width="96"
-                className="mb-3 rounded-full shadow-lg"
+              <input
+                type="file"
+                accept="image/*"
+                style={{ display: "none" }}
+                id="hiddenFileInput"
+                onChange={handleImageUpload}
               />
+              {isUploading ? (
+                <Spinner animation="border" variant="dark" />
+              ) : (
+                <img
+                  alt="Profile image"
+                  height={100}
+                  src={imageUrl ? imageUrl : "/Images/placeholder.jpg"}
+                  width={100}
+                  className="mb-3 rounded-full shadow-lg max-w-[100px] max-h-[100px] cursor-pointer hover:opacity-90 transition duration-300 ease-in-out"
+                  onClick={() =>
+                    document.getElementById("hiddenFileInput").click()
+                  }
+                />
+              )}
               <h5 className="mb-1 text-xl text-gray-900 dark:text-white font-bold">
                 {currentUser?.name}
               </h5>
@@ -113,7 +198,7 @@ const UserProfile = () => {
                   index={index}
                   showLike={false}
                   showIcons={true}
-                  // handleEdit={handleEdit}
+                  handleEdit={handleEdit}
                   handleDelete={handleDelete}
                   // toggleWishlist={toggleWishlist}
                   // currentUser={currentUser}
@@ -123,7 +208,8 @@ const UserProfile = () => {
           </div>
         </div>
       ) : (
-        (window.location.href = "/")
+        // (window.location.href = "/")
+        <Loading />
       )}
     </div>
   );

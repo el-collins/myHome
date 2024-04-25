@@ -25,6 +25,8 @@ const PostYourHouse = () => {
   const [image, setImage] = useState(null);
   const [isPop, setIsPop] = useState(false);
   const { token, currentUser } = useUser();
+  const [propertyType, setPropertyType] = useState(false)
+  const ENDPOINT = "https://my-home-xlox.onrender.com";
 
   const handleChange = (event) => {
     setProperty({
@@ -47,6 +49,14 @@ const PostYourHouse = () => {
       toast.error("Invalid file input, please select only image files.");
       event.target.value = "";
     }
+  };
+
+  const propertyTypeChange = (e) => {
+    setPropertyType(true);
+    setProperty({
+      ...property,
+      property_type: e.target.value
+    });
   };
 
   const handleSubmit = async (event) => {
@@ -103,22 +113,13 @@ const PostYourHouse = () => {
         success: "Property posted successfully!",
         error: "Error posting property.",
       })
-      // .then(() => {
-      //   handleClose();
-      // }) .catch((error) => {
-      //   toast.error(`Error posting property: ${error.message}`);
-      //   setIsLoading(false);
-      //   window.location.reload();
-      // })
+      
       .finally(() => {
         handleClose();
         setIsLoading(false);
-        // set a timer to reload the page after 2 seconds
         setTimeout(() => {
           window.location.reload();
         }, 3000);
-
-        // window.location.reload();
       });
   };
 
@@ -183,7 +184,27 @@ const PostYourHouse = () => {
               >
                 Category*
               </label>
-              <input
+              <select
+                onChange={propertyTypeChange}
+                name="property_type"
+                id=""
+                className="w-full border-[#575DFB] rounded-lg focus:outline-none outline-none"
+              >
+                <option
+                  className="text-[#64748B]"
+                  value=""
+                  disabled={propertyType}
+                >
+                  Select property type
+                </option>
+                <option value="Single room">Single room</option>
+                <option value="Self-con">Self-con</option>
+                <option value="Flat">Flat</option>
+                <option value="Duplex">Duplex</option>
+                <option value="Bungalow">Bungalow</option>
+                <option value="Other">Other</option>
+              </select>
+              {/* <input
                 autoComplete="off"
                 onChange={handleChange}
                 name="property_type"
@@ -192,7 +213,7 @@ const PostYourHouse = () => {
                 required
                 placeholder="Duplex, Flats, Bungalow, Selfcon, Single room"
                 className="w-full px-4 py-2 border rounded-lg focus:outline-none h-[50px] border-[#575DFB]"
-              />
+              /> */}
             </div>
           </div>
 

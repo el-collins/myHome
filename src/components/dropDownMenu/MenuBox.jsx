@@ -2,7 +2,7 @@ import { Register } from "../Auth/Register";
 import { SignIn } from "../Auth/Signin";
 import PostYourHouse from "../PostYourHouse";
 import "./dropdown.css";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { toast, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useUser } from "../Provider/UserContext";
@@ -10,6 +10,8 @@ import { useUser } from "../Provider/UserContext";
 const MenuBox = ({ isOpen, handleClick, }) => {
   const { currentUser, logout } = useUser();
   const navigate = useNavigate();
+  const urlLocation = useLocation()
+  const isUserProfile = urlLocation.pathname.includes("/user/profile");
 
   return (
     <>
@@ -25,7 +27,7 @@ const MenuBox = ({ isOpen, handleClick, }) => {
         <PostYourHouse />
       </dialog>
 
-      {currentUser ? (
+      {(currentUser && !isUserProfile)? (
         <div
           className="pages mr-[135px] sm:mr-32  md:mr-6 md:mt-5 font-bold"
           style={{ display: isOpen ? "flex" : "none" }}
@@ -142,6 +144,7 @@ const MenuBox = ({ isOpen, handleClick, }) => {
           </ul>
         </div>
       )}
+      {/* {isUserProfile ?()} */}
     </>
   );
 };

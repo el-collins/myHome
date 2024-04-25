@@ -21,7 +21,12 @@ function App() {
   const [showWishlist, setShowWishlist] = useState(false);
   const [propertyList, setPropertyList] = useState([]);
   const { properties } = useFetchProperties();
+  const [myProperties, setMyProperties] = useState([])
+  const {setProperties} = useFetchProperties();
 
+  useEffect(() => {
+    setMyProperties(properties);
+  }, [properties]);
 
 
   const searchLocation = () => {
@@ -31,12 +36,12 @@ function App() {
   };
 
   const searchCheapest = () => {
-    const prices = HOMES.filter((x) => x.value.amount !== null);
-    prices.sort((a, b) => a.value.amount - b.value.amount);
+    const prices = properties.filter((x) => x.price !== null);
+    prices.sort((a, b) => a.price - b.price);
     const sorted = [...prices];
     setCheapest((prev) => !prev);
     setLocation(false);
-    setNewHome(cheapest ? HOMES : sorted);
+    setMyProperties(cheapest ? properties : sorted);
   };
 
   const uniqueLocations = [...new Set(HOMES.map((items) => items.value.LGA))];
@@ -76,7 +81,7 @@ function App() {
           <Route
             exact
             path="/"
-            element={<Card properties={properties} />}
+            element={<Card properties={myProperties} />}
           />
           <Route
             path="/property/:id"

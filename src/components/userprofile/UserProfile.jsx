@@ -7,7 +7,7 @@ import { useLocation } from "react-router-dom";
 import { Card, Dropdown } from "flowbite-react";
 import { endpoint } from "../hooks/config";
 import Loading from "../loading";
-import Spinner from "react-bootstrap/Spinner";
+import { PuffLoader } from "react-spinners";
 import useFetchProfilePicture from "../hooks/useFetchProfilePicture";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -151,7 +151,7 @@ const handleEdit = async (propertyId, updatedPropertyData) => {
                 onChange={handleImageUpload}
               />
               {isUploading ? (
-                <Spinner animation="border" variant="dark" />
+                <PuffLoader color="#36d7b7" />
               ) : (
                 <img
                   alt="Profile image"

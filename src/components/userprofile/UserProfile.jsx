@@ -6,77 +6,29 @@ import axios from "axios";
 import { useLocation } from "react-router-dom";
 import { Card, Dropdown } from "flowbite-react";
 import { endpoint } from "../hooks/config";
-import Loading from "../loading";
-import { PuffLoader } from "react-spinners";
-import useFetchProfilePicture from "../hooks/useFetchProfilePicture";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import UpdateProperty from "../PropertyDetails/UpdateProperty";
+
 
 const UserProfile = () => {
   const [myProperties, setMyProperties] = useState([]);
-  const { currentUser } = useUser();
-  const { imageUrl } = useFetchProfilePicture();
-  const [isUploading, setIsUploading] = useState(false);
+  const {currentUser} = useUser();
+  const [id, setId] = useState("");
 
-  // add an account section to this code. where the user can change or update his profile, update his name, phone
+  const fetchProperties = async () => {
+    const response = await axios.get(`${endpoint}/users/me/properties`, {
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${Cookies.get("token")}`,
+      },
+    });
+    setMyProperties(response.data);
+  };
+
   useEffect(() => {
-    const fetchProperties = async () => {
-      const response = await axios.get(`${endpoint}/users/me/properties`, {
-        headers: {
-          accept: "application/json",
-          Authorization: `Bearer ${Cookies.get("token")}`,
-        },
-      });
-      setMyProperties(response.data);
-    };
-
+    fetchProperties()
     if (currentUser?.id) fetchProperties();
   }, [currentUser?.id]);
 
-  // Image upload handler
-
-  const handleImageUpload = (event) => {
-    setIsUploading(true);
-
-    const file = event.target.files[0];
-    const formData = new FormData();
-    formData.append("profile_picture", file);
-
-    // Create a URL representing the selected file
-    const fileUrl = URL.createObjectURL(file);
-
-    axios
-      .post(`${endpoint}/api/user/profile-picture`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${Cookies.get("token")}`,
-        },
-      })
-      .then((response) => {
-        if (response.status == 200) {
-          toast.success("Profile picture updated successfully", {
-            position: "top-center",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
-        }
-
-        window.location.reload();
-      })
-
-      .catch((error) => console.error(error))
-      .finally(() => {
-        setIsUploading(false);
-
-        // window.location.reload();
-      }); // Set isUploading to false when the upload is finished;
-  };
-
-  // Delete handler
   const handleDelete = async (propertyId) => {
     try {
       await axios.delete(`${endpoint}/users/me/properties/${propertyId}`, {
@@ -86,62 +38,28 @@ const UserProfile = () => {
         },
       });
 
-      // Refresh the data in your component (e.g., remove the item from state)
       fetchProperties();
     } catch (error) {
       console.error(error);
     }
   };
 
-// Edit handler
+  const propertyEdit = (id)=>{
+    setId(id)
+    document.getElementById("updateProperty_modal").showModal()
 
-const handleEdit = async (propertyId, updatedPropertyData) => {
-  try {
-    await axios.put(`${endpoint}/users/me/properties/${propertyId}`, updatedPropertyData, {
-      headers: {
-        accept: "application/json",
-        Authorization: `Bearer ${Cookies.get("token")}`,
-      },
-    });
-
-    // Refresh the data in your component (e.g., remove the item from state)
-    fetchProperties();
-  } catch (error) {
-    console.error(error);
   }
-};
 
 
   return (
+    <div>
+      <dialog id="updateProperty_modal" className="modal">
+        <UpdateProperty key={id} id={id}/>
+      </dialog>
     <div className="">
       {currentUser ? (
         <div className="w-full h-screen">
           <Card className="">
-            <div className="flex justify-end px-4 pt-4">
-              <Dropdown inline label="settings">
-                <Dropdown.Item >
-                  <a
-                  onClick={() => {}}
-                    href="#"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >
-                    Edit
-                  </a>
-                </Dropdown.Item>
-
-
-                
-                <Dropdown.Item>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >
-                    Account Delete
-                  </a>
-                </Dropdown.Item>
-              </Dropdown>
-            </div>
-
             <div className="flex flex-col items-center pb-10">
               <input
                 type="file"
@@ -198,10 +116,9 @@ const handleEdit = async (propertyId, updatedPropertyData) => {
                   index={index}
                   showLike={false}
                   showIcons={true}
-                  handleEdit={handleEdit}
+                  propertyEdit={propertyEdit}
+
                   handleDelete={handleDelete}
-                  // toggleWishlist={toggleWishlist}
-                  // currentUser={currentUser}
                 />
               ))}
             </div>
@@ -211,6 +128,7 @@ const handleEdit = async (propertyId, updatedPropertyData) => {
         // (window.location.href = "/")
         <Loading />
       )}
+    </div>
     </div>
   );
 };

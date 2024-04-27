@@ -7,6 +7,8 @@ export const LgaSearch = ({
   filterSearch,
   setNewHome,
   setLocation,
+  properties,
+  setMyProperties,
 }) => {
   return (
     <div
@@ -40,7 +42,7 @@ export const LgaSearch = ({
             <button
               value={"New Haven, Enugu"}
               onClick={() => {
-                setNewHome(HOMES);
+                setMyProperties(properties);
                 setLocation(!location);
               }}
               className="p-1 rounded-[10px] hover:bg-[#00000015] "

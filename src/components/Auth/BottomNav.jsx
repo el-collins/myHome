@@ -1,6 +1,6 @@
 export const BottomNav = () => {
   return (
-    <div className="fixed sm:hidden z-50 bottom-0 left-0 right-0 p-2 bg-white pb-4">
+    <div className="fixed  sm:hidden z-50 bottom-0 left-0 right-0 pt-2 pb-1 bg-white ">
       <div className=" flex items-center gap-[30px] justify-center">
         <div className="flex flex-col items-center text-[#575DFB]">
           <svg
@@ -9,7 +9,7 @@ export const BottomNav = () => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className=" w-8 h-8 text-[#575DFB]"
+            className=" w-6 h-6 text-[#575DFB]"
           >
             <path
               strokeLinecap="round"
@@ -27,7 +27,7 @@ export const BottomNav = () => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className=" w-8 h-8 text-[#00000080]"
+            className=" w-6 h-6 text-[#00000080]"
           >
             <path
               strokeLinecap="round"
@@ -45,7 +45,7 @@ export const BottomNav = () => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className=" w-8 h-8 text-[#00000080]"
+            className=" w-6 h-6 text-[#00000080]"
           >
             <path
               strokeLinecap="round"

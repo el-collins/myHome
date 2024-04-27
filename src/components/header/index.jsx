@@ -19,6 +19,8 @@ function Header({
   mobileFilter,
   toggleMobileFilter,
   filterSearchMobile,
+  properties,
+  setMyProperties
 }) {
   const urlLocation = useLocation(); // Get the current location
   // Check if the current path is not the home page
@@ -33,7 +35,7 @@ function Header({
   // console.log(username);
 
   return (
-    <div className="nav pl-4 md:pl-11 md:pr-11 sticky z-30 top-0 border-[1px] border-b-gray-200">
+    <div className="nav pl-4 md:pl-11 md:pr-11  fixed sm:sticky   z-30 top-0 border-b-[1px] border-b-gray-200">
       <div className="nav-bar relative">
         <div className=" ">
           <Link to="/">
@@ -43,7 +45,7 @@ function Header({
               }}
               src="/Images/myhomeblue.png"
               alt="logo"
-              className="h-auto w-17 md:w-16 "
+              className="h-auto w-10 lg:w-17 md:w-16 "
             />
           </Link>
         </div>
@@ -108,7 +110,7 @@ function Header({
                 document.getElementById("my_modal_4").showModal();
                 handleClick();
               }}
-              className="text-white bg-[#575dfb] hover:bg-[#4a4fc9] text-base py-3 px-6 rounded-3xl hover:transition"
+              className="text-white bg-[#575dfb] hover:bg-[#4a4fc9] text-base py-3 px-6 rounded-3xl hover:transition hidden sm:block"
             >
               Login
             </button>
@@ -184,6 +186,8 @@ function Header({
               filterSearch={filterSearch}
               setNewHome={setNewHome}
               setLocation={setLocation}
+              setMyProperties={setMyProperties}
+              properties={properties}
             />
           </div>
         </div>

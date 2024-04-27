@@ -4,29 +4,18 @@ import "./dropdown.css";
 import { useEffect, useState, useRef } from "react";
 import useFetchProfilePicture from "../hooks/useFetchProfilePicture";
 
-// Component: Dropdown
-// Description: A dropdown menu that toggles between login and register options
+
 function Dropdown({ toggleLogin, toggleRegister }) {
   const { imageUrl } = useFetchProfilePicture();
   const { loading, setToken, currentUser } = useUser(); // Get the setCurrentUser function from context
-  // State: isOpen
-  // Type: Boolean
-  // Description: A state variable to keep track of whether the dropdown menu is open or not
   const [isOpen, setIsOpen] = useState(false);
 
-  // Ref: dropdownRef
-  // Type: React.RefObject
-  // Description: A reference to the dropdown menu DOM element
   const dropdownRef = useRef(null);
 
-  // Function: handleClick
-  // Description: A function to toggle the isOpen state when the dropdown menu is clicked
   const handleClick = () => {
     setIsOpen((prev) => !prev);
   };
 
-  // Effect: handleClickOutside
-  // Description: An effect that listens for clicks outside the dropdown menu and closes it if a click is detected
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -42,7 +31,6 @@ function Dropdown({ toggleLogin, toggleRegister }) {
   if (loading) return <> loading... </>;
   return (
     <>
-      {/* Dropdown Menu */}
       <div ref={dropdownRef} className="menu cursor-pointer">
         {/* Dropdown Toggle Button */}
         <div
@@ -64,8 +52,8 @@ function Dropdown({ toggleLogin, toggleRegister }) {
               d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
             />
           </svg>
-          {/* Dropdown Toggle Avatar */}
           <div>
+
             <img
               src={
                 currentUser?.profile_picture

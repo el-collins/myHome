@@ -11,7 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 import useFetchProperties from "./components/hooks/useFetchProperties";
 import { WishlistPage } from "./components/Card/WishlistPage";
 import UserProfile from "./components/userprofile/UserProfile";
-
+import EmailVerification from "./components/EmailVerification";
 
 function App() {
   const [newHome, setNewHome] = useState(HOMES);
@@ -21,13 +21,12 @@ function App() {
   const [showWishlist, setShowWishlist] = useState(false);
   const [propertyList, setPropertyList] = useState([]);
   const { properties } = useFetchProperties();
-  const [myProperties, setMyProperties] = useState([])
-  const {setProperties} = useFetchProperties();
+  const [myProperties, setMyProperties] = useState([]);
+  const { setProperties } = useFetchProperties();
 
   useEffect(() => {
     setMyProperties(properties);
   }, [properties]);
-
 
   const searchLocation = () => {
     setLocation(!location);
@@ -61,8 +60,6 @@ function App() {
 
   return (
     <div className="text-black">
-    
-
       <Header
         searchLocation={searchLocation}
         location={location}
@@ -78,27 +75,25 @@ function App() {
       />
       <div className="">
         <Routes>
-          <Route
-            exact
-            path="/"
-            element={<Card properties={myProperties} />}
-          />
+          <Route exact path="/" element={<Card properties={myProperties} />} />
           <Route
             path="/property/:id"
-            element={<PropertyDetails properties={properties}/>}
+            element={<PropertyDetails properties={properties} />}
           />
           {/* <Route path="/user/profile" element={<UserProfile />} /> */}
-          <Route path="/wishlistpage" element={<WishlistPage properties={properties}/>} />
+          <Route
+            path="/wishlistpage"
+            element={<WishlistPage properties={properties} />}
+          />
 
           <Route path="/user/profile" element={<UserProfile />} />
-          <Route path="/forgot-password" element={<ForgotPassword/>} />
-            <Route path="/reset-password" element={<ResetPassword/>} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/verify-email" element={<EmailVerification />} />
         </Routes>
       </div>
       <BottomNav />
- 
     </div>
-    
   );
 }
 

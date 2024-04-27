@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { endpoint } from "../hooks/config";
 
-const useFetchProperties = () => {
+export const useFetchProperties = () => {
   const [properties, setProperties] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -23,5 +23,7 @@ const useFetchProperties = () => {
 
   return { properties, isLoading };
 };
+
+
 
 export default useFetchProperties;

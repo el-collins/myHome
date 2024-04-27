@@ -4,6 +4,7 @@ import { ClipLoader } from "react-spinners";
 import { useUser } from "./Provider/UserContext";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { endpoint } from "./hooks/config";
 
 const PostYourHouse = () => {
   const [property, setProperty] = useState({
@@ -99,7 +100,7 @@ const PostYourHouse = () => {
       formData.append("images", file);
     }
     const postProperty = () => {
-      return axios.post(`${ENDPOINT}/properties`, formData, {
+      return axios.post(`${endpoint}/properties`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,

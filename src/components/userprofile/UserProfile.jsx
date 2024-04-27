@@ -4,7 +4,6 @@ import Cookies from "js-cookie";
 import PropertyCard from "../Card/PropertyCard";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
-import EditButton from "./EditButton";
 import { Card, Dropdown } from "flowbite-react";
 import { endpoint } from "../hooks/config";
 import UpdateProperty from "../PropertyDetails/UpdateProperty";
@@ -51,6 +50,7 @@ const UserProfile = () => {
 
   }
 
+
   return (
     <div>
       <dialog id="updateProperty_modal" className="modal">
@@ -61,13 +61,27 @@ const UserProfile = () => {
         <div className="w-full h-screen">
           <Card className="">
             <div className="flex flex-col items-center pb-10">
-              <img
-                alt="Bonnie image"
-                height="96"
-                src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-                width="96"
-                className="mb-3 rounded-full shadow-lg"
+              <input
+                type="file"
+                accept="image/*"
+                style={{ display: "none" }}
+                id="hiddenFileInput"
+                onChange={handleImageUpload}
               />
+              {isUploading ? (
+                <PuffLoader color="#36d7b7" />
+              ) : (
+                <img
+                  alt="Profile image"
+                  height={100}
+                  src={imageUrl ? imageUrl : "/Images/placeholder.jpg"}
+                  width={100}
+                  className="mb-3 rounded-full shadow-lg max-w-[100px] max-h-[100px] cursor-pointer hover:opacity-90 transition duration-300 ease-in-out"
+                  onClick={() =>
+                    document.getElementById("hiddenFileInput").click()
+                  }
+                />
+              )}
               <h5 className="mb-1 text-xl text-gray-900 dark:text-white font-bold">
                 {currentUser?.name}
               </h5>
@@ -103,6 +117,7 @@ const UserProfile = () => {
                   showLike={false}
                   showIcons={true}
                   propertyEdit={propertyEdit}
+
                   handleDelete={handleDelete}
                 />
               ))}
@@ -110,7 +125,8 @@ const UserProfile = () => {
           </div>
         </div>
       ) : (
-        (window.location.href = "/")
+        // (window.location.href = "/")
+        <Loading />
       )}
     </div>
     </div>

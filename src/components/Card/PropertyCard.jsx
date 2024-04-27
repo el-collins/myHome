@@ -14,11 +14,7 @@ function PropertyCard({
   handleDelete,
   propertyEdit,
 }) {
-  // const redirectToDetails = (id) => {
-  //   currentUser
-  //     ? (window.location.href = `/property/${id}`)
-  //     : document.getElementById("my_modal_4").showModal();
-  // };
+
 
   return (
     <div className="block rounded-[20px] sm:mb-6 bg-white w-[20rem] ">

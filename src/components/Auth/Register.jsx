@@ -74,7 +74,27 @@ export const Register = () => {
       return;
     }
 
-    // Password validation
+    if (!password) {
+      const errorMessage = "Password field cannot be empty.";
+      setPasswordError(errorMessage);
+
+      // Reset the error message after 5 seconds
+      setTimeout(() => {
+        setPasswordError("");
+      }, 5000);
+      return;
+    }
+
+    // Password length validation
+    if (password.length < 8) {
+      setPasswordError("Password must be at least 8 characters long.");
+      setTimeout(() => {
+        setPasswordError("");
+      }, 5000);
+      return;
+    }
+
+
     if (!hasUpperCase) {
       setPasswordError("Password must contain at least one uppercase letter.");
       setTimeout(() => {
@@ -106,16 +126,7 @@ export const Register = () => {
       }, 5000);
       return;
     }
-
-    // Password length validation
-    if (password.length < 8) {
-      setPasswordError("Password must be at least 8 characters long.");
-      setTimeout(() => {
-        setPasswordError("");
-      }, 5000);
-      return;
-    }
-
+    
     try {
       setIsLoading(true);
       // Send registration request to backend
@@ -185,7 +196,7 @@ export const Register = () => {
   }, [emailSent]);
 
   return (
-    <div className="cursor-default">
+    <div className="cursor-default rounded-xl">
       {emailSent ? (
         <dialog id="verify-email" className="modal text-center">
           <div className="modal-box bg-white">

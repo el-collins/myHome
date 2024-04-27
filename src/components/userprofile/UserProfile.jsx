@@ -52,7 +52,7 @@ const UserProfile = () => {
 
 
   return (
-    <div>
+    <div className="mt-[80px] sm:mt-0 ">
       <dialog id="updateProperty_modal" className="modal">
         <UpdateProperty key={id} id={id}/>
       </dialog>

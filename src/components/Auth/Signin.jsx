@@ -7,8 +7,7 @@ import Cookies from "js-cookie";
 import { ClipLoader } from "react-spinners";
 import { endpoint } from "../hooks/config";
 import ForgotPassword from "./ForgotPassword";
-import ResetPassword from "./ResetPassword";
-import {Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 export const SignIn = () => {
   const [username, setUsername] = useState("");
@@ -17,11 +16,83 @@ export const SignIn = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
-  const [showResetPasswordModal, setShowResetPasswordModal] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
+  const hasUpperCase = /[A-Z]/.test(password);
+  const hasLowerCase = /[a-z]/.test(password);
+  const hasNumber = /\d/.test(password);
+  const hasSpecialChar = /\W/.test(password);
+  const EMAIL_REGEX = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+  let errorMessage = ""; // Define errorMessage
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Email validation
+    if (!username || !EMAIL_REGEX.test(username)) {
+      const errorMessage = "Please provide a valid email.";
+      setEmailError(errorMessage);
+
+      // Reset the error message after 5 seconds
+      setTimeout(() => {
+        setEmailError("");
+      }, 5000);
+      return;
+    }
+
+    if (!password) {
+      const errorMessage = "Password field cannot be empty.";
+      setPasswordError(errorMessage);
+
+      // Reset the error message after 5 seconds
+      setTimeout(() => {
+        setPasswordError("");
+      }, 5000);
+      return;
+    }
+
+    // Password length validation
+    if (password.length < 8) {
+      setPasswordError("Password must be at least 8 characters long.");
+      setTimeout(() => {
+        setPasswordError("");
+      }, 5000);
+      return;
+    }
+
+    if (!hasUpperCase) {
+      setPasswordError("Password must contain at least one uppercase letter.");
+      setTimeout(() => {
+        setPasswordError("");
+      }, 5000);
+      return;
+    }
+
+    if (!hasLowerCase) {
+      setPasswordError("Password must contain at least one lowercase letter.");
+      setTimeout(() => {
+        setPasswordError("");
+      }, 5000);
+      return;
+    }
+
+    if (!hasNumber) {
+      setPasswordError("Password must contain at least one number.");
+      setTimeout(() => {
+        setPasswordError("");
+      }, 5000);
+      return;
+    }
+
+    if (!hasSpecialChar) {
+      setPasswordError("Password must contain at least one special character.");
+      setTimeout(() => {
+        setPasswordError("");
+      }, 5000);
+      return;
+    }
 
     setIsLoading(true);
 
@@ -54,15 +125,16 @@ export const SignIn = () => {
           theme: "light",
           transition: Bounce,
         });
-      } else {
-        // Handle other response statuses
-        toast("Incorrect email or password");
-      }
+
+        setTimeout(() => {
+          window.location.reload();
+        }, 3000);
+      } 
     } catch (error) {
       console.log(error);
+      toast.error("Incorrect email or password");
     } finally {
       setIsLoading(false);
-      window.location.reload();
     }
   };
 
@@ -76,6 +148,10 @@ export const SignIn = () => {
       setRememberMe(rememberMeCookie === "true");
     }
   }, []);
+
+  useEffect(() => {
+    Cookies.set("rememberMe", rememberMe.toString());
+  }, [rememberMe]);
 
   const handleRememberMeChange = (event) => {
     const isChecked = event.target.checked;
@@ -142,13 +218,15 @@ export const SignIn = () => {
             <input
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              placeholder="abc@example.com"
+              placeholder="email@example.com"
               type="email"
-              required
               className="sm:w-[420px] sm:h-[50px] w-[350px] border-[#575DFB] mt-2 rounded-[10px] pl-11"
             />
+            {emailError && (
+              <p className="text-red-500 mt-2 font-bold">{emailError}</p>
+            )}
           </div>
-          <div className="mt-4">
+          <div className="mt-4 relative">
             <div className="flex items-center gap-2">
               <p className="ml-41">Your password</p>
               <svg
@@ -166,15 +244,25 @@ export const SignIn = () => {
                 />
               </svg>
             </div>
+
             <input
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="password"
-              type="password"
-              required
+              type={showPassword ? "text" : "password"}
               className="sm:w-[420px] sm:h-[50px] w-[350px] border-[#575DFB] mt-2 rounded-[10px] pl-11"
             />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-2 top-[70%] transform -translate-y-1/2"
+            >
+              {showPassword ? "Hide" : "Show"}
+            </button>
           </div>
+          {passwordError && (
+            <p className="text-red-500 mt-2">{passwordError}</p>
+          )}
         </div>
         {/* remember me */}
         <div className="mt-3">
@@ -200,21 +288,9 @@ export const SignIn = () => {
           Forgot Password?
         </Link>
         {showForgotPasswordModal && (
-        <ForgotPassword onClose={() => setShowForgotPasswordModal(false)} />
+          <ForgotPassword email={username} onClose={() => setShowForgotPasswordModal(false)} />
         )}
-         <Link
-          to="#"
-          className="text-[12px] text-[#575DFB] border-b-[#575DFB] border-b-[1px] w-[102px] mt-3"
-          onClick={(e) => {
-            e.preventDefault();
-            setShowResetPasswordModal(true);
-          }}
-        >
-          Reset Password?
-        </Link>
-        {showResetPasswordModal && (
-        <ResetPassword onClose={() => setShowResetPasswordModal(false)} />
-        )}
+
         <div className="flex flex-col justify-center items-center mt-9">
           <button
             type="submit"
@@ -229,13 +305,6 @@ export const SignIn = () => {
               "Login"
             )}
           </button>
-
-          {/* <div className="flex justify-center items-center gap-5 mt-7 text-center">
-            <div className="w-[120px] border-[1px] h-0 border-[#000000D990]"></div>
-            <p>or</p>
-            <div className="w-[120px] sm:w-[180px] border-[#000000D990] border-[1px] h-0"></div>
-          </div> */}
-
           <div className="sm:w-[420px] h-[50px] w-[350px] overflow-hidden mt-6 border-black rounded-[10px] flex justify-center items-center border-[1px] hover:bg-gray-100 hover:text-gray-900 focus:z-10 focus:ring-4 focus:ring-gray-200">
             <div className="h-6 w-6 mr-2">
               <img className="" src="/Images/Logo.svg" alt="Logo" />

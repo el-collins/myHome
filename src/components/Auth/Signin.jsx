@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { toast, Bounce } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { useUser } from "../Provider/UserContext";
 import Cookies from "js-cookie";
 import { ClipLoader } from "react-spinners";

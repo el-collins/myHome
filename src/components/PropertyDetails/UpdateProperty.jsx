@@ -1,12 +1,12 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { ClipLoader } from "react-spinners";
-import { useUser } from "./Provider/UserContext";
+import { useUser } from "../Provider/UserContext";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { endpoint } from "./hooks/config";
+import { endpoint } from "../hooks/config";
 
-const PostYourHouse = () => {
+const UpdateProperty = ({id}) => {
   const [property, setProperty] = useState({
     name: "",
     price: "",
@@ -14,7 +14,7 @@ const PostYourHouse = () => {
     phone_number: "",
     street_address: "",
     area: "",
-    state: "Enugu",
+    state: "",
     number_of_rooms: 0,
     number_of_toilets: 0,
     running_water: false,
@@ -26,7 +26,6 @@ const PostYourHouse = () => {
   const [isPop, setIsPop] = useState(false);
   const { token, currentUser } = useUser();
   const [propertyType, setPropertyType] = useState(false)
-  const ENDPOINT = "https://my-home-xlox.onrender.com";
 
   const handleChange = (event) => {
     setProperty({
@@ -58,9 +57,10 @@ const PostYourHouse = () => {
       property_type: e.target.value
     });
   };
-
+console.log(id)
   const handleSubmit = async (event) => {
     event.preventDefault();
+   
 
     if (!image || image.length === 0) {
       toast.error("Please upload an image.");
@@ -100,7 +100,7 @@ const PostYourHouse = () => {
       formData.append("images", file);
     }
     const postProperty = () => {
-      return axios.post(`${endpoint}/properties`, formData, {
+      return axios.put(`${endpoint}/properties/${id}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
@@ -124,7 +124,7 @@ const PostYourHouse = () => {
   };
 
   const handleClose = () => {
-    document.getElementById("post_your_house_modal").close();
+    document.getElementById("updateProperty_modal").close();
   };
 
   return (
@@ -152,7 +152,7 @@ const PostYourHouse = () => {
             />
           </svg>
         </button>
-        <h2 className="text-lg text-[#575DFB] font-bold">Post Your House</h2>
+        <h2 className=" text-lg text-[#575DFB] font-bold">Update property Info</h2>
       </div>
 
       <form onSubmit={handleSubmit}>
@@ -350,7 +350,7 @@ const PostYourHouse = () => {
           {isLoading ? (
             <ClipLoader className="bg-transparent" color="#ffffff" />
           ) : (
-            "Post"
+            "Update"
           )}
         </button>
       </form>
@@ -358,4 +358,4 @@ const PostYourHouse = () => {
   );
 };
 
-export default PostYourHouse;
+export default UpdateProperty;
